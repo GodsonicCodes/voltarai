@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme{
+  --color-bgBlack:#000000;
+  --color-btngrey:#E5E5E7
+
+}
+
+
+.textradialgradientgrey{
+  background: radial-gradient(circle, #ffffff 0%, #999999 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.textradialgradientblue{
+  background: radial-gradient(circle,#004AE9 0%,  #83A7F5 100%);
+  background-clip: text;
+  color: transparent;
+}
