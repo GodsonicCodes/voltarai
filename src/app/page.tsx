@@ -12,6 +12,8 @@ import {
   CustomAIAgentsSection,
 } from "@/components/home-sections";
 
+
+
 export default function Home() {
   return (
     <main className="bg-bgBlack relative min-h-screen">
@@ -62,6 +64,9 @@ export default function Home() {
       <div className="relative z-10">
         <CustomAIAgentsSection />
       </div>
+
+      {/* for testing white images */}
+      
     </main>
   );
 }
