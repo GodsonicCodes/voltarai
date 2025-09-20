@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {X} from "lucide-react";
-import {contactFormSchema, personalDetailsSchema, organizationDetailsSchema, type ContactFormData} from "@/lib/schemas";
+import {contactFormSchema, personalDetailsSchema, organizationDetailsSchema, type ContactFormData} from "@/schema/contact.schema";
 import Input from "@/components/ui/input";
 import Select from "@/components/ui/select";
 import Textarea from "@/components/ui/textarea";
