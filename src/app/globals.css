@@ -2,6 +2,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+body {
+    overflow-x: hidden;
+}
+
 /* Custom color theme for the AI Employees website */
 /* All colors are defined as CSS custom properties for consistency */
 @theme {
@@ -58,3 +62,23 @@
   background-clip: text;
   color: transparent;
 }
+
+.bglineargradient {
+    background: linear-gradient(
+        176.01deg,
+        rgba(255, 255, 255, 0) 2.66%,
+        rgba(255, 255, 255, 0.06) 80.33%
+    );
+}
+
+.gradient-border {
+    border: 1px solid transparent;
+    border-image-source: radial-gradient(
+        25.96% 78.57% at 92.18% 0%,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0) 85.39%
+    );
+    border-image-slice: 1;
+    border-radius: 50px;
+}
+
