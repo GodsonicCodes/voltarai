@@ -1,62 +1,92 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
 
-/**
- * AIBenefitsSection - Introduces the core value proposition of AI automation
- * This section bridges the hero and the detailed services, explaining how AI transforms businesses
- * Uses scroll-triggered animations to engage users as they read
- */
 export default function AIBenefitsSection() {
   return (
-    <section className="py-20 bg-bgBlack px-4">
-      <div className="max-w-6xl mx-auto text-center">
-        {/* Main headline that emphasizes the transformative power of AI */}
-        {/* Animates in when scrolled into view for better user engagement */}
+    <section
+      className="w-full mt-12 md:w-[70%] mx-auto min-h-[60vh] flex items-center justify-center px-4 bg-bgBlack relative overflow-hidden"
+      style={{
+        backgroundImage: "url('/assets/curvedline.svg')",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
+      {/* Animated curved line background */}
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 0.3, x: 0 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: "url('/assets/curvedline.svg')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "top left",
+        }}
+      />
+
+      <div className=" flex flex-col items-center justify-center text-center relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-6xl font-bold text-white mb-6"
+          className="text-3xl md:text-5xl font-semibold text-white mb-4 block"
         >
           We Harness AI To{" "}
-          <span className="textradialgradientblue">
-            Redefine Your Experience
-          </span>
         </motion.h2>
 
-        {/* Supporting text that explains the specific benefits */}
-        {/* Delayed animation creates a natural reading flow */}
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-3xl md:text-5xl font-semibold text-white mb-4 block"
+        >
+          <motion.span
+            initial={{ color: "#fff" }}
+            animate={{ color: "#3b82f6" }}
+            transition={{ duration: 1.2, delay: 0.5 }}
+            className="font-bold"
+          >
+            Redefine
+          </motion.span>{" "}
+          Your Experience
+        </motion.h2>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto"
+          className="text-sm md:text-base text-gray-300 mb-8 max-w-xl mx-auto"
         >
-          Our AI solutions are designed to streamline your operations, enhance
-          customer satisfaction, and drive unprecedented growth.
+          We Build AI Automation Systems That Eliminate Busywork, Slash Costs,
+          And Scale Your Business Without Hiring A Single Person.
         </motion.p>
 
-        {/* Secondary call-to-action for users who want to learn more */}
-        {/* Final animation element to complete the section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
+          className="flex justify-center mt-2"
         >
-          <Button
-            variant="outline"
-            size="lg"
-            className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10 text-lg px-8 py-4"
+          <button
+            className="flex items-center gap-2 px-7 py-2.5 rounded-full bg-black text-white text-base font-medium shadow-[0_0_0_1px_rgba(255,255,255,0.08)] border border-white/10 hover:bg-neutral-900 transition-all"
+            style={{
+              boxShadow: "0 0 0 1px rgba(255,255,255,0.08)",
+            }}
           >
-            Learn More
-          </Button>
+            Let&apos;s Partner
+            <ArrowUpRight size={18} strokeWidth={2} className="ml-1" />
+          </button>
         </motion.div>
       </div>
+      {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-bgBlack/70 z-0" />
     </section>
   );
 }

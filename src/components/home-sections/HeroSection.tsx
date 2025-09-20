@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export default function HeroSection() {
@@ -24,7 +25,7 @@ export default function HeroSection() {
   }, [rotatingTexts.length]);
 
   return (
-    <section className="relative min-h-screen pt-44 flex flex-col justify-center items-center px-6 overflow-hidden z-10">
+    <section className="relative max-w-screen min-h-screen pt-44 flex flex-col justify-center items-center px-6 overflow-hidden z-10 bg-black text-white">
       {/* Background grid pattern */}
       <div className="absolute inset-0 opacity-20">
         <div
@@ -44,7 +45,7 @@ export default function HeroSection() {
         src="/line.svg"
         alt="corner line"
         className="absolute 
-          top-[6%] left-[6%]   /* mobile closer */
+          top-[6%] left-[6%]   
           sm:top-[5%] sm:left-[5%] 
           md:top-[4%] md:left-[4%] 
           lg:top-[3%] lg:left-[3%] 
@@ -106,9 +107,7 @@ export default function HeroSection() {
           className=" mb-12"
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
-            <div className="text-gray-300 mb-1 ">
-              We Turn Your Manual
-            </div>
+            <div className="text-gray-300 mb-1 ">We Turn Your Manual</div>
             <div className="text-gray-300 mb-1 ">Business Into An</div>
             <div className="text-gray-300">
               <span className="text-blue-400">Automated</span> Money Machine
@@ -141,25 +140,20 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          <div className="flex items-center pb-12 justify-center">
+          <div className="flex items-center pb-12 justify-center relative">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-gray-900 to-gray-800 border border-gray-600 text-white hover:from-gray-800 hover:to-gray-700 px-6 py-3 md:px-12 md:py-6 rounded-2xl font-semibold text-base md:text-xl backdrop-blur-sm flex items-center space-x-4 shadow-2xl hover:shadow-blue-500/20 hover:border-blue-500/50 transition-all duration-300 transform hover:scale-105"
+              className="relative z-10 border border-white/10 text-white px-7 py-2.5 md:px-12 md:py-3 rounded-full font-medium text-base md:text-lg flex items-center gap-2 shadow-lg transition-all duration-300 transform hover:scale-105"
+              style={
+                {
+                  // background:
+                  // "linear-gradient(0deg, rgba(255,255,255,0.18) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 100%)",
+                  // boxShadow: "0 0 0 1px rgba(255,255,255,0.08)",
+                }
+              }
             >
-              <span>Request a Service</span>
-              <svg
-                className="w-5 h-5 md:w-6 md:h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 17L17 7M17 7H7M17 7V17"
-                />
-              </svg>
+              <span>Let&apos;s Partner</span>
+              <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" />
             </Button>
           </div>
         </motion.div>
