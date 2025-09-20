@@ -1,47 +1,45 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Settings, Users, BarChart3, Target } from "lucide-react";
+import Image from "next/image";
 
-/**
- * OurServicesSection - Displays the four main AI service offerings
- * Each service card explains a specific AI capability with icon and description
- * Uses staggered animations to create visual interest as users scroll
- */
+import workflowImg from "@/../public/assets/OurServices/workflow.svg";
+import customerImg from "@/../public/assets/OurServices/Customer.svg";
+import salesImg from "@/../public/assets/OurServices/Sales.svg";
+import dataImg from "@/../public/assets/OurServices/Data.svg";
+
+const services = [
+  {
+    image: workflowImg,
+    title: "AI-Workflow Automation",
+    description:
+      "Connect all your tools with intelligent automation. Client example: Order-to-fulfillment happens without human touch.",
+  },
+  {
+    image: customerImg,
+    title: "AI- Customer Service Agents",
+    description:
+      "Handle inquiries, resolve issues, book appointments instantly. Client example: Processes 500+ support tickets daily with 97% satisfaction.",
+  },
+  {
+    image: salesImg,
+    title: "AI Sales Assistants",
+    description:
+      "Qualify leads, follow up, schedule demos automatically. Client example: Books 80+ qualified sales calls monthly without human input.",
+  },
+  {
+    image: dataImg,
+    title: "AI Data Processers",
+    description:
+      "Automate data entry, document processing, reporting. Client example: Processes invoices in 30 seconds vs 30 minutes manually.",
+  },
+];
+
 export default function OurServicesSection() {
-  // Core AI services offered by the company
-  // Each service targets a specific business function with clear value proposition
-  const services = [
-    {
-      icon: Settings,
-      title: "AI Workflow Automation",
-      description:
-        "Automate repetitive tasks, optimize processes, and free up your team for strategic initiatives.",
-    },
-    {
-      icon: Users,
-      title: "AI Customer Service Agents",
-      description:
-        "Provide instant, personalized support 24/7, resolve queries efficiently, and enhance customer satisfaction.",
-    },
-    {
-      icon: BarChart3,
-      title: "AI Sales Assistants",
-      description:
-        "Qualify leads, schedule appointments, and nurture prospects, boosting your sales pipeline.",
-    },
-    {
-      icon: Target,
-      title: "AI Data Analysts",
-      description:
-        "Extract insights from complex data, identify trends, and make data-driven decisions with confidence.",
-    },
-  ];
-
   return (
-    <section className="py-20 bg-bgBlack px-4">
+    <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Section header with animated title */}
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,34 +47,77 @@ export default function OurServicesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-            Our Services
+          <h2 className="text-3xl md:text-4xl font-normal text-white mb-8">
+            Our <span className="text-blue-400">Services</span>
           </h2>
         </motion.div>
 
-        {/* Services grid with staggered animations */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Services grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center">
           {services.map((service, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
+              initial={{ opacity: 0, scale: 0.8, y: 40 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.15,
+                type: "spring",
+                stiffness: 80,
+              }}
               viewport={{ once: true }}
-              className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-6 text-center hover:bg-blue-500/20 transition-colors duration-300"
+              className="relative rounded-[20px] flex flex-col items-center text-center shadow-lg w-full mx-auto hover:scale-[1.04] transition-transform duration-300"
+              style={{
+                minHeight: "320px",
+                maxWidth: "280px",
+              }}
             >
-              {/* Service icon with blue accent background */}
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500/20 rounded-full mb-6">
-                <service.icon className="w-8 h-8 text-blue-400" />
+              {/* Radial gradient background */}
+              <motion.div
+                className="absolute inset-0 rounded-[20px] z-0"
+                initial={{ opacity: 0.7 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1, delay: index * 0.1 }}
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 40%, #183b7a 0%, #0a1747 100%)",
+                }}
+              />
+              <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 pt-10 pb-6">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.7 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    width={70}
+                    height={70}
+                    className="mb-6 object-contain"
+                    priority
+                  />
+                </motion.div>
+                <motion.h3
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 + 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-base md:text-lg font-semibold text-white mb-3"
+                >
+                  {service.title}
+                </motion.h3>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 + 0.15 }}
+                  viewport={{ once: true }}
+                  className="text-gray-300 text-xs md:text-sm leading-relaxed"
+                >
+                  {service.description}
+                </motion.p>
               </div>
-              {/* Service title */}
-              <h3 className="text-xl font-semibold text-white mb-4">
-                {service.title}
-              </h3>
-              {/* Service description explaining the value proposition */}
-              <p className="text-gray-300 leading-relaxed">
-                {service.description}
-              </p>
             </motion.div>
           ))}
         </div>

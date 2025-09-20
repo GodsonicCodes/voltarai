@@ -58,3 +58,10 @@
   background-clip: text;
   color: transparent;
 }
+
+.curvedlinebg{
+  background-image: url('/public/assets/curvedline.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
