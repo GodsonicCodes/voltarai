@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import ButtonEffect from "../ui/ButtonEffect";
 
 export default function HeroSection() {
   const rotatingTexts = [
@@ -141,20 +142,10 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 1.2 }}
         >
           <div className="flex items-center pb-12 justify-center relative">
-            <Button
-              size="lg"
-              className="relative z-10 border border-white/10 text-white px-7 py-2.5 md:px-12 md:py-3 rounded-full font-medium text-base md:text-lg flex items-center gap-2 shadow-lg transition-all duration-300 transform hover:scale-105"
-              style={
-                {
-                  // background:
-                  // "linear-gradient(0deg, rgba(255,255,255,0.18) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 100%)",
-                  // boxShadow: "0 0 0 1px rgba(255,255,255,0.08)",
-                }
-              }
-            >
-              <span>Let&apos;s Partner</span>
+            <ButtonEffect>
+              <span>Request a Service</span>
               <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" />
-            </Button>
+            </ButtonEffect>
           </div>
         </motion.div>
       </div>

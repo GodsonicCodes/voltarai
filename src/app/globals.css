@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 /* Custom color theme for the AI Employees website */
 /* All colors are defined as CSS custom properties for consistency */
 @theme {

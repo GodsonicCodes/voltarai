@@ -33,7 +33,7 @@ export default function Navbar() {
         >
           <Button
             variant="outline"
-            className="bg-gray-900/50 border-gray-700 text-white hover:bg-gray-800/50 px-6 py-2 rounded-lg backdrop-blur-sm"
+            className="bg-gray-900/50 border-gray-700 text-white hover:bg-gray-800/50 px-6 py-2 rounded-full backdrop-blur-sm"
           >
             Get in Touch
           </Button>
