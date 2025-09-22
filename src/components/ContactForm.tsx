@@ -360,6 +360,7 @@ const ContactForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                         <option value="whatsapp">Whatsapp</option>
                                         <option value="google">Google</option>
                                         <option value="linkedin">LinkedIn</option>
+                                        <option value="website">Website</option>
                                         <option value="referral">Referral</option>
                                         <option value="social_media">Social Media</option>
                                         <option value="other">Other</option>
