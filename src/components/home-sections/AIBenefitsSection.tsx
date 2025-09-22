@@ -6,7 +6,6 @@ import {useState} from "react";
 import ButtonEffect from "../ui/ButtonEffect";
 import PartnerForm from "../PartnerForm";
 
-
 export default function AIBenefitsSection() {
     const [showPartnerForm, setShowPartnerForm] = useState(false);
 
@@ -27,6 +26,7 @@ export default function AIBenefitsSection() {
                     transition={{duration: 1.2, ease: "easeOut"}}
                     className="absolute inset-0 z-0"
                     style={{
+                        
                         backgroundImage: "url('/assets/curvedline.svg')",
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
@@ -34,35 +34,30 @@ export default function AIBenefitsSection() {
                     }}
                 />
 
+                <div className=" flex flex-col items-center justify-center text-center relative z-10">
+                    <motion.h2
+                        initial={{opacity: 0, y: 30}}
+                        whileInView={{opacity: 1, y: 0}}
+                        transition={{duration: 0.8}}
+                        viewport={{once: true}}
+                        className="text-3xl md:text-5xl font-[494] textradialgradientgrey mb-4 block"
+                    >
+                        We Harness AI To{" "}
+                    </motion.h2>
 
-      <div className=" flex flex-col items-center justify-center text-center relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-[494] textradialgradientgrey mb-4 block"
-        >
-          We Harness AI To{" "}
-        </motion.h2>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-[494] textradialgradientgrey mb-4 block"
-        >
-          <motion.span
-            initial={{ color: "#fff" }}
-            animate={{ color: "#3b82f6" }}
-            transition={{ duration: 1.2, delay: 0.5 }}
-            className="font-[494]"
-          >
-            <span className="textradialgradientblue">Redefine</span>
-          </motion.span>{" "}
-          Your Experience
-        </motion.h2>
+                    <motion.h2
+                        initial={{opacity: 0, y: 30}}
+                        whileInView={{opacity: 1, y: 0}}
+                        transition={{duration: 0.8, delay: 0.2}}
+                        viewport={{once: true}}
+                        className="text-3xl md:text-5xl font-[494] textradialgradientgrey mb-4 block"
+                    >
+                        <motion.span initial={{color: "#fff"}} animate={{color: "#3b82f6"}} transition={{duration: 1.2, delay: 0.5}} className="font-[494]">
+                            <span className="textradialgradientblue">Redefine</span>
+                        </motion.span>{" "}
+                        Your Experience
+                    </motion.h2>
 
 
                     <motion.p
@@ -95,5 +90,5 @@ export default function AIBenefitsSection() {
             {/* Partner Form Modal */}
             <AnimatePresence>{showPartnerForm && <PartnerForm onClose={() => setShowPartnerForm(false)} />}</AnimatePresence>
         </>
-    )
+    );
 }
