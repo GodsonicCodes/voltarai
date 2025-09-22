@@ -23,40 +23,42 @@ html, body {
 /* Custom color theme for the AI Employees website */
 /* All colors are defined as CSS custom properties for consistency */
 @theme {
-  /* Brand colors */
-  --color-bgBlack: #000000; /* Main background color - pure black */
-  --color-btngrey: #e5e5e7; /* Light grey for button backgrounds */
+    /* Brand colors */
+    --color-bgBlack: #000000; /* Main background color - pure black */
+    --color-btngrey: #e5e5e7; /* Light grey for button backgrounds */
 
-  /* Primary brand color - blue theme */
-  --color-primary: #004ae9; /* Main brand blue */
-  --color-primary-foreground: #ffffff; /* White text on primary */
+    /* Primary brand color - blue theme */
+    --color-primary: #004ae9; /* Main brand blue */
+    --color-primary-foreground: #ffffff; /* White text on primary */
 
-  /* Secondary colors for UI elements */
-  --color-secondary: #1f2937; /* Dark grey for secondary elements */
-  --color-secondary-foreground: #ffffff; /* White text on secondary */
+    /* Secondary colors for UI elements */
+    --color-secondary: #1f2937; /* Dark grey for secondary elements */
+    --color-secondary-foreground: #ffffff; /* White text on secondary */
 
-  /* Accent colors for interactive elements */
-  --color-accent: #374151; /* Medium grey for accents */
-  --color-accent-foreground: #ffffff; /* White text on accent */
+    /* Accent colors for interactive elements */
+    --color-accent: #374151; /* Medium grey for accents */
+    --color-accent-foreground: #ffffff; /* White text on accent */
 
-  /* Destructive/error colors */
-  --color-destructive: #ef4444; /* Red for destructive actions */
-  --color-destructive-foreground: #ffffff; /* White text on destructive */
+    /* Destructive/error colors */
+    --color-destructive: #ef4444; /* Red for destructive actions */
+    --color-destructive-foreground: #ffffff; /* White text on destructive */
 
-  /* Focus and interaction colors */
-  --color-ring: #004ae9; /* Blue ring for focus states */
+    /* Focus and interaction colors */
+    --color-ring: #004ae9; /* Blue ring for focus states */
 
-  /* Background and foreground colors */
-  --color-background: #000000; /* Main background */
-  --color-foreground: #ffffff; /* Main text color */
+    /* Background and foreground colors */
+    --color-background: #000000; /* Main background */
+    --color-foreground: #ffffff; /* Main text color */
 
-  /* Muted colors for secondary text */
-  --color-muted: #374151; /* Muted background */
-  --color-muted-foreground: #9ca3af; /* Muted text color */
+    /* Muted colors for secondary text */
+    --color-muted: #374151; /* Muted background */
+    --color-muted-foreground: #9ca3af; /* Muted text color */
 
-  /* Border and input colors */
-  --color-border: #374151; /* Border color */
-  --color-input: #374151; /* Input field background */
+    /* Border and input colors */
+    --color-border: #374151; /* Border color */
+    --color-input: #374151; /* Input field background */
+
+    --color-desc: #1e1e1e; /* Description color for label and input */
 }
 
 /* Custom gradient text effects for visual emphasis */
@@ -64,17 +66,17 @@ html, body {
 /* Grey gradient text - creates a subtle fade from white to grey */
 /* Used for secondary text elements that need visual hierarchy */
 .textradialgradientgrey {
-  background: radial-gradient(circle, #ffffff 0%, #999999 100%);
-  background-clip: text;
-  color: transparent;
+    background: radial-gradient(circle, #ffffff 0%, #999999 100%);
+    background-clip: text;
+    color: transparent;
 }
 
 /* Blue gradient text - creates a vibrant blue gradient effect */
 /* Used for key phrases and brand elements that need emphasis */
 .textradialgradientblue {
-  background: radial-gradient(circle, #004ae9 0%, #83a7f5 100%);
-  background-clip: text;
-  color: transparent;
+    background: radial-gradient(circle, #004ae9 0%, #83a7f5 100%);
+    background-clip: text;
+    color: transparent;
 }
 
 /* Custom radial gradient */
