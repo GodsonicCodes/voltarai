@@ -16,7 +16,7 @@ const Input: React.FC<InputProps> = ({className, type, error, value, setValue, .
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 className={cn(
-                    "flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus:outline-none focus:border-black disabled:cursor-not-allowed disabled:opacity-50",
+                    "flex h-10 text-black w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus:outline-none focus:border-black disabled:cursor-not-allowed disabled:opacity-50",
                     error && "border-red-500 focus:border-red-500",
                     className
                 )}

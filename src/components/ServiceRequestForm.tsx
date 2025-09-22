@@ -66,19 +66,18 @@ const ServiceRequestForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
         try {
             // Convert form data to FormData object
             const formDataToSubmit = new FormData();
-            formDataToSubmit.append("fullName", value.fullName);
-            formDataToSubmit.append("email", value.email);
-            formDataToSubmit.append("companyName", value.companyName);
-            formDataToSubmit.append("countryCode", value.countryCode);
-            formDataToSubmit.append("phoneNumber", value.phoneNumber);
-            formDataToSubmit.append("websiteLinkedin", value.websiteLinkedin);
-            formDataToSubmit.append("serviceType", value.serviceType);
-            formDataToSubmit.append("preferredTimeline", value.preferredTimeline);
-            formDataToSubmit.append("budgetRange", value.budgetRange);
-            formDataToSubmit.append("projectGoal", value.projectGoal);
-            formDataToSubmit.append("currentChallenges", value.currentChallenges);
-            formDataToSubmit.append("preferredCommunication", value.preferredCommunication);
-            formDataToSubmit.append("howDidYouHearAboutUs", value.howDidYouHearAboutUs);
+            formDataToSubmit.append("full_name", value.fullName);
+            formDataToSubmit.append("email_address", value.email);
+            formDataToSubmit.append("company_organization_name", value.companyName);
+            formDataToSubmit.append("phone_number", value.phoneNumber);
+            formDataToSubmit.append("website_linkedin", value.websiteLinkedin);
+            formDataToSubmit.append("service_type", value.serviceType);
+            formDataToSubmit.append("preferred_timeline", value.preferredTimeline);
+            formDataToSubmit.append("budget_range", value.budgetRange);
+            formDataToSubmit.append("project_goal", value.projectGoal);
+            formDataToSubmit.append("current_challenges", value.currentChallenges);
+            formDataToSubmit.append("preferred_communication", value.preferredCommunication);
+            formDataToSubmit.append("how_heard_about_us", value.howDidYouHearAboutUs);
 
             if (value.supportingDocuments) {
                 formDataToSubmit.append("supportingDocuments", value.supportingDocuments);
@@ -301,12 +300,14 @@ const ServiceRequestForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                 <div>
                                     <Label htmlFor="serviceType">Service Type Needed</Label>
                                     <Select value={formData.serviceType} setValue={(value) => updateField("serviceType", value)} placeholder="Select service type" error={errors.serviceType}>
-                                        <option value="Workflow Automation">Workflow Automation</option>
-                                        <option value="AI Customer Service">AI Customer Service</option>
-                                        <option value="Data Processing">Data Processing</option>
-                                        <option value="AI Sales Assistant">AI Sales Assistant</option>
-                                        <option value="Custom AI Agent">Custom AI Agent</option>
-                                        <option value="AI Integration">AI Integration</option>
+                                        <option value="workflow_automation">Workflow Automation</option>
+                                        <option value="ai_chatbot">AI Chatbot Development</option>
+                                        <option value="data_analysis">Data Analysis & Insights</option>
+                                        <option value="process_optimization">Process Optimization</option>
+                                        <option value="custom_ai_solution">Custom AI Solution</option>
+                                        <option value="ai_integration">AI Integration</option>
+                                        <option value="consulting">AI Consulting</option>
+                                        <option value="other">Other</option>
                                     </Select>
                                 </div>
 
@@ -318,11 +319,12 @@ const ServiceRequestForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                         placeholder="Select timeline"
                                         error={errors.preferredTimeline}
                                     >
-                                        <option value="Within 1 week">Within 1 week</option>
-                                        <option value="Within 1 month">Within 1 month</option>
-                                        <option value="Within 3 months">Within 3 months</option>
-                                        <option value="Within 6 months">Within 6 months</option>
-                                        <option value="No rush">No rush</option>
+                                        <option value="within_1_month">Within 1 month</option>
+                                        <option value="1_3_months">1-3 months</option>
+                                        <option value="3_6_months">3-6 months</option>
+                                        <option value="6_12_months">6-12 months</option>
+                                        <option value="over_1_year">Over 1 year</option>
+                                        <option value="flexible">Flexible timeline</option>
                                     </Select>
                                 </div>
 
@@ -334,11 +336,13 @@ const ServiceRequestForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                         placeholder="Select your preferred budget range"
                                         error={errors.budgetRange}
                                     >
-                                        <option value="0-5k">$0 - $5k</option>
-                                        <option value="5k-10k">$5k - $10k</option>
-                                        <option value="10k-25k">$10k - $25k</option>
-                                        <option value="25k-50k">$25k - $50k</option>
-                                        <option value="50k+">$50k+</option>
+                                        <option value="under_5k">Under $5K</option>
+                                        <option value="5k_15k">$5K - $15K</option>
+                                        <option value="15k_30k">$15K - $30K</option>
+                                        <option value="30k_50k">$30K - $50K</option>
+                                        <option value="50k_100k">$50K - $100K</option>
+                                        <option value="100k_plus">$100K+</option>
+                                        <option value="discuss">Prefer to discuss</option>
                                     </Select>
                                 </div>
 
@@ -408,12 +412,13 @@ const ServiceRequestForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                         placeholder="Select how you found us"
                                         error={errors.howDidYouHearAboutUs}
                                     >
-                                        <option value="WhatsApp">WhatsApp</option>
-                                        <option value="Google">Google</option>
-                                        <option value="LinkedIn">LinkedIn</option>
-                                        <option value="Referral">Referral</option>
-                                        <option value="Social Media">Social Media</option>
-                                        <option value="Other">Other</option>
+                                        <option value="whatsApp">WhatsApp</option>
+                                        <option value="google_search">Google</option>
+                                        <option value="linkedin">LinkedIn</option>
+                                        <option value="website">Website</option>
+                                        <option value="referral">Referral</option>
+                                        <option value="social_media">Social Media</option>
+                                        <option value="other">Other</option>
                                     </Select>
                                 </div>
 
