@@ -102,13 +102,17 @@ export const metadata: Metadata = {
 };
 
 // Root layout component
-export default function RootLayout({children}: {children: React.ReactNode}) {
-    return (
-        <html lang="en" className={author.variable}>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}>
-                {children}
-                <Footer />
-            </body>
-        </html>
-    );
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={author.variable}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}>
+        {children}
+        <Footer />
+      </body>
+    </html>
+  );
 }
