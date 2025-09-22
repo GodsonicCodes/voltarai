@@ -26,7 +26,7 @@ export default function AIBenefitsSection() {
                     transition={{duration: 1.2, ease: "easeOut"}}
                     className="absolute inset-0 z-0"
                     style={{
-                        
+
                         backgroundImage: "url('/assets/curvedline.svg')",
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
@@ -58,6 +58,7 @@ export default function AIBenefitsSection() {
                         </motion.span>{" "}
                         Your Experience
                     </motion.h2>
+
 
 
                     <motion.p
