@@ -1,34 +1,40 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Headphones, BarChart3, Settings, LineChart } from "lucide-react";
+import Image from "next/image";
+
+// Import icons from public/assets/custom folder
+import support from "@/../public/assets/custom/support.svg";
+import salesIcon from "@/../public/assets/custom/sales.svg";
+import operationsIcon from "@/../public/assets/custom/operations.svg";
+import researchIcon from "@/../public/assets/custom/research.svg";
+
+const customAgents = [
+  {
+    icon: support,
+    title: "Customer Support AI",
+    description: "Resolves 90% of inquiries instantly",
+  },
+  {
+    icon: salesIcon,
+    title: "Sales Qualifying AI",
+    description: "Only sends hot leads to your team",
+  },
+  {
+    icon: operationsIcon,
+    title: "Operations AI",
+    description: "Monitors and optimizes all workflows",
+  },
+  {
+    icon: researchIcon,
+    title: "Research AI",
+    description: "Gathers market intelligence automatically",
+  },
+];
 
 export default function CustomAIAgentsSection() {
-  const customAgents = [
-    {
-      icon: Headphones,
-      title: "Customer Support AI",
-      description: "Resolves 90% of inquiries instantly",
-    },
-    {
-      icon: BarChart3,
-      title: "Sales Qualifying AI",
-      description: "Only sends hot leads to your team",
-    },
-    {
-      icon: Settings,
-      title: "Operations AI",
-      description: "Monitors and optimizes all workflows",
-    },
-    {
-      icon: LineChart,
-      title: "Research AI",
-      description: "Gathers market intelligence automatically",
-    },
-  ];
-
   return (
-    <section className="py-20 bg-black px-4">
+    <section className="py-20 md:max-w-[70%] mx-auto bg-black px-2 sm:px-4">
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <motion.div
@@ -36,36 +42,45 @@ export default function CustomAIAgentsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Custom AI <span className="text-blue-500">Agents</span>
+          <h2 className="text-3xl md:text-4xl font-[494] text-white mb-4">
+            Custom AI <span className="text-blue-400">Agents</span>
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto">
             Everything custom built for your specific business needs.
           </p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {customAgents.map((agent, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: index * 0.12 }}
               viewport={{ once: true }}
-              className="bg-gray-900/40 border border-gray-800 rounded-xl p-8 hover:bg-gray-800/40 transition-colors duration-300"
+              className="bg-black/60 border border-white/10 rounded-xl px-7 py-7 flex items-center shadow-lg"
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500/20 rounded-lg mb-6">
-                <agent.icon className="w-8 h-8 text-blue-400" />
+              <div className="flex-shrink-0 flex items-center justify-center mr-5">
+                <Image
+                  src={agent.icon}
+                  alt={agent.title}
+                  width={38}
+                  height={38}
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">
-                {agent.title}
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                {agent.description}
-              </p>
+              <div className="flex flex-col justify-center text-left">
+                <span className="text-base md:text-lg font-[494] text-white mb-1">
+                  {agent.title}
+                </span>
+                <span className="text-xs md:text-sm text-gray-300 leading-snug">
+                  {agent.description}
+                </span>
+              </div>
             </motion.div>
           ))}
         </div>
