@@ -1,8 +1,11 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {X} from "lucide-react";
+import {motion} from "motion/react";
 import {serviceRequestSchema, basicInformationSchema, serviceDetailsSchema, type ServiceRequestFormData} from "@/schema/service.schema";
+import {createServiceRequest} from "@/actions/service.api";
+import useClickOutside from "@/hooks/useClickOutside";
 import Input from "@/components/ui/input";
 import Select from "@/components/ui/select";
 import Textarea from "@/components/ui/textarea";
@@ -12,8 +15,10 @@ import Label from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 import StepProgress from "@/components/ui/step-progress";
 
-const ServiceRequestForm: React.FC = () => {
+const ServiceRequestForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
     const [step, setStep] = useState<number>(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitMessage, setSubmitMessage] = useState<{type: "success" | "error"; text: string} | null>(null);
     const [formData, setFormData] = useState<ServiceRequestFormData>({
         fullName: "",
         email: "",
@@ -33,8 +38,16 @@ const ServiceRequestForm: React.FC = () => {
 
     const [errors, setErrors] = useState<Partial<Record<keyof ServiceRequestFormData, string>>>({});
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const parentRef = useRef<HTMLDivElement>(null);
+
+    // Close form when clicking outside
+    useClickOutside(parentRef as React.RefObject<HTMLElement>, () => {
+        if (onClose) onClose();
+    });
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setSubmitMessage(null);
 
         const {error, value} = serviceRequestSchema.validate(formData, {abortEarly: false});
 
@@ -45,9 +58,61 @@ const ServiceRequestForm: React.FC = () => {
                 fieldErrors[field] = detail.message;
             });
             setErrors(fieldErrors);
-        } else {
-            console.log("Service request form submitted:", value);
-            // Handle form submission here
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            // Convert form data to FormData object
+            const formDataToSubmit = new FormData();
+            formDataToSubmit.append("fullName", value.fullName);
+            formDataToSubmit.append("email", value.email);
+            formDataToSubmit.append("companyName", value.companyName);
+            formDataToSubmit.append("countryCode", value.countryCode);
+            formDataToSubmit.append("phoneNumber", value.phoneNumber);
+            formDataToSubmit.append("websiteLinkedin", value.websiteLinkedin);
+            formDataToSubmit.append("serviceType", value.serviceType);
+            formDataToSubmit.append("preferredTimeline", value.preferredTimeline);
+            formDataToSubmit.append("budgetRange", value.budgetRange);
+            formDataToSubmit.append("projectGoal", value.projectGoal);
+            formDataToSubmit.append("currentChallenges", value.currentChallenges);
+            formDataToSubmit.append("preferredCommunication", value.preferredCommunication);
+            formDataToSubmit.append("howDidYouHearAboutUs", value.howDidYouHearAboutUs);
+
+            if (value.supportingDocuments) {
+                formDataToSubmit.append("supportingDocuments", value.supportingDocuments);
+            }
+
+            const result = await createServiceRequest(formDataToSubmit);
+
+            if (result.success) {
+                setSubmitMessage({type: "success", text: result.message});
+                // Reset form on success
+                setFormData({
+                    fullName: "",
+                    email: "",
+                    companyName: "",
+                    countryCode: "",
+                    phoneNumber: "",
+                    websiteLinkedin: "",
+                    serviceType: "",
+                    preferredTimeline: "",
+                    budgetRange: "",
+                    projectGoal: "",
+                    currentChallenges: "",
+                    preferredCommunication: "",
+                    howDidYouHearAboutUs: "",
+                    supportingDocuments: null,
+                });
+                setStep(1);
+            } else {
+                setSubmitMessage({type: "error", text: result.message});
+            }
+        } catch (error) {
+            setSubmitMessage({type: "error", text: "An unexpected error occurred. Please try again."});
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -108,16 +173,59 @@ const ServiceRequestForm: React.FC = () => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-xl w-full max-h-[90vh] overflow-y-auto">
-                <div className="p-6">
+        <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.4}}
+            className="fixed inset-0 bg-[black]/50 flex items-end md:items-center justify-center md:justify-end p-4 md:px-0 z-[9999]"
+        >
+            <motion.div
+                initial={{
+                    x: typeof window !== "undefined" && window.innerWidth < 768 ? 0 : "100%",
+                    y: typeof window !== "undefined" && window.innerWidth < 768 ? "100%" : 0,
+                    opacity: 0,
+                }}
+                animate={{x: 0, y: 0, opacity: 1}}
+                exit={{
+                    x: typeof window !== "undefined" && window.innerWidth < 768 ? 0 : "100%",
+                    y: typeof window !== "undefined" && window.innerWidth < 768 ? "100%" : 0,
+                    opacity: 0,
+                }}
+                transition={{
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 25,
+                    opacity: {duration: 0.4},
+                }}
+                className="bg-white max-w-xl w-full min-h-[90vh] max-h-[100vh] overflow-y-auto shadow-2xl"
+            >
+                <div className="p-6" ref={parentRef}>
                     {/* Header */}
                     <div className="flex justify-between items-start mb-6">
                         <h2 className="text-2xl font-bold text-gray-800">Request A Service</h2>
-                        <button className="text-gray-400 hover:text-gray-600">
+                        <button
+                            className="text-red-400 hover:cursor-pointer hover:bg-red-500 hover:text-white rounded-full p-2 hover:text-gray-600"
+                            type="button"
+                            onClick={() => {
+                                console.log("clicked");
+                                if (onClose) onClose();
+                            }}
+                        >
                             <X className="h-6 w-6" />
                         </button>
                     </div>
+
+                    {/* Submit Message */}
+                    {submitMessage && (
+                        <div
+                            className={`mb-4 p-3 rounded-md ${
+                                submitMessage.type === "success" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
+                            }`}
+                        >
+                            {submitMessage.text}
+                        </div>
+                    )}
 
                     {/* Step Progress - Mobile Only */}
                     <div className="md:hidden mb-8">
@@ -326,15 +434,15 @@ const ServiceRequestForm: React.FC = () => {
                                 <Button type="button" className="md:hidden w-full text-[#1E1E1E] bg-transparent py-6 rounded-md" onClick={() => setStep(2)}>
                                     Back
                                 </Button>
-                                <Button type="submit" className="w-full bg-[#1E1E1E] hover:bg-[#1E1E1E]/90 text-white py-3 rounded-md">
-                                    Submit
+                                <Button type="submit" disabled={isSubmitting} className="w-full bg-[#1E1E1E] hover:bg-[#1E1E1E]/90 text-white py-3 rounded-md disabled:opacity-50">
+                                    {isSubmitting ? "Submitting..." : "Submit"}
                                 </Button>
                             </div>
                         </section>
                     </form>
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 

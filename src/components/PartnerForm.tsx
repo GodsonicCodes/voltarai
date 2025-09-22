@@ -1,8 +1,11 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {X} from "lucide-react";
+import {motion} from "motion/react";
 import {partnerFormSchema, partnerPersonalDetailsSchema, partnershipDetailsSchema, type PartnerFormData} from "@/schema/partner.schema";
+import {createPartner} from "@/actions/partner.api";
+import useClickOutside from "@/hooks/useClickOutside";
 import Input from "@/components/ui/input";
 import Select from "@/components/ui/select";
 import Textarea from "@/components/ui/textarea";
@@ -11,8 +14,10 @@ import Label from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 import StepProgress from "@/components/ui/step-progress";
 
-const PartnerForm: React.FC = () => {
+const PartnerForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
     const [step, setStep] = useState<number>(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitMessage, setSubmitMessage] = useState<{type: "success" | "error"; text: string} | null>(null);
     const [formData, setFormData] = useState<PartnerFormData>({
         fullName: "",
         personalEmail: "",
@@ -31,8 +36,16 @@ const PartnerForm: React.FC = () => {
 
     const [errors, setErrors] = useState<Partial<Record<keyof PartnerFormData, string>>>({});
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const parentRef = useRef<HTMLDivElement>(null);
+
+    // Close form when clicking outside
+    useClickOutside(parentRef as React.RefObject<HTMLElement>, () => {
+        if (onClose) onClose();
+    });
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setSubmitMessage(null);
 
         const {error, value} = partnerFormSchema.validate(formData, {abortEarly: false});
 
@@ -43,9 +56,40 @@ const PartnerForm: React.FC = () => {
                 fieldErrors[field] = detail.message;
             });
             setErrors(fieldErrors);
-        } else {
-            console.log("Partner form submitted:", value);
-            // Handle form submission here
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const result = await createPartner(value);
+
+            if (result.success) {
+                setSubmitMessage({type: "success", text: result.message});
+                // Reset form on success
+                setFormData({
+                    fullName: "",
+                    personalEmail: "",
+                    countryCode: "",
+                    phoneNumber: "",
+                    companyName: "",
+                    companyEmail: "",
+                    partnershipType: "",
+                    businessSize: "",
+                    budgetRange: "",
+                    useCaseGoals: "",
+                    preferredCommunication: "",
+                    howDidYouHearAboutUs: "",
+                    additionalComments: "",
+                });
+                setStep(1);
+            } else {
+                setSubmitMessage({type: "error", text: result.message});
+            }
+        } catch {
+            setSubmitMessage({type: "error", text: "An unexpected error occurred. Please try again."});
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -105,16 +149,58 @@ const PartnerForm: React.FC = () => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-xl w-full max-h-[90vh] overflow-y-auto">
-                <div className="p-6">
+        <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.4}}
+            className="fixed inset-0 bg-[black]/50 flex items-end md:items-center justify-center md:justify-end p-4 md:px-0 z-[9999]"
+        >
+            <motion.div
+                initial={{
+                    x: typeof window !== "undefined" && window.innerWidth < 768 ? 0 : "100%",
+                    y: typeof window !== "undefined" && window.innerWidth < 768 ? "100%" : 0,
+                    opacity: 0,
+                }}
+                animate={{x: 0, y: 0, opacity: 1}}
+                exit={{
+                    x: typeof window !== "undefined" && window.innerWidth < 768 ? 0 : "100%",
+                    y: typeof window !== "undefined" && window.innerWidth < 768 ? "100%" : 0,
+                    opacity: 0,
+                }}
+                transition={{
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 25,
+                    opacity: {duration: 0.4},
+                }}
+                className="bg-white max-w-xl w-full min-h-[90vh] max-h-[100vh] overflow-y-auto shadow-2xl"
+            >
+                <div className="p-6" ref={parentRef}>
                     {/* Header */}
                     <div className="flex justify-between items-start mb-6">
                         <h2 className="text-2xl font-bold text-gray-800">Let&apos;s Partner</h2>
-                        <button className="text-gray-400 hover:text-gray-600">
+                        <button
+                            className="text-red-400 hover:cursor-pointer hover:bg-red-500 hover:text-white rounded-full p-2 hover:text-gray-600"
+                            type="button"
+                            onClick={() => {
+                                if (onClose) onClose();
+                            }}
+                        >
                             <X className="h-6 w-6" />
                         </button>
                     </div>
+
+                    {/* Submit Message */}
+                    {submitMessage && (
+                        <div
+                            className={`mb-4 p-3 rounded-md ${
+                                submitMessage.type === "success" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
+                            }`}
+                        >
+                            {submitMessage.text}
+                        </div>
+                    )}
 
                     {/* Step Progress - Mobile Only */}
                     <div className="md:hidden mb-8">
@@ -203,22 +289,22 @@ const PartnerForm: React.FC = () => {
                                         placeholder="Select partnership type"
                                         error={errors.partnershipType}
                                     >
-                                        <option value="Affiliate Partner">Affiliate Partner</option>
-                                        <option value="Technology Partner">Technology Partner</option>
-                                        <option value="Strategic Partner">Strategic Partner</option>
-                                        <option value="Reseller Partner">Reseller Partner</option>
-                                        <option value="Integration Partner">Integration Partner</option>
+                                        <option value="affiliate_partner">Affiliate Partner</option>
+                                        <option value="technology_partner">Technology Partner</option>
+                                        <option value="strategic_partner">Strategic Partner</option>
+                                        <option value="reseller_partner">Reseller Partner</option>
+                                        <option value="integration_partner">Integration Partner</option>
                                     </Select>
                                 </div>
 
                                 <div>
                                     <Label htmlFor="businessSize">Business Size/Scale</Label>
                                     <Select value={formData.businessSize} setValue={(value) => updateField("businessSize", value)} placeholder="Select your business size" error={errors.businessSize}>
-                                        <option value="Startup">Startup (1-10 employees)</option>
-                                        <option value="Small Business">Small Business (11-50 employees)</option>
-                                        <option value="Medium Business">Medium Business (51-200 employees)</option>
-                                        <option value="Large Business">Large Business (201-500 employees)</option>
-                                        <option value="Enterprise">Enterprise (500+ employees)</option>
+                                        <option value="startup">Startup (1-10 employees)</option>
+                                        <option value="small_business">Small Business (11-50 employees)</option>
+                                        <option value="medium_business">Medium Business (51-200 employees)</option>
+                                        <option value="large_business">Large Business (201-500 employees)</option>
+                                        <option value="enterprise">Enterprise (500+ employees)</option>
                                     </Select>
                                 </div>
 
@@ -276,11 +362,11 @@ const PartnerForm: React.FC = () => {
                                         placeholder="Select communication method"
                                         error={errors.preferredCommunication}
                                     >
-                                        <option value="Email">Email</option>
-                                        <option value="Phone">Phone</option>
-                                        <option value="WhatsApp">WhatsApp</option>
-                                        <option value="LinkedIn">LinkedIn</option>
-                                        <option value="Video Call">Video Call</option>
+                                        <option value="email">Email</option>
+                                        <option value="phone">Phone</option>
+                                        <option value="whatsapp">WhatsApp</option>
+                                        <option value="linkedin">LinkedIn</option>
+                                        <option value="video_call">Video Call</option>
                                     </Select>
                                 </div>
 
@@ -292,12 +378,12 @@ const PartnerForm: React.FC = () => {
                                         placeholder="Select how you found us"
                                         error={errors.howDidYouHearAboutUs}
                                     >
-                                        <option value="WhatsApp">WhatsApp</option>
-                                        <option value="Google">Google</option>
-                                        <option value="LinkedIn">LinkedIn</option>
-                                        <option value="Referral">Referral</option>
-                                        <option value="Social Media">Social Media</option>
-                                        <option value="Other">Other</option>
+                                        <option value="whatsapp">WhatsApp</option>
+                                        <option value="google">Google</option>
+                                        <option value="linkedin">LinkedIn</option>
+                                        <option value="referral">Referral</option>
+                                        <option value="social_media">Social Media</option>
+                                        <option value="other">Other</option>
                                     </Select>
                                 </div>
 
@@ -319,15 +405,15 @@ const PartnerForm: React.FC = () => {
                                 <Button type="button" className="md:hidden w-full text-[#1E1E1E] bg-transparent py-6 rounded-md" onClick={() => setStep(2)}>
                                     Back
                                 </Button>
-                                <Button type="submit" className="w-full bg-[#1E1E1E] hover:bg-[#1E1E1E]/90 text-white py-3 rounded-md">
-                                    Submit
+                                <Button type="submit" disabled={isSubmitting} className="w-full bg-[#1E1E1E] hover:bg-[#1E1E1E]/90 text-white py-3 rounded-md disabled:opacity-50">
+                                    {isSubmitting ? "Submitting..." : "Submit"}
                                 </Button>
                             </div>
                         </section>
                     </form>
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 

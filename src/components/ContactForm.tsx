@@ -1,8 +1,11 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {X} from "lucide-react";
+import {motion} from "motion/react";
 import {contactFormSchema, personalDetailsSchema, organizationDetailsSchema, type ContactFormData} from "@/schema/contact.schema";
+import {createContact} from "@/actions/contact.api";
+import useClickOutside from "@/hooks/useClickOutside";
 import Input from "@/components/ui/input";
 import Select from "@/components/ui/select";
 import Textarea from "@/components/ui/textarea";
@@ -11,8 +14,10 @@ import Label from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 import StepProgress from "@/components/ui/step-progress";
 
-const ContactForm: React.FC = () => {
+const ContactForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
     const [step, setStep] = useState<number>(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitMessage, setSubmitMessage] = useState<{type: "success" | "error"; text: string} | null>(null);
     const [formData, setFormData] = useState<ContactFormData>({
         fullName: "",
         email: "",
@@ -30,10 +35,18 @@ const ContactForm: React.FC = () => {
         message: "",
     });
 
+    const parentRef = useRef<HTMLDivElement>(null);
+
+    // Close form when clicking outside
+    useClickOutside(parentRef as React.RefObject<HTMLElement>, () => {
+        if (onClose) onClose();
+    });
+
     const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setSubmitMessage(null);
 
         const {error, value} = contactFormSchema.validate(formData, {abortEarly: false});
 
@@ -44,9 +57,42 @@ const ContactForm: React.FC = () => {
                 fieldErrors[field] = detail.message;
             });
             setErrors(fieldErrors);
-        } else {
-            console.log("Form submitted:", value);
-            // Handle form submission here
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const result = await createContact(value);
+
+            if (result.success) {
+                setSubmitMessage({type: "success", text: result.message});
+                // Reset form on success
+                setFormData({
+                    fullName: "",
+                    email: "",
+                    role: "",
+                    countryCode: "",
+                    phoneNumber: "",
+                    organizationName: "",
+                    industry: "",
+                    organizationWebsite: "",
+                    organizationSize: "",
+                    annualRevenue: "",
+                    aiServiceType: "",
+                    projectBudget: "",
+                    howDidYouFindUs: "",
+                    message: "",
+                });
+                setStep(1);
+            } else {
+                setSubmitMessage({type: "error", text: result.message});
+            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            setSubmitMessage({type: "error", text: error?.message || "An unexpected error occurred. Please try again."});
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -107,16 +153,58 @@ const ContactForm: React.FC = () => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-xl w-full max-h-[90vh] overflow-y-auto">
-                <div className="p-6">
+        <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.4}}
+            className="fixed inset-0 bg-[black]/50 flex items-end md:items-center justify-center md:justify-end p-4 md:px-0 z-[9999]"
+        >
+            <motion.div
+                initial={{
+                    x: typeof window !== "undefined" && window.innerWidth < 768 ? 0 : "100%",
+                    y: typeof window !== "undefined" && window.innerWidth < 768 ? "100%" : 0,
+                    opacity: 0,
+                }}
+                animate={{x: 0, y: 0, opacity: 1}}
+                exit={{
+                    x: typeof window !== "undefined" && window.innerWidth < 768 ? 0 : "100%",
+                    y: typeof window !== "undefined" && window.innerWidth < 768 ? "100%" : 0,
+                    opacity: 0,
+                }}
+                transition={{
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 25,
+                    opacity: {duration: 0.4},
+                }}
+                className="bg-white max-w-xl w-full min-h-[90vh] max-h-[100vh] overflow-y-auto shadow-2xl"
+            >
+                <div className="p-6" ref={parentRef}>
                     {/* Header */}
                     <div className="flex justify-between items-start mb-6">
                         <h2 className="text-2xl font-bold text-gray-800">Get In Touch</h2>
-                        <button className="text-gray-400 hover:text-gray-600">
+                        <button
+                            className="text-red-400 hover:cursor-pointer hover:bg-red-500 hover:text-white rounded-full p-2 hover:text-gray-600"
+                            type="button"
+                            onClick={() => {
+                                if (onClose) onClose();
+                            }}
+                        >
                             <X className="h-6 w-6" />
                         </button>
                     </div>
+
+                    {/* Submit Message */}
+                    {submitMessage && (
+                        <div
+                            className={`mb-4 p-3 rounded-md ${
+                                submitMessage.type === "success" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
+                            }`}
+                        >
+                            {submitMessage.text}
+                        </div>
+                    )}
 
                     {/* Step Progress - Mobile Only */}
                     <div className="md:hidden mb-8">
@@ -242,11 +330,11 @@ const ContactForm: React.FC = () => {
                                 <div>
                                     <Label htmlFor="aiServiceType">AI Service Type</Label>
                                     <Select value={formData.aiServiceType} setValue={(value) => updateField("aiServiceType", value)} placeholder="Select AI service type" error={errors.aiServiceType}>
-                                        <option value="AI Sales Assistant">AI Sales Assistant</option>
-                                        <option value="AI Customer Service">AI Customer Service</option>
-                                        <option value="AI Data Processor">AI Data Processor</option>
-                                        <option value="AI Workflow Automation">AI Workflow Automation</option>
-                                        <option value="Custom AI Agent">Custom AI Agent</option>
+                                        <option value="sales_assistant">AI Sales Assistant</option>
+                                        <option value="ai_customer_service">AI Customer Service</option>
+                                        <option value="ai_data_processor">AI Data Processor</option>
+                                        <option value="ai_workflow_automation">AI Workflow Automation</option>
+                                        <option value="custom_ai_agent">Custom AI Agent</option>
                                     </Select>
                                 </div>
 
@@ -269,12 +357,12 @@ const ContactForm: React.FC = () => {
                                         placeholder="Select how you found us"
                                         error={errors.howDidYouFindUs}
                                     >
-                                        <option value="Whatsapp">Whatsapp</option>
-                                        <option value="Google">Google</option>
-                                        <option value="LinkedIn">LinkedIn</option>
-                                        <option value="Referral">Referral</option>
-                                        <option value="Social Media">Social Media</option>
-                                        <option value="Other">Other</option>
+                                        <option value="whatsapp">Whatsapp</option>
+                                        <option value="google">Google</option>
+                                        <option value="linkedin">LinkedIn</option>
+                                        <option value="referral">Referral</option>
+                                        <option value="social_media">Social Media</option>
+                                        <option value="other">Other</option>
                                     </Select>
                                 </div>
 
@@ -295,15 +383,15 @@ const ContactForm: React.FC = () => {
                                 <Button type="button" className="md:hidden w-full text-[#1E1E1E] bg-transparent  py-6 rounded-md" onClick={() => setStep(2)}>
                                     Back
                                 </Button>
-                                <Button type="submit" className="w-full bg-[#1E1E1E] hover:bg-[#1E1E1E]/90 text-white py-3 rounded-md">
-                                    Submit
+                                <Button type="submit" disabled={isSubmitting} className="w-full bg-[#1E1E1E] hover:bg-[#1E1E1E]/90 text-white py-3 rounded-md disabled:opacity-50">
+                                    {isSubmitting ? "Submitting..." : "Submit"}
                                 </Button>
                             </div>
                         </section>
                     </form>
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 
