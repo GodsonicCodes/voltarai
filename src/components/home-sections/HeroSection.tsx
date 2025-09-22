@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import ButtonEffect from "../ui/ButtonEffect";
+import People from "./People";
 
 export default function HeroSection() {
   const rotatingTexts = [
@@ -98,8 +99,13 @@ export default function HeroSection() {
         transition={{ duration: 6, repeat: Infinity, delay: 3 }}
       />
 
+      {/* People component at the top, centered and responsive */}
+      <div className="absolute md:top-15 hidden  left-0 w-full md:flex justify-center z-30">
+        <People />
+      </div>
+
       {/* Main content */}
-      <div className="max-w-6xl mx-auto text-center z-20 relative">
+      <div className="max-w-6xl mx-auto text-center z-20 relative flex flex-col items-center justify-center w-full">
         {/* Headline */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -107,11 +113,12 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className=" mb-4"
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-[494] leading-tight tracking-tight">
-            <div className="text-gray-300 mb-1 ">We Turn Your Manual</div>
-            <div className="text-gray-300 mb-1 ">Business Into An</div>
-            <div className="text-gray-300">
-              <span className="text-blue-400">Automated</span> Money Machine
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-[494] textradialgradientgrey leading-tight tracking-tight">
+            <div className=" mb-1 ">We Turn Your Manual</div>
+            <div className=" mb-1 ">Business Into An</div>
+            <div className="">
+              <span className="textradialgradientblue">Automated</span> Money
+              Machine
             </div>
           </h1>
         </motion.div>

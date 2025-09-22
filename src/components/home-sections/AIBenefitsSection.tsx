@@ -34,7 +34,7 @@ export default function AIBenefitsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-[494] text-white mb-4 block"
+          className="text-3xl md:text-5xl font-[494] textradialgradientgrey mb-4 block"
         >
           We Harness AI To{" "}
         </motion.h2>
@@ -44,7 +44,7 @@ export default function AIBenefitsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-[494] text-white mb-4 block"
+          className="text-3xl md:text-5xl font-[494] textradialgradientgrey mb-4 block"
         >
           <motion.span
             initial={{ color: "#fff" }}
@@ -52,7 +52,7 @@ export default function AIBenefitsSection() {
             transition={{ duration: 1.2, delay: 0.5 }}
             className="font-[494]"
           >
-            Redefine
+            <span className="textradialgradientblue">Redefine</span>
           </motion.span>{" "}
           Your Experience
         </motion.h2>

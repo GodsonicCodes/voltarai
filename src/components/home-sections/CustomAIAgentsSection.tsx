@@ -44,8 +44,8 @@ export default function CustomAIAgentsSection() {
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <h2 className="text-3xl md:text-4xl font-[494] text-white mb-4">
-            Custom AI <span className="text-blue-400">Agents</span>
+          <h2 className="text-3xl md:text-4xl font-[494] textradialgradientgrey mb-4">
+            Custom AI <span className="textradialgradientblue">Agents</span>
           </h2>
           <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto">
             Everything custom built for your specific business needs.
