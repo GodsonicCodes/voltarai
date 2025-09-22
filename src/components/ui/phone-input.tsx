@@ -37,7 +37,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({countryCode, setCountryCode, pho
                         value={countryCode}
                         onChange={(e) => setCountryCode(e.target.value)}
                         className={cn(
-                            "flex h-full w-full appearance-none bg-transparent px-3 py-2 pr-8 text-xs focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+                            "flex h-full w-full text-black appearance-none bg-transparent px-3 py-2 pr-8 text-xs focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
                             countryCodeError && "text-red-500"
                         )}
                     >
@@ -45,7 +45,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({countryCode, setCountryCode, pho
                             Select country
                         </option>
                         {countryOptions.map((option) => (
-                            <option key={option.label} value={option.value}>
+                            <option key={option.label} className="text-black" value={option.value}>
                                 {option.label}
                             </option>
                         ))}
@@ -61,7 +61,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({countryCode, setCountryCode, pho
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         placeholder="Phone number"
                         className={cn(
-                            "flex h-full w-full bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-500",
+                            "flex h-full text-black w-full bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-500",
                             phoneNumberError && "text-red-500"
                         )}
                     />
