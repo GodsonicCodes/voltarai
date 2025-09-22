@@ -1,13 +1,10 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/custom/footer";
 
-
-
-import { Geist } from "next/font/google"; 
-import { Geist_Mono } from "next/font/google";
+import {Geist} from "next/font/google";
+import {Geist_Mono} from "next/font/google";
 
 // Local font
 const author = localFont({
@@ -89,13 +86,13 @@ const author = localFont({
 
 // Geist fonts
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+    variable: "--font-geist-sans",
+    subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
 });
 
 // Metadata for the page
@@ -104,20 +101,14 @@ export const metadata: Metadata = {
     description: "AI automation at your doorstep",
 };
 
-
 // Root layout component
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en" className={author.variable}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}>
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
-    </html>
-  );
+export default function RootLayout({children}: {children: React.ReactNode}) {
+    return (
+        <html lang="en" className={author.variable}>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}>
+                {children}
+                <Footer />
+            </body>
+        </html>
+    );
 }
