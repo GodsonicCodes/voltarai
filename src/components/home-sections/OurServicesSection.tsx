@@ -47,8 +47,8 @@ export default function OurServicesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-[494] text-white mb-8">
-            Our <span className="text-blue-400">Services</span>
+          <h2 className="text-3xl md:text-4xl font-[494] textradialgradientgrey mb-8">
+            Our <span className="textradialgradientblue">Services</span>
           </h2>
         </motion.div>
 
