@@ -1,7 +1,6 @@
-
 // Main landing sections
 export { default as HeroSection } from "./HeroSection";
-export { default as AIBenefitsSection } from "./AIBenefitsSection";
+export { default as AIBenefitsSection } from "./AIBenefits";
 export { default as InANutshellSection } from "./InANutshellSection";
 export { default as OurServicesSection } from "./OurServicesSection";
 export { default as ProblemStatementSection } from "./ProblemStatementSection";
