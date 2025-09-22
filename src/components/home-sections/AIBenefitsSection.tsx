@@ -39,34 +39,9 @@ export default function AIBenefitsSection() {
                         whileInView={{opacity: 1, y: 0}}
                         transition={{duration: 0.8}}
                         viewport={{once: true}}
-                        className="text-3xl md:text-5xl font-[494] text-white mb-4 block"
-                    >
-                        We Harness AI To{" "}
-                    </motion.h2>
-                </div>
-
-                <div className=" flex flex-col items-center justify-center text-center relative z-10">
-                    <motion.h2
-                        initial={{opacity: 0, y: 30}}
-                        whileInView={{opacity: 1, y: 0}}
-                        transition={{duration: 0.8}}
-                        viewport={{once: true}}
                         className="text-3xl md:text-5xl font-[494] textradialgradientgrey mb-4 block"
                     >
                         We Harness AI To{" "}
-                    </motion.h2>
-
-                    <motion.h2
-                        initial={{opacity: 0, y: 30}}
-                        whileInView={{opacity: 1, y: 0}}
-                        transition={{duration: 0.8, delay: 0.2}}
-                        viewport={{once: true}}
-                        className="text-3xl md:text-5xl font-[494] textradialgradientgrey mb-4 block"
-                    >
-                        <motion.span initial={{color: "#fff"}} animate={{color: "#3b82f6"}} transition={{duration: 1.2, delay: 0.5}} className="font-[494]">
-                            <span className="textradialgradientblue">Redefine</span>
-                        </motion.span>{" "}
-                        Your Experience
                     </motion.h2>
 
                     <motion.h2
