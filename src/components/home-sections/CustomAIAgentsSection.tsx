@@ -44,7 +44,7 @@ export default function CustomAIAgentsSection() {
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-[494] text-white mb-4">
             Custom AI <span className="text-blue-400">Agents</span>
           </h2>
           <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto">
@@ -74,7 +74,7 @@ export default function CustomAIAgentsSection() {
                 />
               </div>
               <div className="flex flex-col justify-center text-left">
-                <span className="text-base md:text-lg font-semibold text-white mb-1">
+                <span className="text-base md:text-lg font-[494] text-white mb-1">
                   {agent.title}
                 </span>
                 <span className="text-xs md:text-sm text-gray-300 leading-snug">

@@ -105,9 +105,9 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className=" mb-12"
+          className=" mb-4"
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-[494] leading-tight tracking-tight">
             <div className="text-gray-300 mb-1 ">We Turn Your Manual</div>
             <div className="text-gray-300 mb-1 ">Business Into An</div>
             <div className="text-gray-300">
@@ -121,7 +121,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-lg md:text-2xl text-gray-300 mb-10 md:mb-20 max-w-4xl mx-auto min-h-[3rem] flex items-center justify-center px-2"
+          className="text-lg md:text-2xl text-gray-300 mb-10 md:mb-8 max-w-4xl mx-auto min-h-[3rem flex items-center justify-center px-2"
         >
           <motion.p
             key={currentTextIndex}
@@ -129,7 +129,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, x: [50, 0, -5, 0] }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center"
+            className="text-center w-[60%] mx-auto"
           >
             {rotatingTexts[currentTextIndex]}
           </motion.p>

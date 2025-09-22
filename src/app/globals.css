@@ -2,6 +2,22 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Keep your original fallback stack but do NOT overwrite --font-author.
+   next/font/local will inject --font-author at runtime on <html>.
+   We provide a fallback variable so your original UI remains unchanged if the injected var is missing.
+*/
+:root {
+  --font-author-fallback: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Apply the injected font if present, otherwise use your original fallback stack.
+   This preserves exactly the look you had before while allowing the Author font to take precedence.
+*/
+html, body {
+  font-family: var(--font-author, var(--font-author-fallback));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 /* Custom color theme for the AI Employees website */
 /* All colors are defined as CSS custom properties for consistency */

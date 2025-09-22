@@ -39,7 +39,7 @@ export default function CompleteAIWorkforceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-2xl md:text-4xl font-bold mb-12 text-center"
+          className="text-2xl md:text-4xl font-[494] mb-12 text-center"
         >
           Your <span className="text-blue-400">Complete</span>{" "}
           <span className="text-gray-300">AI Workforce</span>

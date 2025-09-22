@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Percent from "../ui/Percent";
 
 export default function InANutshellSection() {
   const testimonials = [
@@ -22,7 +23,7 @@ export default function InANutshellSection() {
 
   const stats = [
     {
-      value: "67%",
+      value: "67",
       label: "Average Cost Reduction",
       accent: true,
     },
@@ -32,7 +33,7 @@ export default function InANutshellSection() {
       accent: false,
     },
     {
-      value: "98%",
+      value: "98",
       label: "Client retention",
       accent: true,
     },
@@ -47,7 +48,7 @@ export default function InANutshellSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center text-lg md:text-xl font-normal text-white mb-10"
+          className="text-center text-lg md:text-xl font-[494] text-white mb-10"
         >
           Social Proof
         </motion.h2>
@@ -64,11 +65,11 @@ export default function InANutshellSection() {
               className="bg-black/60 border border-white/10 rounded-xl py-8 px-6 md:px-10 text-white flex flex-col justify-between min-h-[120px] shadow-lg"
             >
               <div className="flex flex-col items-center">
-                
                 <span className="text-sm md:text-base text-center font-light text-white/90">
-                  {`"` }{t.quote}{`"` }
+                  {`"`}
+                  {t.quote}
+                  {`"`}
                 </span>
-              
               </div>
               <div className="text-xs md:text-sm text-gray-400 text-center mt-4">
                 {t.author},{" "}
@@ -96,11 +97,11 @@ export default function InANutshellSection() {
               viewport={{ once: true }}
             >
               <div
-                className={`text-3xl md:text-5xl font-bold mb-2 ${
-                  stat.accent ? "text-blue-400" : "text-white"
-                }`}
+                className={`text-3xl md:text-5xl inline-block mb-2 text-white font-[494]`}
               >
-                {stat.value}
+                <span>
+                  {stat.value} {stat.accent ? <Percent /> : ""}
+                </span>
               </div>
               <div className="text-xs md:text-base text-gray-300">
                 {stat.label}

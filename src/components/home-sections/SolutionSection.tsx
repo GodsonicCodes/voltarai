@@ -49,7 +49,7 @@ export default function SolutionSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-2xl text-gray-300 md:text-4xl font-bold mb-12 text-center"
+          className="text-2xl text-gray-300 md:text-4xl font-[494] mb-12 text-center"
         >
           AI Employees That <span className="text-blue-400">Outperform</span>{" "}
           <span className="text-gray-300">Humans</span>
@@ -77,7 +77,7 @@ export default function SolutionSection() {
                 />
               </div>
               <div className="flex flex-col justify-center text-left">
-                <span className="text-sm md:text-base text-white font-normal leading-snug">
+                <span className="text-sm md:text-base text-white font-[494] leading-snug">
                   {benefit.text}
                 </span>
               </div>

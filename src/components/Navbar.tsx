@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import ButtonEffect from "./ui/ButtonEffect";
 
 /**
  * Navbar - Top navigation component for the Voltar.ai landing page
@@ -31,12 +32,7 @@ export default function Navbar() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Button
-            variant="outline"
-            className="bg-gray-900/50 border-gray-700 text-white hover:bg-gray-800/50 px-6 py-2 rounded-full backdrop-blur-sm"
-          >
-            Get in Touch
-          </Button>
+          <ButtonEffect>Get in Touch</ButtonEffect>
         </motion.div>
       </div>
     </nav>

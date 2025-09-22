@@ -47,7 +47,7 @@ export default function OurServicesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-normal text-white mb-8">
+          <h2 className="text-3xl md:text-4xl font-[494] text-white mb-8">
             Our <span className="text-blue-400">Services</span>
           </h2>
         </motion.div>
@@ -104,7 +104,7 @@ export default function OurServicesSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.2 + 0.1 }}
                   viewport={{ once: true }}
-                  className="text-base md:text-lg font-semibold text-white mb-3"
+                  className="text-base md:text-lg font-[494] text-white mb-3"
                 >
                   {service.title}
                 </motion.h3>
