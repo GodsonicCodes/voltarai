@@ -64,18 +64,6 @@ export default function AIBenefitsSection() {
           Your Experience
         </motion.h2>
 
-                    <motion.h2
-                        initial={{opacity: 0, y: 30}}
-                        whileInView={{opacity: 1, y: 0}}
-                        transition={{duration: 0.8, delay: 0.2}}
-                        viewport={{once: true}}
-                        className="text-3xl md:text-5xl font-[494] text-white mb-4 block"
-                    >
-                        <motion.span initial={{color: "#fff"}} animate={{color: "#3b82f6"}} transition={{duration: 1.2, delay: 0.5}} className="font-[494]">
-                            Redefine
-                        </motion.span>{" "}
-                        Your Experience
-                    </motion.h2>
 
                     <motion.p
                         initial={{opacity: 0, y: 20}}
