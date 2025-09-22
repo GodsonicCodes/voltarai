@@ -26,6 +26,7 @@ export default function AIBenefitsSection() {
                     transition={{duration: 1.2, ease: "easeOut"}}
                     className="absolute inset-0 z-0"
                     style={{
+
                         backgroundImage: "url('/assets/curvedline.svg')",
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
@@ -44,6 +45,7 @@ export default function AIBenefitsSection() {
                         We Harness AI To{" "}
                     </motion.h2>
 
+
                     <motion.h2
                         initial={{opacity: 0, y: 30}}
                         whileInView={{opacity: 1, y: 0}}
@@ -56,6 +58,8 @@ export default function AIBenefitsSection() {
                         </motion.span>{" "}
                         Your Experience
                     </motion.h2>
+
+
 
                     <motion.p
                         initial={{opacity: 0, y: 20}}
