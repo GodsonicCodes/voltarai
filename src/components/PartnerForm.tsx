@@ -62,6 +62,7 @@ const PartnerForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
         setIsSubmitting(true);
 
         try {
+            console.log("value", value);
             const result = await createPartner(value);
 
             if (result.success) {
@@ -301,9 +302,9 @@ const PartnerForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                     <Label htmlFor="businessSize">Business Size/Scale</Label>
                                     <Select value={formData.businessSize} setValue={(value) => updateField("businessSize", value)} placeholder="Select your business size" error={errors.businessSize}>
                                         <option value="startup">Startup (1-10 employees)</option>
-                                        <option value="small_business">Small Business (11-50 employees)</option>
-                                        <option value="medium_business">Medium Business (51-200 employees)</option>
-                                        <option value="large_business">Large Business (201-500 employees)</option>
+                                        <option value="small">Small Business (11-50 employees)</option>
+                                        <option value="medium">Medium Business (51-200 employees)</option>
+                                        <option value="large">Large Business (201-500 employees)</option>
                                         <option value="enterprise">Enterprise (500+ employees)</option>
                                     </Select>
                                 </div>
@@ -316,10 +317,10 @@ const PartnerForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                         placeholder="Select estimated budget for this partnership"
                                         error={errors.budgetRange}
                                     >
-                                        <option value="0-10k">$0 - $10k</option>
-                                        <option value="10k-25k">$10k - $25k</option>
-                                        <option value="25k-50k">$25k - $50k</option>
-                                        <option value="50k-100k">$50k - $100k</option>
+                                        <option value="0_10k">$0 - $10k</option>
+                                        <option value="10k_25k">$10k - $25k</option>
+                                        <option value="25k_50k">$25k - $50k</option>
+                                        <option value="50k_100k">$50k - $100k</option>
                                         <option value="100k+">$100k+</option>
                                     </Select>
                                 </div>
@@ -379,8 +380,9 @@ const PartnerForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                         error={errors.howDidYouHearAboutUs}
                                     >
                                         <option value="whatsapp">WhatsApp</option>
-                                        <option value="google">Google</option>
+                                        <option value="google_search">Google</option>
                                         <option value="linkedin">LinkedIn</option>
+                                        <option value="website">Website</option>
                                         <option value="referral">Referral</option>
                                         <option value="social_media">Social Media</option>
                                         <option value="other">Other</option>

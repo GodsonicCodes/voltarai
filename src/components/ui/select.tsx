@@ -17,7 +17,7 @@ const Select: React.FC<SelectProps> = ({className, children, error, placeholder,
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     className={cn(
-                        "flex h-10 w-full appearance-none rounded-md border border-gray-300 bg-white px-3 py-2 pr-8 text-sm focus:outline-none focus:border-black disabled:cursor-not-allowed disabled:opacity-50",
+                        "flex h-10 w-full appearance-none rounded-md text-black border border-gray-300 bg-white px-3 py-2 pr-8 text-sm focus:outline-none focus:border-black disabled:cursor-not-allowed disabled:opacity-50",
                         error && "border-red-500 focus:border-red-500",
                         className
                     )}

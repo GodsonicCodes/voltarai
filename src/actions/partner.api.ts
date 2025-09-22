@@ -26,16 +26,12 @@ const formatPartnerData = (data: PartnerFormData): PartnerSubmissionData => {
         phone: data.countryCode && data.phoneNumber ? `${data.countryCode}-${data.phoneNumber}` : data.phoneNumber,
         company_organization_name: data.companyName,
         company_email: data.companyEmail,
-        partnership_type: data.partnershipType.toLowerCase().replace(/\s+/g, "_"),
-        business_size_scale: data.businessSize
-            .toLowerCase()
-            .replace(/\s+/g, "_")
-            .replace(/\([^)]*\)/g, "")
-            .trim(),
-        budget_range: data.budgetRange.toLowerCase().replace(/\s+/g, "_").replace(/\$|\-/g, "").replace(/k/g, "k"),
+        partnership_type: data.partnershipType,
+        business_size_scale: data.businessSize,
+        budget_range: data.budgetRange,
         use_case_goals: data.useCaseGoals,
-        preferred_communication_method: data.preferredCommunication.toLowerCase().replace(/\s+/g, "_"),
-        how_heard_about_us: data.howDidYouHearAboutUs.toLowerCase().replace(/\s+/g, "_"),
+        preferred_communication_method: data.preferredCommunication,
+        how_heard_about_us: data.howDidYouHearAboutUs,
         additional_comments: data.additionalComments,
     };
 };

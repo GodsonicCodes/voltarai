@@ -10,10 +10,16 @@ export async function api<T = unknown>(endpoint: string, options: RequestInit = 
     try {
         const {headers, ...rest} = options;
 
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        // Don't set Content-Type for FormData - let browser handle it
+        const defaultHeaders: Record<string, string> = {};
+        if (!(options.body instanceof FormData)) {
+            defaultHeaders["Content-Type"] = "application/json";
+        }
+
+        const response = await fetch(`${API_BASE_URL}${endpoint}/`, {
             ...rest,
             headers: {
-                "Content-Type": "application/json",
+                ...defaultHeaders,
                 ...(headers || {}),
             },
         });
