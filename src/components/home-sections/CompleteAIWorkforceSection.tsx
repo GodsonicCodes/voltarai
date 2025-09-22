@@ -41,8 +41,8 @@ export default function CompleteAIWorkforceSection() {
           viewport={{ once: true }}
           className="text-2xl md:text-4xl font-[494] mb-12 text-center"
         >
-          Your <span className="text-blue-400">Complete</span>{" "}
-          <span className="text-gray-300">AI Workforce</span>
+          Your <span className="textradialgradientblue">Complete</span>{" "}
+          <span className="textradialgradientgrey">AI Workforce</span>
         </motion.h3>
 
         {/* Platforms grid */}
