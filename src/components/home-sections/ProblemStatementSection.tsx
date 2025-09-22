@@ -34,7 +34,7 @@ export default function ProblemStatementSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold text-gray-200 mb-12"
+          className="text-3xl md:text-5xl font-[494] text-gray-200 mb-12"
         >
           Your Team Is <span className="text-blue-500">Drowning</span> In Busy
           Work
