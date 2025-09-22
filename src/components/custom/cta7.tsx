@@ -1,23 +1,34 @@
-import Button from "./ui-custom/button";
+"use client";
+import { motion } from "motion/react";
+import ButtonEffect from "../ui/ButtonEffect";
+import { ArrowUpRight } from "lucide-react";
 
 const CTA7 = () => {
   return (
-    <div className="flex flex-col justify-between gap-22.5 items-center px-4 lg:px-[378] lg:py-[225px]">
-      <div
-        className="w-full max-w-[1233px] min-h-[498px] lg:mt-20
-      flex flex-col items-center justify-center text-center
-      gap-[33px] lg:gap-12 lg:px-16"
+    <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4 overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="w-full max-w-6xl mx-auto text-center"
       >
-        <p className="font-author font-medium text-[30px] lg:text-[80px] leading-[41px] lg:leading-[100px] tracking-normal text-center textradialgradientgrey">
-          Ready to <span className="textradialgradientblue">Hire</span> your
-          first AI employee
-        </p>
-        <p className="font-author font-[375] text-[17px] lg:text-[40px] leading-[30px] lg:leading-[56px] tracking-normal text-justify lg:text-center textradialgradientgrey px-2 lg:px-10">
+        <h2 className="text-2xl md:text-4xl font-[494] mb-6 textradialgradientgrey">
+          Ready to <span className="textradialgradientblue">Hire</span> your first AI employee
+        </h2>
+
+        <p className="max-w-3xl mx-auto text-base md:text-lg text-gray-300 mb-8">
           Book your strategy call. Discover which roles AI can replace fast.
         </p>
-        <Button text="Schedule Strategy Call" />
-      </div>
-    </div>
+
+        <div className="flex justify-center">
+          <ButtonEffect>
+            <span>Schedule Strategy Call</span>
+            <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" />
+          </ButtonEffect>
+        </div>
+      </motion.div>
+    </section>
   );
 };
 

@@ -6,7 +6,15 @@ import ProblemStatementSection from "@/components/home-sections/ProblemStatement
 import SolutionSection from "@/components/home-sections/SolutionSection";
 import CompleteAIWorkforceSection from "@/components/home-sections/CompleteAIWorkforceSection";
 import AIBenefitsSection from "@/components/home-sections/AIBenefitsSection";
-import { CustomAIAgentsSection } from "@/components/home-sections";
+import CustomAIAgentsSection from "@/components/home-sections/CustomAIAgentsSection";
+
+{/* <last-eight components> */}
+import Results from "@/components/custom/results";
+import CTA6 from "@/components/custom/cta6";
+import CTA7 from "@/components/custom/cta7";
+import FAQ from "@/components/custom/faq";
+import AboutUs from "@/components/custom/aboutUs";
+import FinalCta from "@/components/custom/finalCta";
 
 export default function Home() {
   return (
@@ -20,10 +28,13 @@ export default function Home() {
       <SolutionSection />
       <CompleteAIWorkforceSection />
       <CustomAIAgentsSection/>
-    </div>
-    <div className="w-screen h-screen flex flex-col justify-center items-center bg-bgBlack">
-      <h1 className="text-9xl font-bold textradialgradientgrey">VoltarAi</h1>
-      <h1 className="text-6xl font-bold textradialgradientblue">True AI-Automation</h1>
-    </div>
+      {/* <last-eight components> */}
+      <Results/>
+      <CTA6/>
+      <CTA7/>
+      <FAQ/>
+      <AboutUs/>
+      <FinalCta/>
+      </div>
   );
 }

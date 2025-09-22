@@ -1,6 +1,7 @@
+"use client";
 import Link from "next/link";
 import EmailInput from "./emailInput";
-import useScreenSize from "@/hooks/useScreenSize";
+import { motion } from "framer-motion";
 
 interface urlProps {
   name: string;
@@ -51,107 +52,112 @@ const footerItems: FooterProps[] = [
 ];
 
 const FooterContent = () => {
-  const screenSize = useScreenSize();
-
-  // Mobile footer
-  if (screenSize <= 844) {
-    return (
-      <div className="flex flex-col px-4 gap-12.5">
-        <p className="font-[375] text-[17px] text-white">
-          Voltar AI is your intelligent partner for automation, analysis and
-          decision making. We scale businesses 10x faster with AI that never
-          sleeps.{" "}
-        </p>
-
-        {footerItems.map((footer) => (
-          <div
-            key={footer.id}
-            className={`footer__url__${footer.id} flex flex-col justify-between gap-21 self-start`}
-          >
-            <div className="flex flex-col gap-3 text-[17px] font-[375]">
-              <p className="text-blue-700">{footer.header}</p>
-              {footer.url.map((url, index) => (
-                <div key={index} className="h-fit w-fit">
-                  <Link href={url.url} className="text-white">
-                    {url.name}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-        <div className="flex justify-between">
-          <Link
-            href={"#"}
-            className="text-white underline text-[17px] font-[375]"
-          >
-            Terms &amp; Conditions
-          </Link>
-
-          <Link
-            href={"#"}
-            className="text-white underline text-[17px] font-[375]"
-          >
-            Privacy Policy
-          </Link>
-        </div>
-        <div className="flex flex-col gap-5">
-          <p className="text-white text-[17px] font-[375]">
-            Join our mailing list
-          </p>
-          <EmailInput />
-        </div>
-      </div>
-    );
-  }
   return (
-    <div className="footer__content grid grid-cols-5 font-normal justify-items-end justify-end">
-      <div className="flex flex-col gap-[51px] justify-end items-center col-span-2 pt-[139px] ">
-        {/* Image  */}
-        <p className="footer__text text-2xl font-[375] text-white ">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="w-full grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 mx-auto max-w-screen-xl"
+    >
+      {/* Left column (brand + about + signup) */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="flex flex-col gap-6 lg:gap-6 lg:col-span-2"
+      >
+        {/* Brand logo with white dot and Voltar.ai text */}
+        <div className="flex items-center space-x-3">
+          <div className="w-2 h-2 bg-white rounded-full"></div>
+          <span className="text-white text-xl font-medium">Voltar.ai</span>
+        </div>
+
+        <p className="text-sm md:text-base text-white">
           Voltar AI is your intelligent partner for automation, analysis and
           decision making. We scale businesses 10x faster with AI that never
           sleeps.
         </p>
-        <div className="footer__form flex flex-col gap-2.5 items-start w-full">
-          <p className="text-white text-2xl font-[375]">
+
+        {/* Mobile: Links section */}
+        <div className="lg:hidden flex flex-col gap-8">
+          {footerItems.map((footer) => (
+            <div key={footer.id} className="flex flex-col gap-3">
+              <p className="text-blue-700 text-sm md:text-base font-medium">
+                {footer.header}
+              </p>
+              <div className="flex flex-col gap-2">
+                {footer.url.map((url, index) => (
+                  <Link
+                    key={index}
+                    href={url.url}
+                    className="text-white text-sm md:text-base transition-colors duration-200 hover:text-blue-300"
+                  >
+                    {url.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Mobile: Legal links at the bottom */}
+        <div className="lg:hidden flex justify-between w-full text-white text-sm md:text-base">
+          <Link href="#" className="underline transition-colors duration-200 hover:text-blue-300">
+            Terms &amp; Conditions
+          </Link>
+          <Link href="#" className="underline transition-colors duration-200 hover:text-blue-300">
+            Privacy Policy
+          </Link>
+        </div>
+
+        {/* Email signup - Now at the bottom for mobile */}
+        <div className="flex flex-col gap-3 items-start w-full">
+          <p className="text-white text-sm md:text-base font-medium">
             Join our mailing list
           </p>
-          <div className="w-full h-full p-1 flex justify-center items-center">
-            <div className="relative w-full h-full">
-              <EmailInput />
-            </div>
+          <div className="w-full max-w-md">
+            <EmailInput />
           </div>
-
-          <button>{/* Button and the logo */}</button>
         </div>
-      </div>
+      </motion.div>
+
+      {/* Right columns (links) - Desktop only */}
       {footerItems.map((footer) => (
-        <div
+        <motion.div
           key={footer.id}
-          className={`footer__url__${footer.id} flex flex-col justify-between col-span-1 gap-21 self-start`}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: footer.id * 0.05 }}
+          className="hidden lg:flex flex-col gap-6 h-full items-end w-full"
         >
-          <div className="flex flex-col gap-3 text-[24px] font-[375]">
-            <p className="text-blue-700">{footer.header}</p>
-            {footer.url.map((url, index) => (
-              <div key={index} className="h-fit w-fit">
-                <Link href={url.url} className="text-white">
+          <div className="flex flex-col gap-2">
+            <p className="text-blue-700 text-sm md:text-base font-medium">{footer.header}</p>
+            <div className="flex flex-col gap-2">
+              {footer.url.map((url, index) => (
+                <Link
+                  key={index}
+                  href={url.url}
+                  className="text-white text-sm md:text-base transition-colors duration-200 hover:text-blue-300 w-fit"
+                >
                   {url.name}
                 </Link>
-              </div>
-            ))}
+              ))}
+            </div>
+            {footer.footer?.name && (
+              <Link
+                href={footer.footer.url}
+                className="text-white underline text-sm md:text-base transition-colors duration-200 hover:text-blue-300 w-fit mt-2"
+              >
+                {footer.footer.name}
+              </Link>
+            )}
           </div>
-          {footer.footer && footer.footer.name && (
-            <Link
-              href={footer.footer.url}
-              className="text-white underline text-[24px] font-[375]"
-            >
-              {footer.footer.name}
-            </Link>
-          )}
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 

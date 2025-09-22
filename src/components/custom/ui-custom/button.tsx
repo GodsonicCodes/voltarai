@@ -1,18 +1,35 @@
 import { ArrowUpRight } from "lucide-react";
 
-const Button = ({ text }: { text: string }) => {
+const Button = ({
+  text,
+  className = "",
+}: {
+  text: string;
+  className?: string;
+}) => {
   return (
     <button
-      className="w-fit h-fit
-        flex items-center justify-center gap-[9px] lg:gap-[15px] 
-        rounded-[70px] border border-white/20 
-        text-zinc-200 bglineargradient hover:cursor-pointer
-        mx-[115px] pl-[17px] pr-[14px] py-[10px] text-[10.5px] font-normal
-        whitespace-nowrap
-        lg:w-[426px] lg:h-[96px] lg:text-2xl lg:font-medium lg:py-[20px]
-      "
+      className={`
+        group relative overflow-hidden
+        flex items-center justify-center gap-3
+        rounded-full border border-white/20 
+        text-white bglineargradient
+        px-5 py-2.5 text-sm font-medium
+        whitespace-nowrap select-none
+        md:px-8 md:py-4 md:text-base
+        lg:px-10 lg:py-5 lg:text-lg
+        hover:shadow-lg hover:shadow-black/20 hover:scale-[1.02] active:scale-95
+        transition-all duration-300 ease-out
+        ${className}
+      `}
     >
-      {text} <ArrowUpRight />
+      <span className="relative z-10">{text}</span>
+      <span className="relative z-10 transform transition-transform duration-300 group-hover:translate-x-1 group-hover:rotate-45">
+        <ArrowUpRight size={20} />
+      </span>
+
+      {/* Hover effect background */}
+      <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </button>
   );
 };

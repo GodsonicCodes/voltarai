@@ -1,3 +1,4 @@
+"use client";
 import {
   Accordion,
   AccordionContent,
@@ -5,14 +6,15 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import Balloon from "./ui-custom/numberBalloon";
+import { motion, AnimatePresence } from "framer-motion";
 
-interface Accordion {
+interface AccordionItemType {
   id: number;
   item: string;
   content: string;
 }
 
-const AccordionList: Accordion[] = [
+const AccordionList: AccordionItemType[] = [
   {
     id: 1,
     item: "How fast does one get ROI?",
@@ -41,32 +43,48 @@ const AccordionList: Accordion[] = [
 
 const FAQ = () => {
   return (
-    <div className="flex flex-col gap-12 lg:gap-26 w-full items-center px-4 lg:px-0 lg:min-w-5xl mx-auto lg:py-[225px]">
-      <p className="font-author font-[494] text-[30px] lg:text-[80px] leading-[100px] tracking-normal text-center textradialgradientgrey">
-        Frequently <span className="textradialgradientblue">Asked </span>
-        Questions
-      </p>
+    <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4">
+      <div className="max-w-6xl mx-auto text-center">
+        <h2 className="text-2xl md:text-4xl font-[494] mb-10 textradialgradientgrey">
+          Frequently <span className="textradialgradientblue">Asked</span> Questions
+        </h2>
 
-      <Accordion
-        type="single"
-        collapsible
-        className="w-full lg:px-[330px] lg:min-w-3xl px-2"
-      >
-        {AccordionList.map((listItem) => (
-          <AccordionItem value={`item_${listItem.id}`} key={listItem.id}>
-            <AccordionTrigger className="flex items-center font-[494] text-[17px] lg:text-[40px] text-white hover:no-underline">
-              <span className="flex items-center gap-4">
-                <Balloon value={listItem.id} /> {listItem.item}
-              </span>
-            </AccordionTrigger>
+        <div className="w-full mx-auto flex justify-center"> {/* Centering the Accordion Container */}
+          <Accordion
+            type="single"
+            collapsible
+            className="w-full min-w-[300px] max-w-3xl lg:min-w-3xl"
+          >
+            {AccordionList.map((listItem) => (
+              <AccordionItem
+                value={`item_${listItem.id}`}
+                key={listItem.id}
+                className="w-full"
+              >
+                <AccordionTrigger className="px-5 flex items-center font-medium text-base md:text-lg text-white hover:no-underline">
+                  <span className="flex items-center gap-4">
+                    <Balloon value={listItem.id} /> {listItem.item}
+                  </span>
+                </AccordionTrigger>
 
-            <AccordionContent className="ml-9 flex flex-col gap-4 text-balance font-[375] text-[15px] lg:text-[30px] text-white/60">
-              {listItem.content}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </div>
+                <AccordionContent className="ml-9 flex flex-col gap-3 text-left text-sm md:text-base text-white/70 overflow-hidden">
+                  <AnimatePresence>
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      {listItem.content}
+                    </motion.div>
+                  </AnimatePresence>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
   );
 };
 

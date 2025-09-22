@@ -108,10 +108,10 @@ export default function HeroSection() {
           className=" mb-4"
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-[494] leading-tight tracking-tight">
-            <div className="text-gray-300 mb-1 ">We Turn Your Manual</div>
-            <div className="text-gray-300 mb-1 ">Business Into An</div>
-            <div className="text-gray-300">
-              <span className="text-blue-400">Automated</span> Money Machine
+            <div className="textradialgradientgrey mb-1 ">We Turn Your Manual</div>
+            <div className="textradialgradientgrey mb-1 ">Business Into An</div>
+            <div className="textradialgradientgrey">
+              <span className="textradialgradientblue">Automated</span> Money Machine
             </div>
           </h1>
         </motion.div>
@@ -129,7 +129,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, x: [50, 0, -5, 0] }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center w-[60%] mx-auto"
+            className="text-center w-[60%] mx-auto customtext-radial"
           >
             {rotatingTexts[currentTextIndex]}
           </motion.p>

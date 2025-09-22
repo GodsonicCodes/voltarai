@@ -1,3 +1,5 @@
+"use client";
+import { motion } from "framer-motion";
 import Balloon from "./ui-custom/numberBalloon";
 
 interface Weeks {
@@ -26,49 +28,60 @@ const typicalResults: Results[] = [
 
 const Results = () => {
   return (
-    <div className="flex w-full min-h-[675px] px-4 lg:px-[200px] justify-center items-center">
-      <div className="w-full h-full lg:my-[221px] my-[81px] flex flex-col items-center justify-between gap-10 lg:gap-20">
-        <p className="font-author font-medium text-[30px] lg:text-[80px] leading-[41px] lg:leading-[100px] tracking-normal text-center textradialgradientgrey">
+    <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4 overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="w-full max-w-7xl mx-auto"
+      >
+        <h2 className="text-2xl md:text-4xl font-[494] mb-12 text-center textradialgradientgrey">
           Real <span className="textradialgradientblue">Impact,</span> Real Fast
-        </p>
+        </h2>
 
-        <div className="flex flex-col lg:flex-row w-full h-full items-center lg:items-start lg:justify-between gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start justify-items-center">
           {/* Weeks Impact */}
-          <div className="flex flex-col gap-10 items-start flex-1 w-fit">
+          <div className="flex flex-col gap-6 md:gap-8 items-center">
             {weekImpact.map((week) => (
-              <div key={week.id} className="flex flex-col justify-start">
-                <p className="text-white text-[18px] lg:text-[40px] font-[375]">
-                  Week {week.week}:
-                </p>
-                <p className="text-white/70 text-[18px] lg:text-[38px] font-[375]">
-                  {week.details}
-                </p>
-              </div>
+              <motion.div
+                key={week.id}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.4, ease: "easeOut", delay: week.id * 0.05 }}
+                className="flex flex-col w-full max-w-2xl"
+              >
+                <p className="text-white text-lg md:text-xl lg:text-2xl font-medium text-left">Week {week.week}:</p>
+                <p className="text-white/70 text-base md:text-lg lg:text-xl text-left">{week.details}</p>
+              </motion.div>
             ))}
           </div>
 
           {/* Typical Results */}
-          <div className="flex flex-col flex-1 gap-8.5 justify-start items-center lg:items-start w-fit lg:mt-[-10px]">
-            <p className="lg:text-start font-[375] text-[18px] text-center lg:text-[50px] textradialgradientgrey">
+          <div className="flex flex-col gap-6 md:gap-8 lg:gap-10 items-center">
+            <p className="text-center text-2xl md:text-4xl font-[494] textradialgradientgrey">
               Typical Results
             </p>
-            <div className="flex flex-col gap-14 w-fit">
+            <div className="flex flex-col gap-6 md:gap-8 w-full max-w-2xl">
               {typicalResults.map((results) => (
-                <span
+                <motion.span
                   key={results.id}
-                  className="h-fit flex gap-3 items-center"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.4, ease: "easeOut", delay: results.id * 0.05 }}
+                  className="flex items-start gap-3"
                 >
                   <Balloon value={results.id} />
-                  <p className="text-white font-[375] text-[17px] lg:text-[40px]">
-                    {results.result}
-                  </p>
-                </span>
+                  <p className="text-white text-base md:text-lg lg:text-xl text-left">{results.result}</p>
+                </motion.span>
               ))}
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </section>
   );
 };
 export default Results;
