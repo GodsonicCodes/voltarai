@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import ButtonEffect from "../ui/ButtonEffect";
 
-export default function AIBenefitsSection() {
+export default function AIBenefits() {
   return (
     <section
       className="w-full mt-12 md:w-[70%] mx-auto md:min-h-[60vh] pt-10 md:pt-0 flex items-center justify-center px-4 bg-bgBlack relative overflow-hidden"
