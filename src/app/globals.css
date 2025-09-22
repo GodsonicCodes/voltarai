@@ -17,6 +17,7 @@ html, body {
   font-family: var(--font-author, var(--font-author-fallback));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* Custom color theme for the AI Employees website */
@@ -76,6 +77,13 @@ html, body {
     background: radial-gradient(circle, #004ae9 0%, #83a7f5 100%);
     background-clip: text;
     color: transparent;
+}
+
+/* Custom radial gradient */
+.customtext-radial {
+  background: radial-gradient(55.98% 55.98% at 44.02% 50.75%, #FFFFFF 0%, #999999 100%);
+  background-clip: text;
+  color: transparent;
 }
 
 .curvedlinebg{

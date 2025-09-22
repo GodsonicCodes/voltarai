@@ -1,8 +1,15 @@
-// src/app/layout.tsx
-import type {Metadata} from "next";
+import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/custom/footer";
 
+
+
+import { Geist } from "next/font/google"; 
+import { Geist_Mono } from "next/font/google";
+
+// Local font
 const author = localFont({
     src: [
         {
@@ -80,16 +87,37 @@ const author = localFont({
     display: "swap",
 });
 
+// Geist fonts
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+// Metadata for the page
 export const metadata: Metadata = {
     title: "voltarai",
     description: "AI automation at your doorstep",
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
-    return (
-        // keep the generated class on <html> so the CSS variable --font-author is available globally
-        <html lang="en" className={author.variable}>
-            <body className="antialiased max-w-screen relative overflow-x-hidden">{children}</body>
-        </html>
-    );
+
+// Root layout component
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={author.variable}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
+    </html>
+  );
 }
