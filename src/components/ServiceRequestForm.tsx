@@ -80,7 +80,7 @@ const ServiceRequestForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
             formDataToSubmit.append("how_heard_about_us", value.howDidYouHearAboutUs);
 
             if (value.supportingDocuments) {
-                formDataToSubmit.append("supportingDocuments", value.supportingDocuments);
+                formDataToSubmit.append("supporting_documents", value.supportingDocuments);
             }
 
             const result = await createServiceRequest(formDataToSubmit);

@@ -104,7 +104,10 @@ export default function HeroSection() {
                 animate={{opacity: [0.25, 0.5, 0.25], scale: [0.95, 1, 0.95]}}
                 transition={{duration: 6, repeat: Infinity, delay: 3}}
             />
-
+            {/* People component at the top, centered and responsive */}
+            <div className="absolute md:top-15 hidden left-0 w-full md:flex justify-center z-30">
+                <People />
+            </div>
             {/* Main content */}
             <div className="max-w-6xl mx-auto text-center relative">
                 {/* Headline */}
@@ -146,30 +149,7 @@ export default function HeroSection() {
                         </ButtonEffect>
                     </div>
                 </motion.div>
-
-      {/* People component at the top, centered and responsive */}
-      <div className="absolute md:top-15 hidden  left-0 w-full md:flex justify-center z-30">
-        <People />
-      </div>
-
-      {/* Main content */}
-      <div className="max-w-6xl mx-auto text-center z-20 relative flex flex-col items-center justify-center w-full">
-        {/* Headline */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className=" mb-4"
-        >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-[494] textradialgradientgrey leading-tight tracking-tight">
-            <div className=" mb-1 ">We Turn Your Manual</div>
-            <div className=" mb-1 ">Business Into An</div>
-            <div className="">
-              <span className="textradialgradientblue">Automated</span> Money
-              Machine
-
             </div>
-
             {/* Service Request Form Modal */}
             <AnimatePresence>{showServiceForm && <ServiceRequestForm onClose={() => setShowServiceForm(false)} />}</AnimatePresence>
 
