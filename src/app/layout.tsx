@@ -79,6 +79,20 @@ const author = localFont({
   ],
   variable: "--font-author",
   display: "swap",
+
+{
+  /* Footer */
+}
+import Footer from "@/components/custom/footer";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -96,7 +110,12 @@ export default function RootLayout({
     <html lang="en" className={author.variable}>
       <body className="antialiased max-w-screen overflow-x-hidden">
         <Navbar />
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
+      >
         {children}
+        <Footer />
       </body>
     </html>
   );
