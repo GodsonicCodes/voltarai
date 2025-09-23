@@ -14,7 +14,7 @@ import Label from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 import StepProgress from "@/components/ui/step-progress";
 
-const ContactForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
+const ContactForm: React.FC<{onClose: () => void}> = ({onClose}) => {
     const [step, setStep] = useState<number>(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitMessage, setSubmitMessage] = useState<{type: "success" | "error"; text: string} | null>(null);
@@ -39,7 +39,7 @@ const ContactForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
 
     // Close form when clicking outside
     useClickOutside(parentRef as React.RefObject<HTMLElement>, () => {
-        if (onClose) onClose();
+        onClose();
     });
 
     const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
@@ -85,6 +85,7 @@ const ContactForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                     message: "",
                 });
                 setStep(1);
+                onClose();
             } else {
                 setSubmitMessage({type: "error", text: result.message});
             }
@@ -196,15 +197,7 @@ const ContactForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                     </div>
 
                     {/* Submit Message */}
-                    {submitMessage && (
-                        <div
-                            className={`mb-4 p-3 rounded-md ${
-                                submitMessage.type === "success" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
-                            }`}
-                        >
-                            {submitMessage.text}
-                        </div>
-                    )}
+                    {submitMessage && submitMessage.type == "error" && <div className={`mb-4 p-3 rounded-md bg-red-50 text-red-700 border border-red-200}`}>{submitMessage.text}</div>}
 
                     {/* Step Progress - Mobile Only */}
                     <div className="md:hidden mb-8">
@@ -330,11 +323,11 @@ const ContactForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                 <div>
                                     <Label htmlFor="aiServiceType">AI Service Type</Label>
                                     <Select value={formData.aiServiceType} setValue={(value) => updateField("aiServiceType", value)} placeholder="Select AI service type" error={errors.aiServiceType}>
-                                        <option value="sales_assistant">AI Sales Assistant</option>
+                                        <option value="ai_sales_assistant">AI Sales Assistant</option>
                                         <option value="ai_customer_service">AI Customer Service</option>
-                                        <option value="ai_data_processor">AI Data Processor</option>
-                                        <option value="ai_workflow_automation">AI Workflow Automation</option>
-                                        <option value="custom_ai_agent">Custom AI Agent</option>
+                                        <option value="ai_marketing">AI Marketing</option>
+                                        <option value="ai_consulting">AI Consulting</option>
+                                        <option value="custom_ai_solution">Custom AI Solution</option>
                                     </Select>
                                 </div>
 
@@ -358,7 +351,7 @@ const ContactForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                                         error={errors.howDidYouFindUs}
                                     >
                                         <option value="whatsapp">Whatsapp</option>
-                                        <option value="google">Google</option>
+                                        <option value="google_search">Google</option>
                                         <option value="linkedin">LinkedIn</option>
                                         <option value="website">Website</option>
                                         <option value="referral">Referral</option>
@@ -391,6 +384,8 @@ const ContactForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
                         </section>
                     </form>
                 </div>
+
+                <div></div>
             </motion.div>
         </motion.div>
     );

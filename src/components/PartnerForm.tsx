@@ -14,7 +14,7 @@ import Label from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 import StepProgress from "@/components/ui/step-progress";
 
-const PartnerForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
+const PartnerForm: React.FC<{onClose: () => void}> = ({onClose}) => {
     const [step, setStep] = useState<number>(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitMessage, setSubmitMessage] = useState<{type: "success" | "error"; text: string} | null>(null);
@@ -39,9 +39,7 @@ const PartnerForm: React.FC<{onClose?: () => void}> = ({onClose}) => {
     const parentRef = useRef<HTMLDivElement>(null);
 
     // Close form when clicking outside
-    useClickOutside(parentRef as React.RefObject<HTMLElement>, () => {
-        if (onClose) onClose();
-    });
+    useClickOutside(parentRef as React.RefObject<HTMLElement>, () => onClose());
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
