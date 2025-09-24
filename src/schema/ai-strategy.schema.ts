@@ -12,10 +12,10 @@ export const aiStrategyFormSchema = Joi.object({
         "any.required": "Business email is required",
         "string.empty": "Business email is required",
     }),
-    industryType: Joi.string().min(2).required().messages({
-        "string.min": "Industry type must be at least 2 characters",
-        "any.required": "Industry type is required",
-        "string.empty": "Industry type is required",
+    industryType: Joi.string().valid('ecommerce', 'retail', 'manufacturing', 'service', 'healthcare', 'education', 'finance', 'technology', 'media', 'marketing', 'other').required().messages({
+        'any.only': 'Please select a valid industry type',
+        'any.required': 'Industry type is required',
+        'string.empty': 'Industry type is required',
     }),
     businessChallenge: Joi.string().min(1).required().messages({
         "any.required": "Please select a business challenge",

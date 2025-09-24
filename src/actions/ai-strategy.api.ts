@@ -6,7 +6,7 @@ import { type AIStrategyFormData } from "@/schema/ai-strategy.schema";
 export interface AIStrategySubmissionData {
     company_name: string;
     business_email: string;
-    industry_type: string;
+    business_type: string;
     business_challenge: string;
 }
 
@@ -15,7 +15,7 @@ const formatAIStrategyData = (data: AIStrategyFormData): AIStrategySubmissionDat
     return {
         company_name: data.companyName,
         business_email: data.businessEmail,
-        industry_type: data.industryType,
+        business_type: data.industryType,
         business_challenge: data.businessChallenge,
     };
 };
@@ -33,7 +33,7 @@ export async function createAIStrategy(data: AIStrategyFormData): Promise<AIStra
         // Format the data to match the expected structure
         const formattedData = formatAIStrategyData(data);
 
-        const response = await api<{ message?: string }>("/ai-strategy", {
+        const response = await api<{ message?: string }>("/job-request/", {
             method: "POST",
             body: JSON.stringify(formattedData),
         });
