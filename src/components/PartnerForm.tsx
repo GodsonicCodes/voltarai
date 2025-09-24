@@ -13,6 +13,7 @@ import PhoneInput from "@/components/ui/phone-input";
 import Label from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 import StepProgress from "@/components/ui/step-progress";
+import Success from "./ui/success";
 
 const PartnerForm: React.FC<{onClose: () => void}> = ({onClose}) => {
     const [step, setStep] = useState<number>(1);
@@ -60,7 +61,6 @@ const PartnerForm: React.FC<{onClose: () => void}> = ({onClose}) => {
         setIsSubmitting(true);
 
         try {
-            console.log("value", value);
             const result = await createPartner(value);
 
             if (result.success) {
@@ -173,244 +173,257 @@ const PartnerForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                     damping: 25,
                     opacity: {duration: 0.4},
                 }}
-                className="bg-white max-w-xl w-full min-h-[90vh] max-h-[100vh] overflow-y-auto shadow-2xl"
+                className="bg-white max-w-xl w-full min-h-[90vh] md:h-[100vh] max-h-[100vh] overflow-y-auto shadow-2xl"
             >
                 <div className="p-6" ref={parentRef}>
-                    {/* Header */}
-                    <div className="flex justify-between items-start mb-6">
-                        <h2 className="text-2xl font-bold text-gray-800">Let&apos;s Partner</h2>
-                        <button
-                            className="text-red-400 hover:cursor-pointer hover:bg-red-500 hover:text-white rounded-full p-2 hover:text-gray-600"
-                            type="button"
-                            onClick={() => {
-                                if (onClose) onClose();
-                            }}
-                        >
-                            <X className="h-6 w-6" />
-                        </button>
-                    </div>
+                    {submitMessage && submitMessage.type === "success" ? (
+                        <Success onClose={onClose} />
+                    ) : (
+                        <>
+                            {/* Header */}
+                            <div className="flex justify-between items-start mb-6">
+                                <h2 className="text-2xl font-bold text-gray-800">Let&apos;s Partner</h2>
+                                <button
+                                    className="text-red-400 hover:cursor-pointer hover:bg-red-500 hover:text-white rounded-full p-2 hover:text-gray-600"
+                                    type="button"
+                                    onClick={() => {
+                                        if (onClose) onClose();
+                                    }}
+                                >
+                                    <X className="h-6 w-6" />
+                                </button>
+                            </div>
+                            {/* Submit Message */}
+                            {submitMessage && submitMessage.type === "error" && <div className={`mb-4 p-3 rounded-md bg-red-50 text-red-700 border border-red-200`}>{submitMessage.text}</div>}
 
-                    {/* Submit Message */}
-                    {submitMessage && (
-                        <div
-                            className={`mb-4 p-3 rounded-md ${
-                                submitMessage.type === "success" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
-                            }`}
-                        >
-                            {submitMessage.text}
-                        </div>
+                            {/* Step Progress - Mobile Only */}
+                            <div className="md:hidden mb-8">
+                                <StepProgress currentStep={step} totalSteps={3} />
+                            </div>
+
+                            <form onSubmit={handleSubmit} className="space-y-8">
+                                {/* Personal Details Section */}
+                                <section className={`${step === 1 ? "block" : "hidden md:block"}`}>
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-1">Personal Details</h3>
+                                    <p className="text-sm text-gray-500 mb-4">We&apos;d love to know you</p>
+
+                                    <div className="flex flex-col gap-4">
+                                        <div>
+                                            <Label htmlFor="fullName">Full Name</Label>
+                                            <Input
+                                                id="fullName"
+                                                placeholder="Enter your full name"
+                                                value={formData.fullName}
+                                                setValue={(value) => updateField("fullName", value)}
+                                                error={errors.fullName}
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <Label htmlFor="personalEmail">Personal Email</Label>
+                                            <Input
+                                                id="personalEmail"
+                                                type="email"
+                                                placeholder="Enter your email"
+                                                value={formData.personalEmail}
+                                                setValue={(value) => updateField("personalEmail", value)}
+                                                error={errors.personalEmail}
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <Label htmlFor="phone">Phone</Label>
+                                            <PhoneInput
+                                                countryCode={formData.countryCode}
+                                                setCountryCode={(value) => updateField("countryCode", value)}
+                                                phoneNumber={formData.phoneNumber}
+                                                setPhoneNumber={(value) => updateField("phoneNumber", value)}
+                                                countryCodeError={errors.countryCode}
+                                                phoneNumberError={errors.phoneNumber}
+                                            />
+                                        </div>
+
+                                        {/* Next Button */}
+                                        <div className="pt-4 md:hidden">
+                                            <Button type="button" onClick={handleStep1Next} className="w-full bg-[#1E1E1E] hover:bg-gray-900 text-white py-3 rounded-md">
+                                                Next
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                {/* Partnership Details Section */}
+                                <section className={`${step === 2 ? "block" : "hidden md:block"}`}>
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-1">Partnership Details</h3>
+                                    <p className="text-sm text-gray-500 mb-4">Fill in the partnership form below</p>
+
+                                    <div className="flex flex-col gap-4">
+                                        <div>
+                                            <Label htmlFor="companyName">Company/Organization Name</Label>
+                                            <Input
+                                                id="companyName"
+                                                placeholder="Enter company name"
+                                                value={formData.companyName}
+                                                setValue={(value) => updateField("companyName", value)}
+                                                error={errors.companyName}
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <Label htmlFor="companyEmail">Company&apos;s Email</Label>
+                                            <Input
+                                                id="companyEmail"
+                                                type="email"
+                                                placeholder="Enter company email"
+                                                value={formData.companyEmail}
+                                                setValue={(value) => updateField("companyEmail", value)}
+                                                error={errors.companyEmail}
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <Label htmlFor="partnershipType">Partnership type</Label>
+                                            <Select
+                                                value={formData.partnershipType}
+                                                setValue={(value) => updateField("partnershipType", value)}
+                                                placeholder="Select partnership type"
+                                                error={errors.partnershipType}
+                                            >
+                                                <option value="affiliate_partner">Affiliate Partner</option>
+                                                <option value="technology_partner">Technology Partner</option>
+                                                <option value="integration_partner">Integration Partner</option>
+                                                <option value="reseller_partner">Reseller Partner</option>
+                                                <option value="strategic_partner">Strategic Partner</option>
+                                                <option value="channel_partner">Channel Partner</option>
+                                                <option value="other">Other</option>
+                                            </Select>
+                                        </div>
+
+                                        <div>
+                                            <Label htmlFor="businessSize">Business Size/Scale</Label>
+                                            <Select
+                                                value={formData.businessSize}
+                                                setValue={(value) => updateField("businessSize", value)}
+                                                placeholder="Select your business size"
+                                                error={errors.businessSize}
+                                            >
+                                                <option value="startup">Startup (1-10 employees)</option>
+                                                <option value="small">Small Business (11-50 employees)</option>
+                                                <option value="medium">Medium Business (51-200 employees)</option>
+                                                <option value="large">Large Business (201-1000 employees)</option>
+                                                <option value="enterprise">Enterprise (1000+ employees)</option>
+                                            </Select>
+                                        </div>
+
+                                        <div>
+                                            <Label htmlFor="budgetRange">Budget range (optional)</Label>
+                                            <Select
+                                                value={formData.budgetRange}
+                                                setValue={(value) => updateField("budgetRange", value)}
+                                                placeholder="Select estimated budget for this partnership"
+                                                error={errors.budgetRange}
+                                            >
+                                                <option value="under_10k">$0 - $10k</option>
+                                                <option value="10k_25k">$10k - $25k</option>
+                                                <option value="25k_50k">$25k - $50k</option>
+                                                <option value="50k_100k">$50k - $100k</option>
+                                                <option value="100k_250k">$100k - $250k</option>
+                                                <option value="250k_500k">$250k - $500k</option>
+                                                <option value="500k_plus">$500k+</option>
+                                            </Select>
+                                        </div>
+
+                                        <div>
+                                            <Label htmlFor="useCaseGoals">Use Case or Goals</Label>
+                                            <Textarea
+                                                id="useCaseGoals"
+                                                value={formData.useCaseGoals}
+                                                setValue={(value) => updateField("useCaseGoals", value)}
+                                                placeholder="Briefly describe your goals or how you envision using our AI automation solutions"
+                                                error={errors.useCaseGoals}
+                                                className="min-h-[120px]"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="pt-4 md:hidden mt-8 flex gap-2">
+                                        <Button type="button" className="w-full text-[#1E1E1E] bg-transparent py-6 rounded-md" onClick={() => setStep(1)}>
+                                            Back
+                                        </Button>
+                                        <Button type="button" onClick={handleStep2Next} className="w-full bg-[#1E1E1E] hover:bg-gray-900 text-white py-6 rounded-md">
+                                            Next
+                                        </Button>
+                                    </div>
+                                </section>
+
+                                {/* Additional Options Section */}
+                                <section className={`${step === 3 ? "block" : "hidden md:block"}`}>
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-1">Additional Options</h3>
+                                    <p className="text-sm text-gray-500 mb-4">Final Touches</p>
+
+                                    <div className="flex flex-col gap-4">
+                                        <div>
+                                            <Label htmlFor="preferredCommunication">Preferred communication method</Label>
+                                            <Select
+                                                value={formData.preferredCommunication}
+                                                setValue={(value) => updateField("preferredCommunication", value)}
+                                                placeholder="Select communication method"
+                                                error={errors.preferredCommunication}
+                                            >
+                                                <option value="email">Email</option>
+                                                <option value="phone">Phone</option>
+                                                <option value="video_call">Video Call</option>
+                                                <option value="in_person">In Person</option>
+                                                <option value="whatsapp">WhatsApp</option>
+                                                <option value="linkedin">LinkedIn</option>
+                                            </Select>
+                                        </div>
+
+                                        <div>
+                                            <Label htmlFor="howDidYouHearAboutUs">How did you hear about us?</Label>
+                                            <Select
+                                                value={formData.howDidYouHearAboutUs}
+                                                setValue={(value) => updateField("howDidYouHearAboutUs", value)}
+                                                placeholder="Select how you found us"
+                                                error={errors.howDidYouHearAboutUs}
+                                            >
+                                                <option value="whatsapp">WhatsApp</option>
+                                                <option value="google_search">Google</option>
+                                                <option value="linkedin">LinkedIn</option>
+                                                <option value="website">Website</option>
+                                                <option value="referral">Referral</option>
+                                                <option value="social_media">Social Media</option>
+                                                <option value="other">Other</option>
+                                            </Select>
+                                        </div>
+
+                                        <div>
+                                            <Label htmlFor="additionalComments">Additional comments (optional)</Label>
+                                            <Textarea
+                                                id="additionalComments"
+                                                value={formData.additionalComments}
+                                                setValue={(value) => updateField("additionalComments", value)}
+                                                placeholder="Any other thing you want to add"
+                                                error={errors.additionalComments}
+                                                className="min-h-[120px]"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="pt-4 mt-8 flex gap-2">
+                                        <Button type="button" className="md:hidden w-full text-[#1E1E1E] bg-transparent py-6 rounded-md" onClick={() => setStep(2)}>
+                                            Back
+                                        </Button>
+                                        <Button type="submit" disabled={isSubmitting} className="w-full bg-[#1E1E1E] hover:bg-[#1E1E1E]/90 text-white py-3 rounded-md disabled:opacity-50">
+                                            {isSubmitting ? "Submitting..." : "Submit"}
+                                        </Button>
+                                    </div>
+                                </section>
+                            </form>
+                        </>
                     )}
-
-                    {/* Step Progress - Mobile Only */}
-                    <div className="md:hidden mb-8">
-                        <StepProgress currentStep={step} totalSteps={3} />
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="space-y-8">
-                        {/* Personal Details Section */}
-                        <section className={`${step === 1 ? "block" : "hidden md:block"}`}>
-                            <h3 className="text-lg font-semibold text-gray-800 mb-1">Personal Details</h3>
-                            <p className="text-sm text-gray-500 mb-4">We&apos;d love to know you</p>
-
-                            <div className="flex flex-col gap-4">
-                                <div>
-                                    <Label htmlFor="fullName">Full Name</Label>
-                                    <Input id="fullName" placeholder="Enter your full name" value={formData.fullName} setValue={(value) => updateField("fullName", value)} error={errors.fullName} />
-                                </div>
-
-                                <div>
-                                    <Label htmlFor="personalEmail">Personal Email</Label>
-                                    <Input
-                                        id="personalEmail"
-                                        type="email"
-                                        placeholder="Enter your email"
-                                        value={formData.personalEmail}
-                                        setValue={(value) => updateField("personalEmail", value)}
-                                        error={errors.personalEmail}
-                                    />
-                                </div>
-
-                                <div>
-                                    <Label htmlFor="phone">Phone</Label>
-                                    <PhoneInput
-                                        countryCode={formData.countryCode}
-                                        setCountryCode={(value) => updateField("countryCode", value)}
-                                        phoneNumber={formData.phoneNumber}
-                                        setPhoneNumber={(value) => updateField("phoneNumber", value)}
-                                        countryCodeError={errors.countryCode}
-                                        phoneNumberError={errors.phoneNumber}
-                                    />
-                                </div>
-
-                                {/* Next Button */}
-                                <div className="pt-4 md:hidden">
-                                    <Button type="button" onClick={handleStep1Next} className="w-full bg-[#1E1E1E] hover:bg-gray-900 text-white py-3 rounded-md">
-                                        Next
-                                    </Button>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Partnership Details Section */}
-                        <section className={`${step === 2 ? "block" : "hidden md:block"}`}>
-                            <h3 className="text-lg font-semibold text-gray-800 mb-1">Partnership Details</h3>
-                            <p className="text-sm text-gray-500 mb-4">Fill in the partnership form below</p>
-
-                            <div className="flex flex-col gap-4">
-                                <div>
-                                    <Label htmlFor="companyName">Company/Organization Name</Label>
-                                    <Input
-                                        id="companyName"
-                                        placeholder="Enter company name"
-                                        value={formData.companyName}
-                                        setValue={(value) => updateField("companyName", value)}
-                                        error={errors.companyName}
-                                    />
-                                </div>
-
-                                <div>
-                                    <Label htmlFor="companyEmail">Company&apos;s Email</Label>
-                                    <Input
-                                        id="companyEmail"
-                                        type="email"
-                                        placeholder="Enter company email"
-                                        value={formData.companyEmail}
-                                        setValue={(value) => updateField("companyEmail", value)}
-                                        error={errors.companyEmail}
-                                    />
-                                </div>
-
-                                <div>
-                                    <Label htmlFor="partnershipType">Partnership type</Label>
-                                    <Select
-                                        value={formData.partnershipType}
-                                        setValue={(value) => updateField("partnershipType", value)}
-                                        placeholder="Select partnership type"
-                                        error={errors.partnershipType}
-                                    >
-                                        <option value="affiliate_partner">Affiliate Partner</option>
-                                        <option value="technology_partner">Technology Partner</option>
-                                        <option value="strategic_partner">Strategic Partner</option>
-                                        <option value="reseller_partner">Reseller Partner</option>
-                                        <option value="integration_partner">Integration Partner</option>
-                                    </Select>
-                                </div>
-
-                                <div>
-                                    <Label htmlFor="businessSize">Business Size/Scale</Label>
-                                    <Select value={formData.businessSize} setValue={(value) => updateField("businessSize", value)} placeholder="Select your business size" error={errors.businessSize}>
-                                        <option value="startup">Startup (1-10 employees)</option>
-                                        <option value="small">Small Business (11-50 employees)</option>
-                                        <option value="medium">Medium Business (51-200 employees)</option>
-                                        <option value="large">Large Business (201-500 employees)</option>
-                                        <option value="enterprise">Enterprise (500+ employees)</option>
-                                    </Select>
-                                </div>
-
-                                <div>
-                                    <Label htmlFor="budgetRange">Budget range (optional)</Label>
-                                    <Select
-                                        value={formData.budgetRange}
-                                        setValue={(value) => updateField("budgetRange", value)}
-                                        placeholder="Select estimated budget for this partnership"
-                                        error={errors.budgetRange}
-                                    >
-                                        <option value="0_10k">$0 - $10k</option>
-                                        <option value="10k_25k">$10k - $25k</option>
-                                        <option value="25k_50k">$25k - $50k</option>
-                                        <option value="50k_100k">$50k - $100k</option>
-                                        <option value="100k+">$100k+</option>
-                                    </Select>
-                                </div>
-
-                                <div>
-                                    <Label htmlFor="useCaseGoals">Use Case or Goals</Label>
-                                    <Textarea
-                                        id="useCaseGoals"
-                                        value={formData.useCaseGoals}
-                                        setValue={(value) => updateField("useCaseGoals", value)}
-                                        placeholder="Briefly describe your goals or how you envision using our AI automation solutions"
-                                        error={errors.useCaseGoals}
-                                        className="min-h-[120px]"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Actions */}
-                            <div className="pt-4 md:hidden mt-8 flex gap-2">
-                                <Button type="button" className="w-full text-[#1E1E1E] bg-transparent py-6 rounded-md" onClick={() => setStep(1)}>
-                                    Back
-                                </Button>
-                                <Button type="button" onClick={handleStep2Next} className="w-full bg-[#1E1E1E] hover:bg-gray-900 text-white py-6 rounded-md">
-                                    Next
-                                </Button>
-                            </div>
-                        </section>
-
-                        {/* Additional Options Section */}
-                        <section className={`${step === 3 ? "block" : "hidden md:block"}`}>
-                            <h3 className="text-lg font-semibold text-gray-800 mb-1">Additional Options</h3>
-                            <p className="text-sm text-gray-500 mb-4">Final Touches</p>
-
-                            <div className="flex flex-col gap-4">
-                                <div>
-                                    <Label htmlFor="preferredCommunication">Preferred communication method</Label>
-                                    <Select
-                                        value={formData.preferredCommunication}
-                                        setValue={(value) => updateField("preferredCommunication", value)}
-                                        placeholder="Select communication method"
-                                        error={errors.preferredCommunication}
-                                    >
-                                        <option value="email">Email</option>
-                                        <option value="phone">Phone</option>
-                                        <option value="whatsapp">WhatsApp</option>
-                                        <option value="linkedin">LinkedIn</option>
-                                        <option value="video_call">Video Call</option>
-                                    </Select>
-                                </div>
-
-                                <div>
-                                    <Label htmlFor="howDidYouHearAboutUs">How did you hear about us?</Label>
-                                    <Select
-                                        value={formData.howDidYouHearAboutUs}
-                                        setValue={(value) => updateField("howDidYouHearAboutUs", value)}
-                                        placeholder="Select how you found us"
-                                        error={errors.howDidYouHearAboutUs}
-                                    >
-                                        <option value="whatsapp">WhatsApp</option>
-                                        <option value="google_search">Google</option>
-                                        <option value="linkedin">LinkedIn</option>
-                                        <option value="website">Website</option>
-                                        <option value="referral">Referral</option>
-                                        <option value="social_media">Social Media</option>
-                                        <option value="other">Other</option>
-                                    </Select>
-                                </div>
-
-                                <div>
-                                    <Label htmlFor="additionalComments">Additional comments (optional)</Label>
-                                    <Textarea
-                                        id="additionalComments"
-                                        value={formData.additionalComments}
-                                        setValue={(value) => updateField("additionalComments", value)}
-                                        placeholder="Any other thing you want to add"
-                                        error={errors.additionalComments}
-                                        className="min-h-[120px]"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Actions */}
-                            <div className="pt-4 mt-8 flex gap-2">
-                                <Button type="button" className="md:hidden w-full text-[#1E1E1E] bg-transparent py-6 rounded-md" onClick={() => setStep(2)}>
-                                    Back
-                                </Button>
-                                <Button type="submit" disabled={isSubmitting} className="w-full bg-[#1E1E1E] hover:bg-[#1E1E1E]/90 text-white py-3 rounded-md disabled:opacity-50">
-                                    {isSubmitting ? "Submitting..." : "Submit"}
-                                </Button>
-                            </div>
-                        </section>
-                    </form>
                 </div>
             </motion.div>
         </motion.div>
