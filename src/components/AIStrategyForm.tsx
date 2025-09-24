@@ -194,13 +194,24 @@ const AIStrategyForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                                     <label htmlFor="industryType" className="block text-sm font-medium text-gray-700 mb-2">
                                         Industry/Business Type
                                     </label>
-                                    <Input
-                                        id="industryType"
-                                        placeholder="Marketing"
+                                    <Select
                                         value={formData.industryType}
                                         setValue={(value) => updateField("industryType", value)}
+                                        placeholder="Select your industry"
                                         error={errors.industryType}
-                                    />
+                                    >
+                                        <option value="ecommerce">Ecommerce</option>
+                                        <option value="retail">Retail</option>
+                                        <option value="manufacturing">Manufacturing</option>
+                                        <option value="service">Service</option>
+                                        <option value="healthcare">Healthcare</option>
+                                        <option value="education">Education</option>
+                                        <option value="finance">Finance</option>
+                                        <option value="technology">Technology</option>
+                                        <option value="media">Media</option>
+                                        <option value="marketing">Marketing</option>
+                                        <option value="other">Other</option>
+                                    </Select>
                                 </div>
 
                                 {/* Primary Business Challenge */}
