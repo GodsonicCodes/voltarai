@@ -43,7 +43,7 @@ const AccordionList: AccordionItemType[] = [
 
 const FAQ = () => {
   return (
-    <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4">
+    <section className="py-20 md:max-w-[70%] lg:mx-auto bg-bgBlack px-2 sm:px-4">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-2xl md:text-4xl font-[494] mb-10 textradialgradientgrey">
           Frequently <span className="textradialgradientblue">Asked</span> Questions
