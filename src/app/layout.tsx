@@ -101,6 +101,14 @@ export const metadata: Metadata = {
     description: "AI automation at your doorstep",
 };
 
+// Viewport configuration for mobile zoom fix
+export const viewport = {
+    width: "device-width",
+    initialScale: 1.0,
+    maximumScale: 1.0,
+    userScalable: false,
+};
+
 // Root layout component
 export default function RootLayout({
   children,
