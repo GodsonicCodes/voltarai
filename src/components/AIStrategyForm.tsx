@@ -128,11 +128,11 @@ const AIStrategyForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                                     <div className="mt-3">
                                         {/* Desktop styling */}
                                         <p className="hidden md:block text-base font-[375] font-['Author'] leading-[122%] tracking-[0%] align-middle text-[#1E1E1E]">
-                                            Free Consultation, no obligations and a 24-hour delivery
+                                            Free Consultation, no obligations and a 48-hour delivery
                                         </p>
                                         {/* Mobile styling */}
                                         <p className="md:hidden text-sm font-[375] font-['Author'] leading-[125%] tracking-[0%] align-middle text-[#000000B2]">
-                                            Free Consultation, no obligations and a 24-hour delivery
+                                            Free Consultation, no obligations and a 48-hour delivery
                                         </p>
                                     </div>
                                 </div>
@@ -247,7 +247,7 @@ const AIStrategyForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                                     <p className="text-xs text-gray-500">
                                         ✓ Free consultation with no obligations
                                         <br />
-                                        ✓ Custom AI strategy delivered in 24 hours
+                                        ✓ Custom AI strategy delivered in 48 hours
                                         <br />✓ No credit card required
                                     </p>
                                 </div>
