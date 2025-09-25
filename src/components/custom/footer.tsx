@@ -38,7 +38,7 @@ const Footer = () => {
               />
             ))}
           <p className="order-2 self-end text-white/80 text-sm md:text-base leading-none whitespace-nowrap shrink-0">
-            &copy; {date} Dreamosoft
+            &copy; {date} Voltar AI
           </p>
         </div>
       </motion.div>
@@ -73,7 +73,7 @@ const Footer = () => {
             />
           ))}
         <p className="order-2 self-end text-white/80 text-sm md:text-base leading-none">
-          &copy; {date} Dreamosoft
+          &copy; {date} Voltar AI
         </p>
       </div>
     </motion.div>
