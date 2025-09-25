@@ -113,7 +113,7 @@ const AIStrategyForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                     damping: 25,
                     opacity: {duration: 0.4},
                 }}
-                className="bg-white max-w-xl w-full min-h-[90vh] max-h-[100vh] overflow-y-auto shadow-2xl rounded-lg"
+                className="bg-white max-w-xl w-full min-h-[90dvh] max-h-[100dvh] overflow-y-auto shadow-2xl rounded-lg"
             >
                 <div className="p-6" ref={parentRef}>
                     {showSuccessForm ? (
@@ -128,11 +128,11 @@ const AIStrategyForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                                     <div className="mt-3">
                                         {/* Desktop styling */}
                                         <p className="hidden md:block text-base font-[375] font-['Author'] leading-[122%] tracking-[0%] align-middle text-[#1E1E1E]">
-                                            Free Consultation, no obligations and a 24-hour delivery
+                                            Free Consultation, no obligations and a 48-hour delivery
                                         </p>
                                         {/* Mobile styling */}
                                         <p className="md:hidden text-sm font-[375] font-['Author'] leading-[125%] tracking-[0%] align-middle text-[#000000B2]">
-                                            Free Consultation, no obligations and a 24-hour delivery
+                                            Free Consultation, no obligations and a 48-hour delivery
                                         </p>
                                     </div>
                                 </div>
@@ -194,12 +194,7 @@ const AIStrategyForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                                     <label htmlFor="industryType" className="block text-sm font-medium text-gray-700 mb-2">
                                         Industry/Business Type
                                     </label>
-                                    <Select
-                                        value={formData.industryType}
-                                        setValue={(value) => updateField("industryType", value)}
-                                        placeholder="Select your industry"
-                                        error={errors.industryType}
-                                    >
+                                    <Select value={formData.industryType} setValue={(value) => updateField("industryType", value)} placeholder="Select your industry" error={errors.industryType}>
                                         <option value="ecommerce">Ecommerce</option>
                                         <option value="retail">Retail</option>
                                         <option value="manufacturing">Manufacturing</option>
@@ -252,7 +247,7 @@ const AIStrategyForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                                     <p className="text-xs text-gray-500">
                                         ✓ Free consultation with no obligations
                                         <br />
-                                        ✓ Custom AI strategy delivered in 24 hours
+                                        ✓ Custom AI strategy delivered in 48 hours
                                         <br />✓ No credit card required
                                     </p>
                                 </div>

@@ -28,19 +28,19 @@ const typicalResults: Results[] = [
 
 const Results = () => {
   return (
-    <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4 overflow-hidden">
+    <section className="py-20 md:max-w-[70%] lg:mx-auto bg-bgBlack px-10 sm:px-4 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full max-w-7xl mx-auto"
+        className="w-full min-w-[70%] lg:mx-auto"
       >
         <h2 className="text-2xl md:text-4xl font-[494] mb-12 text-center textradialgradientgrey">
           Real <span className="textradialgradientblue">Impact,</span> Real Fast
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start justify-items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start justify-items-start lg:justify-items-center">
           {/* Weeks Impact */}
           <div className="flex flex-col gap-6 md:gap-8 items-center">
             {weekImpact.map((week) => (
@@ -50,7 +50,7 @@ const Results = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.4, ease: "easeOut", delay: week.id * 0.05 }}
-                className="flex flex-col w-full max-w-2xl"
+                className="flex flex-col w-full min-w-[300px] max-w-3xl lg:max-w-2xl"
               >
                 <p className="text-white text-lg md:text-xl lg:text-2xl font-medium text-left">Week {week.week}:</p>
                 <p className="text-white/70 text-base md:text-lg lg:text-xl text-left">{week.details}</p>
@@ -63,7 +63,7 @@ const Results = () => {
             <p className="text-center text-2xl md:text-4xl font-[494] textradialgradientgrey">
               Typical Results
             </p>
-            <div className="flex flex-col gap-6 md:gap-8 w-full max-w-2xl">
+            <div className="flex flex-col gap-6 md:gap-8 w-full min-w-[300px] max-w-3xl lg:max-w-2xl">
               {typicalResults.map((results) => (
                 <motion.span
                   key={results.id}

@@ -20,13 +20,8 @@ const formatAIStrategyData = (data: AIStrategyFormData): AIStrategySubmissionDat
     };
 };
 
-export interface AIStrategyResponse {
-    success: boolean;
-    message: string;
-    data?: any;
-}
 
-export async function createAIStrategy(data: AIStrategyFormData): Promise<AIStrategyResponse> {
+export async function createAIStrategy(data: AIStrategyFormData) {
     "use server";
 
     try {

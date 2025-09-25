@@ -10,6 +10,9 @@ import ContactForm from "../ContactForm";
 import Navbar from "../Navbar";
 import People from "./People";
 
+import Image from "next/image";
+import line from "@/../public/assets/line.svg"; // keep your existing import path (or adjust if your project resolves differently)
+
 export default function HeroSection() {
   const rotatingTexts = [
     "Scale Your Business 10x Faster With Custom AI Automation That Never Sleeps",
@@ -24,7 +27,9 @@ export default function HeroSection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % rotatingTexts.length);
+      setCurrentTextIndex(
+        (prevIndex) => (prevIndex + 1) % rotatingTexts.length
+      );
     }, 4000);
     return () => clearInterval(interval);
   }, [rotatingTexts.length]);
@@ -48,66 +53,68 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* Corner lines with responsive positions */}
-      <motion.img
-        src="/line.svg"
+      {/* Corner lines with responsive positions (no animation, using next/image) */}
+      <Image
+        src="/assets/lines.svg"
         alt="corner line"
         className="absolute 
           top-[6%] left-[6%]   
           sm:top-[5%] sm:left-[5%] 
           md:top-[4%] md:left-[4%] 
           lg:top-[3%] lg:left-[3%] 
-          w-[clamp(4rem,8vw,12rem)] opacity-40"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: [0.25, 0.5, 0.25], scale: [0.95, 1, 0.95] }}
-        transition={{ duration: 6, repeat: Infinity }}
+          w-[clamp(4rem,8vw,12rem)] rotate-110 opacity-40"
+        width={400}
+        height={400}
+        priority={false}
       />
 
-      <motion.img
-        src="/line.svg"
+      <Image
+        src="/assets/lines.svg"
         alt="corner line"
         className="absolute 
           top-[6%] right-[6%] 
           sm:top-[5%] sm:right-[5%] 
           md:top-[4%] md:right-[4%] 
           lg:top-[3%] lg:right-[3%] 
-          w-[clamp(4rem,8vw,12rem)] rotate-80 opacity-40"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: [0.25, 0.5, 0.25], scale: [0.95, 1, 0.95] }}
-        transition={{ duration: 6, repeat: Infinity, delay: 1 }}
+          w-[clamp(4rem,8vw,12rem)] rotate-180 opacity-40"
+        width={400}
+        height={400}
+        priority={false}
       />
 
-      <motion.img
-        src="/line.svg"
+      <Image
+        src="/assets/lines.svg"
         alt="corner line"
         className="absolute 
           bottom-[6%] left-[6%] 
           sm:bottom-[5%] sm:left-[5%] 
           md:bottom-[2%] md:left-[4%] 
           lg:bottom-[3%] lg:left-[3%] 
-          w-[clamp(4rem,8vw,12rem)] -rotate-90 opacity-40"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: [0.25, 0.5, 0.25], scale: [0.95, 1, 0.95] }}
-        transition={{ duration: 6, repeat: Infinity, delay: 2 }}
+          w-[clamp(4rem,8vw,12rem)] -rotate-180 opacity-40"
+        width={400}
+        height={400}
+        priority={false}
       />
 
-      <motion.img
-        src="/line.svg"
+      <Image
+        src="/assets/lines.svg"
         alt="corner line"
         className="absolute 
           bottom-[6%] right-[6%] 
           sm:bottom-[5%] sm:right-[5%] 
           md:bottom-[2%] md:right-[4%] 
           lg:bottom-[3%] lg:right-[3%] 
-          w-[clamp(4rem,8vw,12rem)] rotate-170 opacity-40"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: [0.25, 0.5, 0.25], scale: [0.95, 1, 0.95] }}
-        transition={{ duration: 6, repeat: Infinity, delay: 3 }}
+          w-[clamp(4rem,8vw,12rem)] rotate-100 opacity-40"
+        width={400}
+        height={400}
+        priority={false}
       />
+
       {/* People component at the top, centered and responsive */}
       <div className="absolute md:top-15 hidden left-0 w-full md:flex justify-center z-30">
         <People />
       </div>
+
       {/* Main content */}
       <div className="max-w-6xl mx-auto text-center relative">
         {/* Headline */}
@@ -118,7 +125,9 @@ export default function HeroSection() {
           className=" mb-4"
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-[494] leading-tight tracking-tight">
-            <div className="textradialgradientgrey mb-1 ">We Turn Your Manual</div>
+            <div className="textradialgradientgrey mb-1 ">
+              We Turn Your Manual
+            </div>
             <div className="textradialgradientgrey mb-1 ">Business Into An</div>
             <div className="textradialgradientgrey">
               <span className="textradialgradientblue">Automated</span> Money
@@ -160,6 +169,7 @@ export default function HeroSection() {
           </div>
         </motion.div>
       </div>
+
       {/* Service Request Form Modal */}
       <AnimatePresence>
         {showServiceForm && (

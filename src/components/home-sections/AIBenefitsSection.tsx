@@ -12,7 +12,7 @@ export default function AIBenefitsSection() {
     return (
         <>
             <section
-                className="w-full mt-12 md:w-[70%] mx-auto md:min-h-[60vh] pt-10 md:pt-0 flex items-center justify-center px-4 bg-bgBlack relative overflow-hidden"
+                className="w-full mt-12 md:w-[70%] mx-auto md:min-h-[60dvh] pt-10 md:pt-0 flex items-center justify-center px-4 bg-bgBlack relative overflow-hidden"
                 style={{
                     backgroundImage: "url('/assets/curvedline.svg')",
                     backgroundRepeat: "no-repeat",
@@ -26,7 +26,6 @@ export default function AIBenefitsSection() {
                     transition={{duration: 1.2, ease: "easeOut"}}
                     className="absolute inset-0 z-0"
                     style={{
-
                         backgroundImage: "url('/assets/curvedline.svg')",
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
@@ -45,7 +44,6 @@ export default function AIBenefitsSection() {
                         We Harness AI To{" "}
                     </motion.h2>
 
-
                     <motion.h2
                         initial={{opacity: 0, y: 30}}
                         whileInView={{opacity: 1, y: 0}}
@@ -58,8 +56,6 @@ export default function AIBenefitsSection() {
                         </motion.span>{" "}
                         Your Experience
                     </motion.h2>
-
-
 
                     <motion.p
                         initial={{opacity: 0, y: 20}}

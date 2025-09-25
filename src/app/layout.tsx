@@ -97,8 +97,27 @@ const geistMono = Geist_Mono({
 
 // Metadata for the page
 export const metadata: Metadata = {
-    title: "voltarai",
+    title: "Voltar AI",
     description: "AI automation at your doorstep",
+    icons: {
+        icon: [{
+            media: '(prefers-color-scheme: light)',
+            url: '/assets/icons/VoltarAi_logo_black.ico',
+            href: '/assets/icons/VoltarAi_logo_black.ico',
+          },
+          {
+            media: '(prefers-color-scheme: dark)',
+            url: '/assets/icons/VoltarAi_logo_white.ico',
+            href: '/assets/icons/VoltarAi_logo_white.ico',
+          },]}
+};
+
+// Viewport configuration for mobile zoom fix
+export const viewport = {
+    width: "device-width",
+    initialScale: 1.0,
+    maximumScale: 1.0,
+    userScalable: false,
 };
 
 // Root layout component
