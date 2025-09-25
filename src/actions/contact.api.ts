@@ -31,9 +31,9 @@ const formatContactData = (data: ContactFormData): ContactSubmissionData => {
         organization_website: data.organizationWebsite,
         organization_size: data.organizationSize,
         annual_revenue: data.annualRevenue,
-        service_type: data.aiServiceType.toLowerCase().replace(/\s+/g, "_"),
+        service_type: data.aiServiceType,
         project_budget: data.projectBudget,
-        how_found: data.howDidYouFindUs.toLowerCase().replace(/\s+/g, "_"),
+        how_found: data.howDidYouFindUs,
         message: data.message,
     };
 };

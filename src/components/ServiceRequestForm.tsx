@@ -307,14 +307,10 @@ const ServiceRequestForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                                         <div>
                                             <Label htmlFor="serviceType">Service Type Needed</Label>
                                             <Select value={formData.serviceType} setValue={(value) => updateField("serviceType", value)} placeholder="Select service type" error={errors.serviceType}>
-                                                <option value="workflow_automation">Workflow Automation</option>
-                                                <option value="ai_chatbot">AI Chatbot Development</option>
-                                                <option value="data_analysis">Data Analysis & Insights</option>
-                                                <option value="process_optimization">Process Optimization</option>
-                                                <option value="custom_ai_solution">Custom AI Solution</option>
-                                                <option value="ai_integration">AI Integration</option>
-                                                <option value="consulting">AI Consulting</option>
-                                                <option value="other">Other</option>
+                                                <option value="process_automation">Process Automation</option>
+                                                <option value="customer_service_automation">Customer Service Automation</option>
+                                                <option value="sales_and_lead_generation">Sales and Lead Generation</option>
+                                                <option value="custom_ai_automation_solution">Custom AI Automation Solution</option>
                                             </Select>
                                         </div>
 
