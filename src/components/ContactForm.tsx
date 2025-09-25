@@ -449,31 +449,21 @@ const ContactForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     tell us about your project
                   </p>
 
-                  <div className="flex flex-col gap-4">
-                    <div>
-                      <Label htmlFor="aiServiceType">AI Service Type</Label>
-                      <Select
-                        value={formData.aiServiceType}
-                        setValue={(value) =>
-                          updateField("aiServiceType", value)
-                        }
-                        placeholder="Select AI service type"
-                        error={errors.aiServiceType}
-                      >
-                        <option value="ai_sales_assistant">
-                          AI Sales Assistant
-                        </option>
-                        <option value="ai_customer_service">
-                          AI Customer Service
-                        </option>
-                        <option value="ai_marketing">AI Marketing</option>
-                        <option value="custom_ai_solution">
-                          Custom AI Solution
-                        </option>
-                        <option value="ai_consulting">AI Consulting</option>
-                        <option value="other">Other</option>
-                      </Select>
-                    </div>
+                                    <div className="flex flex-col gap-4">
+                                        <div>
+                                            <Label htmlFor="aiServiceType">AI Service Type</Label>
+                                            <Select
+                                                value={formData.aiServiceType}
+                                                setValue={(value) => updateField("aiServiceType", value)}
+                                                placeholder="Select AI service type"
+                                                error={errors.aiServiceType}
+                                            >
+                                                <option value="process_automation">Process Automation</option>
+                                                <option value="customer_service_automation">Customer Service Automation</option>
+                                                <option value="sales_and_lead_generation">Sales and Lead Generation</option>
+                                                <option value="custom_ai_automation_solution">Custom AI Automation Solution</option>
+                                            </Select>
+                                        </div>
 
                     <div>
                       <Label htmlFor="projectBudget">Project Budget</Label>

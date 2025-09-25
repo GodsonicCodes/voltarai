@@ -1,4 +1,5 @@
-import * as React from "react";
+"use client";
+import React, {useEffect, useState} from "react";
 import {ChevronDown} from "lucide-react";
 import {cn} from "@/lib/utils";
 
@@ -12,21 +13,18 @@ export interface PhoneInputProps {
     className?: string;
 }
 
-const countryOptions = [
-    {value: "+233", label: "GH +233"},
-    {value: "+1", label: "US +1"},
-    {value: "+44", label: "UK +44"},
-    {value: "+1", label: "CA +1"},
-    {value: "+61", label: "AU +61"},
-    {value: "+49", label: "DE +49"},
-    {value: "+33", label: "FR +33"},
-    {value: "+39", label: "IT +39"},
-    {value: "+34", label: "ES +34"},
-    {value: "+31", label: "NL +31"},
-];
+import countryOptions from "@/data/country_phone_codes";
 
 const PhoneInput: React.FC<PhoneInputProps> = ({countryCode, setCountryCode, phoneNumber, setPhoneNumber, countryCodeError, phoneNumberError, className}) => {
     const hasError = countryCodeError || phoneNumberError;
+
+    const [country, setCountry] = useState(countryCode);
+
+    useEffect(() => {
+        setCountryCode(countryOptions.find((option) => option.label === country)?.value || "");
+        // Just country else setCountryCode as dependency will retrigger the useEffect always
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [country]);
 
     return (
         <div className={cn("w-full", className)}>
@@ -34,18 +32,18 @@ const PhoneInput: React.FC<PhoneInputProps> = ({countryCode, setCountryCode, pho
                 {/* Country Code Select */}
                 <div className="relative w-24 border-r border-gray-300">
                     <select
-                        value={countryCode}
-                        onChange={(e) => setCountryCode(e.target.value)}
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
                         className={cn(
                             "flex h-full w-full text-black appearance-none bg-transparent px-3 py-2 pr-8 text-xs focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
                             countryCodeError && "text-red-500"
                         )}
                     >
-                        <option value="" disabled>
+                        <option value={""} disabled>
                             Select country
                         </option>
                         {countryOptions.map((option) => (
-                            <option key={option.label} className="text-black" value={option.value}>
+                            <option key={option.label} className="text-black" value={option.label}>
                                 {option.label}
                             </option>
                         ))}
