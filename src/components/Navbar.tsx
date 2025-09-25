@@ -20,10 +20,10 @@ export default function Navbar({onGetInTouchClick}: NavbarProps) {
     return (
         <nav className="absolute top-0 left-0 right-0 z-10 p-6">
             <div className="max-w-7xl mx-auto flex justify-between items-center">
-                {/* Brand logo with white dot and "Voltar.ai" text */}
+                {/* Brand logo*/}
                 <motion.div initial={{opacity: 0, x: -20}} animate={{opacity: 1, x: 0}} transition={{duration: 0.6}} className="flex items-center space-x-3">
-                    <Image src={desktopLogo} alt="Voltar.ai Logo" className="hidden sm:block h-8 w-auto"/>
-                    <Image src={mobileLogo} alt="Voltar.ai Logo" className="sm:hidden h-8 w-auto"/>
+                    <Image src={desktopLogo} alt="Voltar.ai Logo" className="hidden sm:block h-8 w-auto" />
+                    <Image src={mobileLogo} alt="Voltar.ai Logo" className="sm:hidden h-8 w-auto" />
                 </motion.div>
 
                 {/* Action buttons */}
