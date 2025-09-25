@@ -113,7 +113,7 @@ const AIStrategyForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                     damping: 25,
                     opacity: {duration: 0.4},
                 }}
-                className="bg-white max-w-xl w-full min-h-[90vh] max-h-[100vh] overflow-y-auto shadow-2xl rounded-lg"
+                className="bg-white max-w-xl w-full min-h-[90dvh] max-h-[100dvh] overflow-y-auto shadow-2xl rounded-lg"
             >
                 <div className="p-6" ref={parentRef}>
                     {showSuccessForm ? (
@@ -194,12 +194,7 @@ const AIStrategyForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                                     <label htmlFor="industryType" className="block text-sm font-medium text-gray-700 mb-2">
                                         Industry/Business Type
                                     </label>
-                                    <Select
-                                        value={formData.industryType}
-                                        setValue={(value) => updateField("industryType", value)}
-                                        placeholder="Select your industry"
-                                        error={errors.industryType}
-                                    >
+                                    <Select value={formData.industryType} setValue={(value) => updateField("industryType", value)} placeholder="Select your industry" error={errors.industryType}>
                                         <option value="ecommerce">Ecommerce</option>
                                         <option value="retail">Retail</option>
                                         <option value="manufacturing">Manufacturing</option>

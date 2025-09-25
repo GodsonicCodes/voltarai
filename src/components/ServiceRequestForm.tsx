@@ -197,7 +197,7 @@ const ServiceRequestForm: React.FC<{onClose: () => void}> = ({onClose}) => {
                     damping: 25,
                     opacity: {duration: 0.4},
                 }}
-                className="bg-white max-w-xl w-full min-h-[90vh] md:h-[100vh] max-h-[100vh] overflow-y-auto shadow-2xl"
+                className="bg-white max-w-xl w-full min-h-[90dvh] md:h-[100dvh] max-h-[100dvh] overflow-y-auto shadow-2xl"
             >
                 <div className="p-6" ref={parentRef}>
                     {submitMessage && submitMessage.type === "success" ? (
