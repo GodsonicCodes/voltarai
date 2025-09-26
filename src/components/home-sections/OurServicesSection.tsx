@@ -8,27 +8,36 @@ import customerImg from "@/../public/assets/OurServices/Customer.svg";
 import salesImg from "@/../public/assets/OurServices/Sales.svg";
 import dataImg from "@/../public/assets/OurServices/Data.svg";
 
+import hoverworkflowImg from "@/../public/assets/OurServices/hoverworkflow.svg";
+import hovercustomerImg from "@/../public/assets/OurServices/hoveragents.svg";
+import hoversalesImg from "@/../public/assets/OurServices/hoversales.svg";
+import hoverdataImg from "@/../public/assets/OurServices/hoverprocessors.svg";
+
 const services = [
   {
     image: workflowImg,
+    hoverImage: hoverworkflowImg,
     title: "AI-Workflow Automation",
     description:
       "Connect all your tools with intelligent automation. Client example: Order-to-fulfillment happens without human touch.",
   },
   {
     image: customerImg,
+    hoverImage: hovercustomerImg,
     title: "AI- Customer Service Agents",
     description:
       "Handle inquiries, resolve issues, book appointments instantly. Client example: Processes 500+ support tickets daily with 97% satisfaction.",
   },
   {
     image: salesImg,
+    hoverImage: hoversalesImg,
     title: "AI Sales Assistants",
     description:
       "Qualify leads, follow up, schedule demos automatically. Client example: Books 80+ qualified sales calls monthly without human input.",
   },
   {
     image: dataImg,
+    hoverImage: hoverdataImg,
     title: "AI Data Processers",
     description:
       "Automate data entry, document processing, reporting. Client example: Processes invoices in 30 seconds vs 30 minutes manually.",
@@ -66,7 +75,7 @@ export default function OurServicesSection() {
                 stiffness: 80,
               }}
               viewport={{ once: true }}
-              className="relative rounded-[20px] flex flex-col items-center text-center shadow-lg w-full mx-auto hover:scale-[1.04] transition-transform duration-300"
+              className="group relative rounded-[20px] flex flex-col items-center text-center shadow-lg w-full mx-auto hover:scale-[1.04] transition-transform duration-300"
               style={{
                 minHeight: "320px",
                 maxWidth: "280px",
@@ -74,30 +83,35 @@ export default function OurServicesSection() {
             >
               {/* Radial gradient background */}
               <motion.div
-                className="absolute inset-0 rounded-[20px] z-0"
+                className="absolute inset-0 rounded-lg z-0 bg-bgBlack group-hover:bg-[radial-gradient(circle_at_50%_40%,#183b7a_0%,#0a1747_100%)] transition-colors duration-300"
                 initial={{ opacity: 0.7 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1, delay: index * 0.1 }}
-                style={{
-                  background:
-                    "radial-gradient(circle at 50% 40%, #183b7a 0%, #0a1747 100%)",
-                }}
               />
-              <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 pt-10 pb-6">
+              <div className="relative z-10 border border-white/20 rounded-lg flex flex-col items-center justify-center h-full px-4 pt-10 pb-6">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.7 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
                   viewport={{ once: true }}
                 >
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    width={70}
-                    height={70}
-                    className="mb-6 object-contain"
-                    priority
-                  />
+                  {/* Normal + Hover image swap */}
+                  <div className="relative w-[70px] h-[70px] mb-6">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-contain transition-opacity duration-300 group-hover:opacity-0"
+                      priority
+                    />
+                    <Image
+                      src={service.hoverImage}
+                      alt={`${service.title} hover`}
+                      fill
+                      className="object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      priority
+                    />
+                  </div>
                 </motion.div>
                 <motion.h3
                   initial={{ opacity: 0, y: 20 }}

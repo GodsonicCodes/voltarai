@@ -45,8 +45,8 @@ export default function HeroSection() {
           className="w-full h-full"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.25) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.25) 1px, transparent 1px)
+              linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px) ,
+              linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px) 
             `,
             backgroundSize: "clamp(20px, 4vw, 50px) clamp(20px, 4vw, 50px)",
           }}
