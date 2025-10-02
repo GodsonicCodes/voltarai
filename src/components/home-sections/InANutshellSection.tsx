@@ -7,16 +7,16 @@ export default function InANutshellSection() {
   const testimonials = [
     {
       quote:
-        "Our AI handles 340% more leads than our old sales team. ROI hit in 18 days",
+        "Our AI handles 340% more leads than we could on our own. ROI hit in 18 days",
       author: "Sarah Chen",
-      company: "CEO Techflow",
+      company: "Dreamosoft",
       companyLink: "#",
     },
     {
       quote:
-        "Saved $180k annually by replacing 3 customer service reps with AI",
+        "Saved $15k per month by automating client communication with AI",
       author: "Marcus Rodriguez",
-      company: "GrowthLab",
+      company: "Solopreneur",
       companyLink: "#",
     },
   ];
