@@ -14,11 +14,30 @@ export interface PhoneInputProps {
 }
 
 import countryOptions from "@/data/country_phone_codes";
+import { defaultSelector } from "@/utils/autoSelectCountry";
 
 const PhoneInput: React.FC<PhoneInputProps> = ({countryCode, setCountryCode, phoneNumber, setPhoneNumber, countryCodeError, phoneNumberError, className}) => {
     const hasError = countryCodeError || phoneNumberError;
 
     const [country, setCountry] = useState(countryCode);
+
+    // Auto-select user's country on component mount
+    useEffect(() => {
+        const setDefaultCountry = async () => {
+            try {
+                const defaultCountry = await defaultSelector();
+                if (defaultCountry && !country) {
+                    // Only set if no country is already selected
+                    setCountry(defaultCountry.label);
+                    setCountryCode(defaultCountry.value);
+                }
+            } catch (error) {
+                console.error("Error setting default country:", error);
+            }
+        };
+
+        setDefaultCountry();
+    }, []); // Empty dependency array - only run once on mount
 
     useEffect(() => {
         setCountryCode(countryOptions.find((option) => option.label === country)?.value || "");

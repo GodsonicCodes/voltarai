@@ -1,4 +1,4 @@
-const countryOptions = [
+export const countryOptions = [
     {value: "+93", label: "AF +93"},
     {value: "+358", label: "AX +358"},
     {value: "+355", label: "AL +355"},
