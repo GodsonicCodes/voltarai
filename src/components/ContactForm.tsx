@@ -21,6 +21,7 @@ import StepProgress from "@/components/ui/step-progress";
 import Success from "./ui/success";
 
 const ContactForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  
   const [step, setStep] = useState<number>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<{
