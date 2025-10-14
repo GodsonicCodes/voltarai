@@ -48,6 +48,9 @@ export const trackUserVisitUtil = async () => {
             visitor_uuid: userId,
             country: geoData.country || "Unknown",
             ip_address: geoData.ip || "Unknown",
+            city: geoData.city || "",
+            region: geoData.region || "",
+            location: `${geoData.city || ""}, ${geoData.region || ""}`,
             visit_date: today,
         };
 

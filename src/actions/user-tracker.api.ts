@@ -11,7 +11,7 @@ export interface UserTrackerResponse {
 export async function trackUserVisit(data: UserTrackerFormData): Promise<UserTrackerResponse | null> {
     try {
         // Try to call the API, but handle gracefully if endpoint doesn't exist
-        const response = await api("/user-track/", {
+        const response = await api("/ip-tracker", {
             method: "POST",
             body: JSON.stringify(data),
         });

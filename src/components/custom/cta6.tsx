@@ -4,6 +4,57 @@ import ButtonEffect from "../ui/ButtonEffect";
 import { ArrowUpRight } from "lucide-react";
 
 const CTA6 = () => {
+  const openCalendly = () => {
+    const url = "https://calendly.com/voltar-info";
+    if (typeof window === "undefined") return;
+
+    const calendly = (window as any).Calendly;
+
+    const openPopup = () => {
+      try {
+        (window as any).Calendly?.initPopupWidget({ url });
+      } catch (e) {
+        // no-op: if Calendly isn't available, we'll ensure script loads below
+      }
+    };
+
+    if (calendly && typeof calendly.initPopupWidget === "function") {
+      openPopup();
+      return;
+    }
+
+    // Fallback: load Calendly script on-demand, then open
+    const existing = document.querySelector(
+      'script[src="https://assets.calendly.com/assets/external/widget.js"]'
+    ) as HTMLScriptElement | null;
+
+    const ensureCss = () => {
+      const cssHref = "https://assets.calendly.com/assets/external/widget.css";
+      if (!document.querySelector(`link[href="${cssHref}"]`)) {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = cssHref;
+        document.head.appendChild(link);
+      }
+    };
+
+    const loadAndOpen = () => {
+      ensureCss();
+      const s = document.createElement("script");
+      s.src = "https://assets.calendly.com/assets/external/widget.js";
+      s.async = true;
+      s.onload = () => openPopup();
+      document.body.appendChild(s);
+    };
+
+    if (!existing) {
+      loadAndOpen();
+    } else if ((existing as any)._loaded) {
+      openPopup();
+    } else {
+      existing.addEventListener("load", openPopup, { once: true });
+    }
+  };
   return (
     <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4 overflow-hidden">
       <motion.div
@@ -22,7 +73,7 @@ const CTA6 = () => {
         </p>
 
         <div className="flex justify-center">
-          <ButtonEffect>
+          <ButtonEffect onClick={openCalendly}>
             <span>Get Our Custom AI Employee</span>
             <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" />
           </ButtonEffect>
