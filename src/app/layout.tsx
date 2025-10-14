@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/custom/footer";
 import UserTracker from "@/components/UserTracker";
 import React from "react";
+import Script from "next/script";
 
 import { Geist } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
@@ -158,6 +159,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={author.variable}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}>
         <UserTracker />
+        <Script
+          id="calendly-widget-css"
+          strategy="afterInteractive"
+        >{`(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://assets.calendly.com/assets/external/widget.css';document.head.appendChild(l);}())`}</Script>
+        <Script
+          id="calendly-widget-js"
+          src="https://assets.calendly.com/assets/external/widget.js"
+          strategy="afterInteractive"
+        />
         {children}
         <Footer />
       </body>
