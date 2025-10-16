@@ -3,16 +3,27 @@ import { motion } from "motion/react";
 import ButtonEffect from "../ui/ButtonEffect";
 import { ArrowUpRight } from "lucide-react";
 
+type CalendlyWidget = {
+  initPopupWidget: (opts: { url: string }) => void;
+  closePopupWidget?: () => void;
+};
+
+declare global {
+  interface Window {
+    Calendly?: CalendlyWidget;
+  }
+}
+
 const CTA6 = () => {
   const openCalendly = () => {
     const url = "https://calendly.com/voltar-info";
     if (typeof window === "undefined") return;
 
-    const calendly = (window as any).Calendly;
+    const calendly = window.Calendly;
 
     const openPopup = () => {
       try {
-        (window as any).Calendly?.initPopupWidget({ url });
+        window.Calendly?.initPopupWidget({ url });
       } catch (e) {
         // no-op: if Calendly isn't available, we'll ensure script loads below
       }
@@ -43,13 +54,20 @@ const CTA6 = () => {
       const s = document.createElement("script");
       s.src = "https://assets.calendly.com/assets/external/widget.js";
       s.async = true;
-      s.onload = () => openPopup();
+      s.addEventListener(
+        "load",
+        () => {
+          s.dataset.loaded = "true";
+          openPopup();
+        },
+        { once: true }
+      );
       document.body.appendChild(s);
     };
 
     if (!existing) {
       loadAndOpen();
-    } else if ((existing as any)._loaded) {
+    } else if (existing.dataset.loaded === "true") {
       openPopup();
     } else {
       existing.addEventListener("load", openPopup, { once: true });
@@ -84,3 +102,4 @@ const CTA6 = () => {
 };
 
 export default CTA6;
+
