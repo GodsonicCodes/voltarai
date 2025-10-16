@@ -2,6 +2,7 @@
 import { motion } from "motion/react";
 import ButtonEffect from "../ui/ButtonEffect";
 import { ArrowUpRight } from "lucide-react";
+import openCalendly from "@/utils/openCalendly";
 
 type CalendlyWidget = {
   initPopupWidget: (opts: { url: string }) => void;
@@ -15,63 +16,8 @@ declare global {
 }
 
 const CTA6 = () => {
-  const openCalendly = () => {
-    const url = "https://calendly.com/voltar-info";
-    if (typeof window === "undefined") return;
-
-    const calendly = window.Calendly;
-
-    const openPopup = () => {
-      try {
-        window.Calendly?.initPopupWidget({ url });
-      } catch (e) {
-        // no-op: if Calendly isn't available, we'll ensure script loads below
-      }
-    };
-
-    if (calendly && typeof calendly.initPopupWidget === "function") {
-      openPopup();
-      return;
-    }
-
-    // Fallback: load Calendly script on-demand, then open
-    const existing = document.querySelector(
-      'script[src="https://assets.calendly.com/assets/external/widget.js"]'
-    ) as HTMLScriptElement | null;
-
-    const ensureCss = () => {
-      const cssHref = "https://assets.calendly.com/assets/external/widget.css";
-      if (!document.querySelector(`link[href="${cssHref}"]`)) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = cssHref;
-        document.head.appendChild(link);
-      }
-    };
-
-    const loadAndOpen = () => {
-      ensureCss();
-      const s = document.createElement("script");
-      s.src = "https://assets.calendly.com/assets/external/widget.js";
-      s.async = true;
-      s.addEventListener(
-        "load",
-        () => {
-          s.dataset.loaded = "true";
-          openPopup();
-        },
-        { once: true }
-      );
-      document.body.appendChild(s);
-    };
-
-    if (!existing) {
-      loadAndOpen();
-    } else if (existing.dataset.loaded === "true") {
-      openPopup();
-    } else {
-      existing.addEventListener("load", openPopup, { once: true });
-    }
+  const openCalendlyPopup = () => {
+    openCalendly();
   };
   return (
     <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4 overflow-hidden">
@@ -91,7 +37,7 @@ const CTA6 = () => {
         </p>
 
         <div className="flex justify-center">
-          <ButtonEffect onClick={openCalendly}>
+          <ButtonEffect onClick={openCalendlyPopup}>
             <span>Get Our Custom AI Employee</span>
             <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" />
           </ButtonEffect>
