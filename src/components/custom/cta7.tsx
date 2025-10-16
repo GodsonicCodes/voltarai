@@ -2,8 +2,12 @@
 import { motion } from "motion/react";
 import ButtonEffect from "../ui/ButtonEffect";
 import { ArrowUpRight } from "lucide-react";
+import openCalendly from "@/utils/openCalendly";
 
 const CTA7 = () => {
+  const openCalendlyPopup = () => {
+    openCalendly();
+  };
   return (
     <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4 overflow-hidden">
       <motion.div
@@ -22,7 +26,7 @@ const CTA7 = () => {
         </p>
 
         <div className="flex justify-center">
-          <ButtonEffect>
+          <ButtonEffect onClick={openCalendlyPopup}>
             <span>Schedule Strategy Call</span>
             <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" />
           </ButtonEffect>
