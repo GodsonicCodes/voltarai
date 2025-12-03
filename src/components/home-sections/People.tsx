@@ -21,7 +21,7 @@ const People = () => {
 
             {/* Text */}
             <span className="ml-4 text-lg font-medium text-gray-300">
-                Trusted by <span className="font-semibold">10+</span> people
+                Trusted by <span className="font-semibold">10+</span> Businesses
             </span>
         </div>
     );
