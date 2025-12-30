@@ -7,22 +7,25 @@
    We provide a fallback variable so your original UI remains unchanged if the injected var is missing.
 */
 :root {
-  --font-author-fallback: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    --font-author-fallback:
+        ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial;
 }
 
 /* Apply the injected font if present, otherwise use your original fallback stack.
    This preserves exactly the look you had before while allowing the Author font to take precedence.
 */
-html, body {
-  font-family: var(--font-author, var(--font-author-fallback));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+html,
+body {
+    font-family: var(--font-author, var(--font-author-fallback));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 /* Custom color theme for the AI Employees website */
 /* All colors are defined as CSS custom properties for consistency */
-@theme {
+:root {
     /* Brand colors */
     --color-bgBlack: #000000; /* Main background color - pure black */
     --color-btngrey: #e5e5e7; /* Light grey for button backgrounds */
@@ -67,28 +70,139 @@ html, body {
 /* Used for secondary text elements that need visual hierarchy */
 .textradialgradientgrey {
     background: radial-gradient(circle, #ffffff 0%, #999999 100%);
+    -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: transparent;
+    display: inline-block; /* Required for some browsers */
 }
 
 /* Blue gradient text - creates a vibrant blue gradient effect */
 /* Used for key phrases and brand elements that need emphasis */
 .textradialgradientblue {
     background: radial-gradient(circle, #004ae9 0%, #83a7f5 100%);
+    -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: transparent;
+    display: inline-block; /* Required for some browsers */
 }
 
 /* Custom radial gradient */
 .customtext-radial {
-  background: radial-gradient(55.98% 55.98% at 44.02% 50.75%, #FFFFFF 0%, #999999 100%);
-  background-clip: text;
-  color: transparent;
+    background: radial-gradient(
+        55.98% 55.98% at 44.02% 50.75%,
+        #ffffff 0%,
+        #999999 100%
+    );
+    background-clip: text;
+    color: transparent;
 }
 
-.curvedlinebg{
-  background-image: url('/public/assets/curvedline.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+.curvedlinebg {
+    background-image: url("/public/assets/curvedline.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
+
+.radial-ai-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .radial-ai-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* gradient ring */
+.radial-ai-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.1s linear;
+}
+
+/* create “only border” effect using masking */
+.radial-ai-ring::before {
+  content: "";
+  position: absolute;
+  inset: -6px; /* ring thickness */
+  border-radius: 50%;
+  background: linear-gradient(
+    224.01deg,
+    #004ae9 12.4%,
+    #022266 84.58%
+  );
+
+  /* punch a hole in the center */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+
+  padding: 8px;
+}
+
+/* Loading dots animation */
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+.animate-dots {
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+}
+
+.animate-dots::after {
+  display: inline-block;
+  animation: dots 3s infinite;
+  content: '.';
+  width: 1.2em;
+}
+
+/* Hidden scrollbar - Enhanced for cross-browser compatibility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  overflow: -moz-scrollbars-none; /* Old Firefox */
+}
+
+/* Ensure scroll functionality is maintained */
+.no-scrollbar {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+}
+
+/* Additional scrollbar hiding for WebKit browsers */
+.no-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+

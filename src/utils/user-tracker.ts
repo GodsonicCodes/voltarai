@@ -35,12 +35,19 @@ export const trackUserVisitUtil = async () => {
             }
 
             geoData = await geoRes.json();
-        } catch (fetchError) {
-            console.error("GeoJS fetch failed:", fetchError);
+        } catch (fetchError: any) {
+            // Check if it's an abort error and handle it specifically
+            if (fetchError.name === 'AbortError') {
+                console.warn("GeoJS fetch timed out or was aborted");
+            } else {
+                console.error("GeoJS fetch failed:", fetchError);
+            }
             console.warn("Using default location data due to API failure");
             geoData = {
                 country: "Unknown",
-                ip: "Unknown"
+                ip: "Unknown",
+                city: "Unknown",
+                region: "Unknown"
             };
         }
 

@@ -34,7 +34,7 @@ const customAgents = [
 
 export default function CustomAIAgentsSection() {
   return (
-    <section className="py-20 md:max-w-[70%] mx-auto bg-black px-2 sm:px-4">
+    <section id="custom-ai-agents" className="py-20 md:max-w-[70%] mx-auto bg-black px-2 sm:px-4">
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <motion.div

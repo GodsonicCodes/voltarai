@@ -30,7 +30,7 @@ export default function SolutionSection() {
   ];
 
   return (
-    <section className="py-20 md:max-w-[70%] mx-auto flex justify-center items-center bg-bgBlack px-2 sm:px-4">
+    <section id="solution" className="py-20 md:max-w-[70%] mx-auto flex justify-center items-center bg-bgBlack px-2 sm:px-4">
       <div className="max-w-5xl mx-auto">
         {/* Section header */}
         <motion.h2

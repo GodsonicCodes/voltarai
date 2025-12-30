@@ -40,7 +40,7 @@ export default function InANutshellSection() {
   ];
 
   return (
-    <section className="py-20 md:max-w-[80%] md:mx-auto bg-bgBlack px-4">
+    <section id="in-a-nutshell" className="py-20 md:max-w-[80%] md:mx-auto bg-bgBlack px-4">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <motion.h2

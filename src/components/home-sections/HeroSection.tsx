@@ -35,7 +35,7 @@ export default function HeroSection() {
   }, [rotatingTexts.length]);
 
   return (
-    <section className="relative max-w-screen min-h-screen pt-44 flex flex-col justify-center items-center px-6 overflow-hidden bg-black text-white">
+    <section id="hero" className="relative max-w-screen min-h-screen pt-44 flex flex-col justify-center items-center px-6 overflow-hidden bg-black text-white">
       {/* Navbar */}
       <Navbar onGetInTouchClick={() => setShowContactForm(true)} />
 
@@ -124,11 +124,11 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className=" mb-4"
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-[494] leading-tight tracking-tight">
+          <h1 className="flex flex-col text-4xl md:text-6xl lg:text-7xl font-[494] leading-tight tracking-tight">
             <div className="textradialgradientgrey mb-1 ">
               We Turn Your Manual
             </div>
-            <div className="textradialgradientgrey mb-1 ">Business Into An</div>
+            <div className="textradialgradientgrey mb-1 ">&nbsp;Business Into An</div>
             <div className="textradialgradientgrey">
               <span className="textradialgradientblue">Automated</span> Money
               Machine

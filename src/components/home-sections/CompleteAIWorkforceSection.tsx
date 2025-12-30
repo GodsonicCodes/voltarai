@@ -20,7 +20,7 @@ export default function CompleteAIWorkforceSection() {
   ];
 
   return (
-    <section className="py-20 md:max-w-[70%] mx-auto bg-black px-2 sm:px-4">
+    <section id="ai-workforce" className="py-20 md:max-w-[70%] mx-auto bg-black px-2 sm:px-4">
       <div className="max-w-6xl mx-auto text-center">
         {/* Small heading */}
         <motion.h2

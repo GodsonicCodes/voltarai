@@ -18,6 +18,7 @@ export default function AIBenefitsSection() {
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
                 }}
+                id="ai-benefits"
             >
                 {/* Animated curved line background */}
                 <motion.div

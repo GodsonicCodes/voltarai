@@ -15,7 +15,7 @@ export default function ProblemStatementSection() {
   ];
 
   return (
-    <section className="py-24 bg-black px-4">
+    <section className="py-24 bg-black px-4" id="problem-statement">
       <div className="max-w-4xl mx-auto text-center">
         {/* Small heading */}
         <motion.h2

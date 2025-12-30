@@ -11,7 +11,7 @@ const FinalCta = () => {
 
   return (
     <>
-      <section className="py-20 px-2 sm:px-4 bg-bgBlack overflow-hidden relative">
+      <section id="final-cta" className="py-20 px-2 sm:px-4 bg-bgBlack overflow-hidden relative">
         {/* Main content container with proper max-width */}
         <div className="w-full max-w-7xl mx-auto">
           <motion.div
