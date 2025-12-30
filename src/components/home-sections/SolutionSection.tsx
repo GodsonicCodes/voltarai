@@ -49,7 +49,7 @@ export default function SolutionSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-2xl textradialgradientgrey  md:text-4xl font-[494] mb-12 text-center"
+          className="w-full text-2xl textradialgradientgrey  md:text-4xl font-[494] mb-12 text-center"
         >
           AI Employees That{" "}
           <span className="textradialgradientblue">Outperform</span>{" "}

@@ -27,7 +27,7 @@ const FinalCta = () => {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
-              className="text-2xl md:text-4xl font-[494] text-center text-transparent textradialgradientgrey"
+              className="w-full text-2xl md:text-4xl font-[494] text-center text-transparent textradialgradientgrey"
             >
               Your <span className="textradialgradientblue bg-clip-text text-transparent">Competitors</span> have Employees. Do you?
             </motion.h2>
