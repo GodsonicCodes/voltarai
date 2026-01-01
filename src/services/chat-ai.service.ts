@@ -88,9 +88,9 @@ export class ChatAIService {
       });
       
       return await handleResponse<T>(response);
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Don't log aborted requests as errors
-      if (error.name === 'AbortError') {
+      if (error instanceof Error && error.name === 'AbortError') {
         console.log('Request was aborted');
       } else {
         console.error('Fetch Error:', error);

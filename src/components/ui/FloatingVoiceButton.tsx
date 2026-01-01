@@ -12,8 +12,7 @@ const Chatbot = dynamic(() => import('../ai/chatbot/chatbot'), { ssr: false });
 const FloatingVoiceButton = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [showButton, setShowButton] = useState(true);
+
   const [showChatbot, setShowChatbot] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -33,8 +32,6 @@ const FloatingVoiceButton = () => {
     let timeoutId: NodeJS.Timeout;
     
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setLastScrollY(currentScrollY);
       setIsScrolling(true);
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {

@@ -42,50 +42,6 @@ const TextBox = ({
     }
   }, [isRecording, isProcessing]);
 
-  const formatTimestamp = (timestamp: number): string => {
-    const date = new Date(timestamp);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-
-  const getStatusIndicator = () => {
-    if (isProcessing) {
-      return (
-        <div className="flex items-center gap-2 text-yellow-400 text-sm animate-pulse">
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          Processing...
-        </div>
-      );
-    }
-    
-    if (isRecording && isUserSpeaking) {
-      return (
-        <div className="flex items-center gap-2 text-red-400 text-sm">
-          <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
-          You are speaking...
-        </div>
-      );
-    }
-    
-    if (isAiSpeaking) {
-      return (
-        <div className="flex items-center gap-2 text-blue-400 text-sm">
-          <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-          AI is speaking...
-        </div>
-      );
-    }
-
-    if (isRecording) {
-      return (
-        <div className="flex items-center gap-2 text-gray-400 text-sm">
-          <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-          Listening...
-        </div>
-      );
-    }
-
-    return null;
-  };
 
   // Desktop: Fixed panel on right side
   if (!isMobile) {

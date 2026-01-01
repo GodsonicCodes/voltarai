@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import clsx from "clsx";
-import { motion, AnimatePresence } from "framer-motion";
 
 export type Message = {
   role: "ai" | "user";
@@ -79,15 +78,13 @@ export default function TranscriptPanel({
 }: TranscriptPanelProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
-  const [hasOverflow, setHasOverflow] = useState(false);
-  const [showScrollButton, setShowScrollButton] = useState(false);
 
   const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
     const container = containerRef.current;
     if (container) {
       container.scrollTo({ top: container.scrollHeight, behavior });
       setIsNearBottom(true);
-      setShowScrollButton(false);
+
     }
   }, []);
 
@@ -110,8 +107,7 @@ export default function TranscriptPanel({
       const isNearBottomNow = distanceFromBottom <= 64;
 
       setIsNearBottom(isNearBottomNow);
-      setHasOverflow(isOverflow);
-      setShowScrollButton(isOverflow && !isNearBottomNow);
+      
     };
 
     updateScrollState();
@@ -185,15 +181,12 @@ export function TranscriptPanelMobile({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
-  const [hasOverflow, setHasOverflow] = useState(false);
-  const [showScrollButton, setShowScrollButton] = useState(false);
-
   const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
     const container = containerRef.current;
     if (container) {
       container.scrollTo({ top: container.scrollHeight, behavior });
       setIsNearBottom(true);
-      setShowScrollButton(false);
+
     }
   }, []);
 
@@ -216,8 +209,7 @@ export function TranscriptPanelMobile({
       const isNearBottomNow = distanceFromBottom <= 64;
 
       setIsNearBottom(isNearBottomNow);
-      setHasOverflow(isOverflow);
-      setShowScrollButton(isOverflow && !isNearBottomNow);
+      
     };
 
     updateScrollState();

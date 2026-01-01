@@ -1,13 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-// Type declaration for SpeechRecognition API
-declare global {
-  interface Window {
-    SpeechRecognition: any;
-    webkitSpeechRecognition: any;
-  }
-}
-
 interface SpeechRecognitionEvent extends Event {
   results: SpeechRecognitionResultList;
   resultIndex: number;
@@ -15,7 +7,7 @@ interface SpeechRecognitionEvent extends Event {
 
 interface SpeechRecognitionErrorEvent extends Event {
   error: string;
-  message: string;
+  message?: string;
 }
 
 interface SpeechRecognition extends EventTarget {
@@ -28,7 +20,7 @@ interface SpeechRecognition extends EventTarget {
   onresult: (event: SpeechRecognitionEvent) => void;
   onerror: (event: SpeechRecognitionErrorEvent) => void;
   onend: () => void;
-  onstart: () => void;
+  onstart?: () => void;
 }
 
 interface TranscriptionResult {
@@ -47,13 +39,14 @@ export const useWebSpeechTranscription = (
   onResult: (result: TranscriptionResult) => void
 ): UseWebSpeechTranscriptionReturn => {
   const [isListening, setIsListening] = useState(false);
+  const isListeningRef = useRef(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const interimTranscriptRef = useRef<string>('');
   const finalTranscriptRef = useRef<string>('');
 
   // Initialize speech recognition
   useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     
     if (!SpeechRecognition) {
       console.error('Speech Recognition is not supported in this browser');
@@ -91,16 +84,17 @@ export const useWebSpeechTranscription = (
     };
 
     recognition.onend = () => {
-      if (isListening) {
+      if (isListeningRef.current) {
         // Restart recognition if it stopped unexpectedly
         try {
           recognition.start();
         } catch (e) {
           // Ignore error if recognition is already started
-          console.warn('Recognition restart failed:', e);
+          console.warn('Recognition restart failed:', e instanceof Error ? e.message : e);
         }
       } else {
         setIsListening(false);
+        isListeningRef.current = false;
       }
     };
 
@@ -118,8 +112,9 @@ export const useWebSpeechTranscription = (
       try {
         recognitionRef.current.start();
         setIsListening(true);
+        isListeningRef.current = true;
       } catch (e) {
-        console.error('Failed to start speech recognition:', e);
+        console.error('Failed to start speech recognition:', e instanceof Error ? e.message : e);
       }
     }
   }, [isListening]);
@@ -128,6 +123,7 @@ export const useWebSpeechTranscription = (
     if (recognitionRef.current && isListening) {
       recognitionRef.current.stop();
       setIsListening(false);
+      isListeningRef.current = false;
     }
   }, [isListening]);
 

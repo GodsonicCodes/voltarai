@@ -271,7 +271,7 @@ class VoiceAssistantService {
       if (storedData) {
         const sessionData = JSON.parse(storedData);
         if (sessionData.messages && Array.isArray(sessionData.messages)) {
-          this.conversation = sessionData.messages.map((msg: any) => ({
+          this.conversation = sessionData.messages.map((msg: { text: string; timestamp: number; isUser: boolean }) => ({
             text: msg.text,
             timestamp: msg.timestamp,
             isUser: msg.isUser

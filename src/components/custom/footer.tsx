@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const date = new Date().getFullYear();
-  const {isMobile, isDesktop} = useScreenSize();
+  const {isMobile} = useScreenSize();
 
     const pathname = usePathname();
 

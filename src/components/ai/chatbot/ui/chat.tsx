@@ -7,12 +7,12 @@ const parseMarkdown = (text: string) => {
   // First, handle line breaks by splitting the text
   const lines = text.split('\n');
   
-  const elements: any[] = [];
+  const elements: (string | React.ReactNode)[] = [];
   
   lines.forEach((line, lineIndex) => {
     // Process each line for bold text
     const boldRegex = /\*\*(.*?)\*\*/g;
-    const lineParts: any[] = [];
+    const lineParts: (string | React.ReactNode)[] = [];
     let lastIndex = 0;
     let match;
     

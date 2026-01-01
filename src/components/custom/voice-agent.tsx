@@ -49,7 +49,7 @@ const VoiceAgent = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            It doesn't just answer questions...It takes action. Get pricing, book demos, close deals - all in one conversation.
+            It doesn&#39;t just answer questions...It takes action. Get pricing, book demos, close deals - all in one conversation.
           </motion.p>
         </motion.div>
 

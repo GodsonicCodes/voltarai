@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useClickOutside from '@/hooks/useClickOutside';
 
-import { chatAIService, type ChatMessage as AIChatMessage } from '@/services/chat-ai.service';
+import { chatAIService } from '@/services/chat-ai.service';
 import bgArt from '../../../../public/assets/ai/vector-mobile/Vector 2.png';
 import Agent from './ui/agent';
 import TextBox from './ui/text-box';
@@ -26,7 +26,7 @@ const Chatbot = ({ onClose }: { onClose?: () => void }) => {
   const [hasFirstMessage, setHasFirstMessage] = React.useState(false);
   const [isNearBottom, setIsNearBottom] = React.useState(true);
   const [hasOverflow, setHasOverflow] = React.useState(false);
-  const [isInitializing, setIsInitializing] = React.useState(false);
+
   const [error, setError] = React.useState<string | null>(null);
   const [showSessionOptions, setShowSessionOptions] = React.useState(false);
 
@@ -142,7 +142,7 @@ const Chatbot = ({ onClose }: { onClose?: () => void }) => {
         // Don't show session options if there was an error
         setShowSessionOptions(false);
       } finally {
-        setIsInitializing(false);
+        // setIsInitializing(false); // Removed as state is no longer used
       }
     };
 

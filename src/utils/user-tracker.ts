@@ -35,9 +35,9 @@ export const trackUserVisitUtil = async () => {
             }
 
             geoData = await geoRes.json();
-        } catch (fetchError: any) {
+        } catch (fetchError: unknown) {
             // Check if it's an abort error and handle it specifically
-            if (fetchError.name === 'AbortError') {
+            if (fetchError instanceof Error && fetchError.name === 'AbortError') {
                 console.warn("GeoJS fetch timed out or was aborted");
             } else {
                 console.error("GeoJS fetch failed:", fetchError);

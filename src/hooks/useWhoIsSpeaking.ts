@@ -17,7 +17,7 @@ interface UseWhoIsSpeakingReturn {
 
 export const useWhoIsSpeaking = ({
   userSpeechThreshold = 15,
-  aiSpeechThreshold = 0,
+
   debounceMs = 300,
 }: UseWhoIsSpeakingOptions = {}): UseWhoIsSpeakingReturn => {
   const [isUserSpeaking, setIsUserSpeaking] = useState(false);
@@ -41,7 +41,7 @@ export const useWhoIsSpeaking = ({
           setUserVolume(volume);
           
           const now = Date.now();
-          const timeSinceLastVolume = now - lastVolumeTimeRef.current;
+
           
           if (volume > userSpeechThreshold) {
             lastVolumeTimeRef.current = now;

@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 
 export default function Waveform() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>(0);
   const phaseRef = useRef<"left" | "right">("left");
   const alphaValues = useRef<number[]>(new Array(32).fill(0));
@@ -90,7 +89,7 @@ export default function Waveform() {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
       observer.disconnect();
     };
-  }, []);
+  }, [baseHeights]);
 
   return (
     /* The container is now set to a width that exactly fits 32 bars 

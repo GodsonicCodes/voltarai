@@ -44,7 +44,7 @@ export default function VoiceCircle({ isUserSpeaking = false, isAiSpeaking = fal
     }
 
     return () => {
-      stop && stop();
+      if (stop) stop();
     };
   }, [isListening, isAiSpeaking]);
 

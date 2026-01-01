@@ -3,7 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function Waveform({ listening = false }: { listening?: boolean }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  interface ExtendedHTMLCanvasElement extends HTMLCanvasElement {
+    stream?: MediaStream;
+  }
+  
+  const canvasRef = useRef<ExtendedHTMLCanvasElement>(null);
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
   const animationRef = useRef<number>(0);
   const currentHeights = useRef<number[]>([]);
@@ -19,7 +23,7 @@ export default function Waveform({ listening = false }: { listening?: boolean })
 
   useEffect(() => {
     currentHeights.current = [...baseHeightsPx];
-  }, []);
+  }, [baseHeightsPx]);
 
   // Don't initialize the audio context here since it's handled by the volume listener
   // We'll use a different approach to visualize the waveform when listening
@@ -29,7 +33,7 @@ export default function Waveform({ listening = false }: { listening?: boolean })
       const initAudio = async () => {
         try {
           const audioCtx = new (window.AudioContext ||
-            (window as any).webkitAudioContext)();
+            (window as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext!)();
           
           audioContextRef.current = audioCtx;
           
@@ -51,7 +55,7 @@ export default function Waveform({ listening = false }: { listening?: boolean })
           
           // Store the stream for cleanup
           if (canvasRef.current) {
-            (canvasRef.current as any).stream = stream;
+            (canvasRef.current!).stream = stream;
           }
         } catch (error) {
           console.error('Error setting up audio:', error);
@@ -69,7 +73,7 @@ export default function Waveform({ listening = false }: { listening?: boolean })
       
       // Stop any active tracks
       if (canvasRef.current && (canvasRef.current as any).stream) {
-        const stream = (canvasRef.current as any).stream as MediaStream;
+        const stream = (canvasRef.current!).stream!;
         stream.getTracks().forEach(track => track.stop());
       }
     };
@@ -177,7 +181,7 @@ export default function Waveform({ listening = false }: { listening?: boolean })
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [analyser, listening]);
+  }, [analyser, listening, baseHeightsPx]);
 
   return (
     <canvas

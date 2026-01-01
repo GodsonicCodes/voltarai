@@ -1,7 +1,11 @@
 // Global type definitions for Web Speech API
 interface Window {
-  SpeechRecognition: any;
-  webkitSpeechRecognition: any;
+  SpeechRecognition: {
+    new(): SpeechRecognition;
+  };
+  webkitSpeechRecognition: {
+    new(): SpeechRecognition;
+  };
 }
 
 interface SpeechRecognitionEvent extends Event {
@@ -27,6 +31,11 @@ interface SpeechRecognitionAlternative {
   confidence: number;
 }
 
+interface SpeechRecognitionErrorEvent extends Event {
+  error: string;
+  message?: string;
+}
+
 interface SpeechRecognition extends EventTarget {
   continuous: boolean;
   interimResults: boolean;
@@ -35,6 +44,6 @@ interface SpeechRecognition extends EventTarget {
   stop(): void;
   abort(): void;
   onresult: (event: SpeechRecognitionEvent) => void;
-  onerror: (event: any) => void;
+  onerror: (event: SpeechRecognitionErrorEvent) => void;
   onend: () => void;
 }

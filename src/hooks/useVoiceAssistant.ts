@@ -25,8 +25,6 @@ interface UseVoiceAssistantReturn {
 
 export const useVoiceAssistant = ({
   autoStart = false,
-  maxRecordingTime = 30000, // 30 seconds
-  silenceThreshold = 2000, // 2 seconds
 }: UseVoiceAssistantOptions = {}): UseVoiceAssistantReturn => {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -45,7 +43,7 @@ export const useVoiceAssistant = ({
   }, []);
   
   // Use Web Speech API for transcription
-  const { isListening: isWebSpeechListening, startListening, stopListening, reset } = useWebSpeechTranscription(
+  const { startListening, stopListening } = useWebSpeechTranscription(
     ({ finalText, interimText }) => {
       // Update current transcript with interim text
       setCurrentTranscript(interimText);

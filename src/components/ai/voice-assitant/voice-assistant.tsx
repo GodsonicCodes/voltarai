@@ -153,7 +153,7 @@ const VoiceAssistant = () => {
         <VoiceCircle />
       </div>
     </div>
-    <AiButton children="Start Voice Call" onClick={handleStartVoiceCall} />
+    <AiButton onClick={handleStartVoiceCall}>Start Voice Call</AiButton>
   </div>
   );
 };

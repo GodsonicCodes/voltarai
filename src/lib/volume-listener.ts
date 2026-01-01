@@ -12,7 +12,7 @@ export async function startMicVolumeListener(
   });
 
   const audioContext = new (window.AudioContext ||
-    (window as any).webkitAudioContext)();
+    (window as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext!)();
 
   const source = audioContext.createMediaStreamSource(stream);
 
