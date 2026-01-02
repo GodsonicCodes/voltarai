@@ -40,6 +40,10 @@ const VoiceAssistant = () => {
     debounceMs: 300
   });
   
+  // Extract unused destructured values to avoid warnings
+  const _isUserSpeaking = currentState === 'listening' || currentState === 'transcribing';
+  const _isAiSpeaking = currentState === 'speaking';
+  
   // Sync speaking states with WebSocket service state
   useEffect(() => {
     setAiSpeaking(isSpeaking);
@@ -50,6 +54,10 @@ const VoiceAssistant = () => {
     role: msg.role === 'user' || msg.role === 'agent' ? 'user' : 'ai', // Handle both 'user' and 'agent' roles
     content: msg.text || msg.content || '',
   }));
+  
+  // Suppress unused variable warnings
+  void _isUserSpeaking;
+  void _isAiSpeaking;
   
   const handleStartVoiceCall = async () => {
     // Error is already managed by the hook, just start the session

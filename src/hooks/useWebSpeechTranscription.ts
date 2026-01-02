@@ -46,19 +46,21 @@ export const useWebSpeechTranscription = (
 
   // Initialize speech recognition
   useEffect(() => {
-    type SpeechRecognitionConstructor = new() => SpeechRecognition;
-    type WindowWithSpeechRecognition = Window & {
+    interface SpeechRecognitionConstructor {
+      new (): SpeechRecognition;
+    }
+    interface WindowWithSpeechRecognition extends Window {
       SpeechRecognition?: SpeechRecognitionConstructor;
       webkitSpeechRecognition?: SpeechRecognitionConstructor;
-    };
-    const SpeechRecognition = (window as WindowWithSpeechRecognition).SpeechRecognition || (window as WindowWithSpeechRecognition).webkitSpeechRecognition;
+    }
+    const SpeechRecognitionClass = (window as unknown as WindowWithSpeechRecognition).SpeechRecognition || (window as unknown as WindowWithSpeechRecognition).webkitSpeechRecognition;
     
-    if (!SpeechRecognition) {
+    if (!SpeechRecognitionClass) {
       console.error('Speech Recognition is not supported in this browser');
       return;
     }
 
-    const recognition = new SpeechRecognition();
+    const recognition = new SpeechRecognitionClass();
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = 'en-US';

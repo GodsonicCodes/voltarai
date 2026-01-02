@@ -13,17 +13,17 @@ export default function Waveform({ listening = false }: { listening?: boolean })
   const currentHeights = useRef<number[]>([]);
   const audioContextRef = useRef<AudioContext | null>(null);
 
-  // your base heights (pixels)
-  const baseHeightsPx = useMemo(() => [
+  // your base heights (pixels) - defined as constant to avoid dependency issues
+  const BASE_HEIGHTS_PX = [
     34, 48, 64, 54, 34, 42, 52, 40,
     74, 64, 54, 42, 24, 34, 38, 44,
     38, 44, 38, 26, 32, 44, 54, 42,
     66, 76, 62, 76, 56, 40, 26, 32
-  ], []);
+  ] as const;
 
   useEffect(() => {
-    currentHeights.current = [...baseHeightsPx];
-  }, [baseHeightsPx]);
+    currentHeights.current = [...BASE_HEIGHTS_PX];
+  }, []);
 
   // Don't initialize the audio context here since it's handled by the volume listener
   // We'll use a different approach to visualize the waveform when listening
@@ -84,7 +84,9 @@ export default function Waveform({ listening = false }: { listening?: boolean })
         const extendedCanvas = canvas as ExtendedHTMLCanvasElement;
         if (extendedCanvas.stream) {
           const stream = extendedCanvas.stream;
-          stream.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+          stream.getTracks().forEach((track) => {
+            track.stop();
+          });
         }
       }
     };
@@ -143,11 +145,11 @@ export default function Waveform({ listening = false }: { listening?: boolean })
 
         // target height above base - reduced boost for smoother response
         const target =
-          baseHeightsPx[i] +
+          BASE_HEIGHTS_PX[i] +
           (isSpeechDetected ? energy * 40 : energy * 10); // smaller boost
 
         // smoother easing for both rise and fall
-        const current = currentHeights.current[i] ?? baseHeightsPx[i];
+        const current = currentHeights.current[i] ?? BASE_HEIGHTS_PX[i];
         const lerpSpeed = target > current ? 0.15 : 0.08;
         const next = current + (target - current) * lerpSpeed;
 
@@ -189,7 +191,7 @@ export default function Waveform({ listening = false }: { listening?: boolean })
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [analyser, listening, baseHeightsPx]);
+  }, [analyser, listening]);
 
   return (
     <canvas

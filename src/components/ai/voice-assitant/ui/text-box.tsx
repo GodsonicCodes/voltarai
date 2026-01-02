@@ -9,6 +9,7 @@ interface TextBoxProps {
   isRecording: boolean;
   isProcessing: boolean;
   isUserSpeaking: boolean;
+  isAiSpeaking?: boolean;
   isListening: boolean;
   isMobile: boolean;
   className?: string;
@@ -20,6 +21,7 @@ const TextBox = ({
   isRecording, 
   isProcessing, 
   isUserSpeaking: _isUserSpeaking,
+  isAiSpeaking: _isAiSpeaking,
   isListening,
   isMobile,
   className = ""

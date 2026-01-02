@@ -105,7 +105,6 @@ export default function TranscriptPanel({
       const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
       
       const isNearBottomNow = distanceFromBottom <= 64;
-
       setIsNearBottom(isNearBottomNow);
     };
 
@@ -206,7 +205,6 @@ export function TranscriptPanelMobile({
       const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
       
       const isNearBottomNow = distanceFromBottom <= 64;
-
       setIsNearBottom(isNearBottomNow);
     };
 
