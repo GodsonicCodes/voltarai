@@ -2,6 +2,7 @@ import {
   VoiceServerMessage,
   Message,
 } from "../types/voice-assistant";
+import { VOICE_WS_URL } from "@/lib/constants";
 
 export type VoiceState =
   | "waiting"
@@ -31,10 +32,10 @@ export class VoiceAgentWebSocketService {
   private wsUrl: string;
 
   constructor(
-    wsUrl: string = "wss://voltarai-vagent-2.onrender.com/ws/voice-session-binary",
+    wsUrl: string = VOICE_WS_URL,
     callbacks: VoiceAgentCallbacks = {}
   ) {
-    this.wsUrl = process.env.NEXT_PUBLIC_VOICE_WS_URL || wsUrl;
+    this.wsUrl = wsUrl;
     this.callbacks = callbacks;
   }
 

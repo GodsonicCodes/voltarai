@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { VoiceAgentWebSocketService, VoiceState } from '@/services/voice-agent-websocket.service';
 import { Message } from '@/types/voltar-ai';
+import { VOICE_WS_URL } from '@/lib/constants';
 
 interface UseWebSocketVoiceAssistantOptions {
   autoStart?: boolean;
@@ -41,10 +42,8 @@ export const useWebSocketVoiceAssistant = ({
 
   // Initialize the voice service
   useEffect(() => {
-    const wsUrl = process.env.NEXT_PUBLIC_VOICE_WS_URL || "wss://voltarai-vagent-2.onrender.com/ws/voice-session-binary";
-    
     voiceServiceRef.current = new VoiceAgentWebSocketService(
-      wsUrl,
+      VOICE_WS_URL,
       {
         onStateChange: (state) => {
           setCurrentState(state);
