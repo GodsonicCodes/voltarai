@@ -76,7 +76,7 @@ export class ChatAIService {
     const url = `${this.baseURL}${endpoint}`;
     
     try {
-      console.log('Request:', options.method || 'GET', url);
+
       
       const response = await fetch(url, {
         ...options,
@@ -90,10 +90,8 @@ export class ChatAIService {
       return await handleResponse<T>(response);
     } catch (error: unknown) {
       // Don't log aborted requests as errors
-      if (error instanceof Error && error.name === 'AbortError') {
-        console.log('Request was aborted');
-      } else {
-        console.error('Fetch Error:', error);
+      if (!(error instanceof Error && error.name === 'AbortError')) {
+        // Error handling without logging
       }
       throw error;
     } finally {
@@ -135,7 +133,7 @@ export class ChatAIService {
         userId,
       };
     } catch (error) {
-      console.error('Failed to start chat session:', error);
+      // Error handling without logging
       throw error;
     }
   }
@@ -183,7 +181,7 @@ export class ChatAIService {
         userInfo: response.jsonBody.user_info,
       };
     } catch (error) {
-      console.error('Failed to send message:', error);
+      // Error handling without logging
       throw error;
     }
   }
@@ -224,7 +222,7 @@ export class ChatAIService {
         timestamp: msg.timestamp || Date.now(),
       }));
     } catch (error) {
-      console.error('Failed to fetch chat history:', error);
+      // Error handling without logging
       return [];
     }
   }
@@ -251,7 +249,7 @@ export class ChatAIService {
       }
       return true;
     } catch (error) {
-      console.error('Failed to end chat session:', error);
+      // Error handling without logging
       return false;
     }
   }
@@ -315,7 +313,7 @@ export class ChatAIService {
         yield chunk;
       }
     } catch (error) {
-      console.error('Failed to stream message:', error);
+      // Error handling without logging
       throw new Error('Failed to stream message');
     }
   }

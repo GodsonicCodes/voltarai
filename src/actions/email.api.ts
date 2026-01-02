@@ -8,8 +8,6 @@ export interface EmailSubmissionData {
 }
 
 export async function submitEmail(email: string) {
-    "use server";
-
     try {
         // Validate email on server side
         const { error } = emailSchema.validate({ email });
@@ -29,6 +27,19 @@ export async function submitEmail(email: string) {
         return { success: true, message: "Email submitted successfully!", data: response.data };
     } catch (error) {
         console.error("Error submitting email:", error);
-        return { success: false, message: "An unexpected error occurred. Please try again." };
+        
+        // Provide more specific error messages
+        let errorMessage = "An unexpected error occurred. Please try again.";
+        
+        if (error instanceof Error) {
+            // If it's a network/connection error, provide a helpful message
+            if (error.message.includes("fetch") || error.message.includes("connect")) {
+                errorMessage = "Unable to connect to the server. Please check your connection and try again.";
+            } else {
+                errorMessage = error.message;
+            }
+        }
+        
+        return { success: false, message: errorMessage };
     }
 }

@@ -11,7 +11,7 @@ import Navbar from "../Navbar";
 import People from "./People";
 
 import Image from "next/image";
-import line from "@/../public/assets/line.svg"; // keep your existing import path (or adjust if your project resolves differently)
+
 
 export default function HeroSection() {
   const rotatingTexts = [

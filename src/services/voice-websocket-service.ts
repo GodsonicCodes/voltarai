@@ -1,8 +1,6 @@
 import { 
   VoiceState, 
   VoiceServerMessage, 
-  VoiceStateChangeMessage, 
-  VoiceTranscriptUpdateMessage,
   Message 
 } from '../types/voice-assistant';
 

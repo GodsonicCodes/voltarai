@@ -7,7 +7,7 @@ const openCalendly = () => {
     const openPopup = () => {
       try {
         window.Calendly?.initPopupWidget({ url });
-      } catch (_) {
+      } catch (_error) {
         // no-op: if Calendly isn't available, we'll ensure script loads below
       }
     };

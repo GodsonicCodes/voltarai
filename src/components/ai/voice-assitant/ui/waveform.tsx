@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 
 export default function Waveform({ listening = false }: { listening?: boolean }) {
   interface ExtendedHTMLCanvasElement extends HTMLCanvasElement {
@@ -14,12 +14,12 @@ export default function Waveform({ listening = false }: { listening?: boolean })
   const audioContextRef = useRef<AudioContext | null>(null);
 
   // your base heights (pixels)
-  const baseHeightsPx = [
+  const baseHeightsPx = useMemo(() => [
     34, 48, 64, 54, 34, 42, 52, 40,
     74, 64, 54, 42, 24, 34, 38, 44,
     38, 44, 38, 26, 32, 44, 54, 42,
     66, 76, 62, 76, 56, 40, 26, 32
-  ];
+  ], []);
 
   useEffect(() => {
     currentHeights.current = [...baseHeightsPx];
@@ -32,8 +32,15 @@ export default function Waveform({ listening = false }: { listening?: boolean })
       // Initialize audio context when listening starts
       const initAudio = async () => {
         try {
-          const audioCtx = new (window.AudioContext ||
-            (window as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext!)();
+          type WindowWithAudioContext = Window & {
+            webkitAudioContext?: typeof AudioContext;
+          };
+          const AudioContextClass = window.AudioContext || 
+            (window as WindowWithAudioContext).webkitAudioContext;
+          if (!AudioContextClass) {
+            throw new Error('AudioContext is not supported');
+          }
+          const audioCtx = new AudioContextClass();
           
           audioContextRef.current = audioCtx;
           
@@ -71,18 +78,24 @@ export default function Waveform({ listening = false }: { listening?: boolean })
         audioContextRef.current.close();
       }
       
-      // Stop any active tracks
-      if (canvasRef.current && (canvasRef.current as any).stream) {
-        const stream = (canvasRef.current!).stream!;
-        stream.getTracks().forEach(track => track.stop());
+      // Stop any active tracks - capture ref value to avoid stale closure
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const extendedCanvas = canvas as ExtendedHTMLCanvasElement;
+        if (extendedCanvas.stream) {
+          const stream = extendedCanvas.stream;
+          stream.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+        }
       }
     };
   }, [listening]);
 
   useEffect(() => {
-    if (!analyser || !canvasRef.current) return;
+    if (!analyser) return;
 
     const canvas = canvasRef.current;
+    if (!canvas) return;
+    
     const ctx = canvas.getContext("2d")!;
     const freq = new Uint8Array(analyser.frequencyBinCount);
 
@@ -98,7 +111,6 @@ export default function Waveform({ listening = false }: { listening?: boolean })
       }
 
       // global average for color brightness - focus on speech frequencies (80-2000Hz)
-      let level = 0;
       let speechLevel = 0;
       const audioCtx = audioContextRef.current;
       
@@ -111,10 +123,6 @@ export default function Waveform({ listening = false }: { listening?: boolean })
         }
         speechLevel /= (speechEndIndex - speechStartIndex);
       }
-      
-      // overall level for visualization
-      for (let i = 0; i < freq.length; i++) level += freq[i];
-      level /= freq.length;
 
       // more responsive opacity when listening - less sensitive
       const alpha = Math.min(0.3 + speechLevel / 150, 0.9);

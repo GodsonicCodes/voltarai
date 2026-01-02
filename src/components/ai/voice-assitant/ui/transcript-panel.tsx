@@ -103,11 +103,10 @@ export default function TranscriptPanel({
     const updateScrollState = () => {
       const { scrollTop, scrollHeight, clientHeight } = container;
       const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
-      const isOverflow = scrollHeight > clientHeight;
+      
       const isNearBottomNow = distanceFromBottom <= 64;
 
       setIsNearBottom(isNearBottomNow);
-      
     };
 
     updateScrollState();
@@ -205,11 +204,10 @@ export function TranscriptPanelMobile({
     const updateScrollState = () => {
       const { scrollTop, scrollHeight, clientHeight } = container;
       const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
-      const isOverflow = scrollHeight > clientHeight;
+      
       const isNearBottomNow = distanceFromBottom <= 64;
 
       setIsNearBottom(isNearBottomNow);
-      
     };
 
     updateScrollState();

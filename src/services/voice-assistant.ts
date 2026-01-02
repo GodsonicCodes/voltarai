@@ -31,7 +31,7 @@ class VoiceAssistantService {
   private mediaRecorder: MediaRecorder | null = null;
   private audioChunks: Blob[] = [];
 
-  constructor(config: VoiceAssistantConfig = {}) {
+  constructor(_config: VoiceAssistantConfig = {}) {
     this.sessionId = this.generateSessionId();
   }
 

@@ -8,15 +8,15 @@ export default function Waveform() {
   const phaseRef = useRef<"left" | "right">("left");
   const alphaValues = useRef<number[]>(new Array(32).fill(0));
 
-  const baseHeights = [
-    34, 48, 64, 54, 34, 42, 52, 40,
-    74, 64, 54, 42, 24, 34, 38, 44,
-    38, 44, 38, 26, 32, 44, 54, 42,
-    66, 76, 62, 76, 56, 40, 26, 32
-  ];
-
   useEffect(() => {
     if (!canvasRef.current) return;
+
+    const baseHeights = [
+      34, 48, 64, 54, 34, 42, 52, 40,
+      74, 64, 54, 42, 24, 34, 38, 44,
+      38, 44, 38, 26, 32, 44, 54, 42,
+      66, 76, 62, 76, 56, 40, 26, 32
+    ];
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d")!;
@@ -89,7 +89,7 @@ export default function Waveform() {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
       observer.disconnect();
     };
-  }, [baseHeights]);
+  }, []);
 
   return (
     /* The container is now set to a width that exactly fits 32 bars 

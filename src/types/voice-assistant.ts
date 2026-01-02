@@ -53,6 +53,14 @@ export interface Message {
   is_final?: boolean;
 }
 
+export interface UserInfo {
+  name?: string;
+  email?: string;
+  phone?: string;
+  service_interest?: string;
+  company?: string;
+}
+
 export type VoiceServerMessage =
   | VoiceSessionStartResponse
   | VoiceStateChangeMessage

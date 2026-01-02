@@ -46,7 +46,12 @@ export const useWebSpeechTranscription = (
 
   // Initialize speech recognition
   useEffect(() => {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    type SpeechRecognitionConstructor = new() => SpeechRecognition;
+    type WindowWithSpeechRecognition = Window & {
+      SpeechRecognition?: SpeechRecognitionConstructor;
+      webkitSpeechRecognition?: SpeechRecognitionConstructor;
+    };
+    const SpeechRecognition = (window as WindowWithSpeechRecognition).SpeechRecognition || (window as WindowWithSpeechRecognition).webkitSpeechRecognition;
     
     if (!SpeechRecognition) {
       console.error('Speech Recognition is not supported in this browser');
@@ -63,10 +68,11 @@ export const useWebSpeechTranscription = (
       
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
+        const transcript = result[0];
         if (result.isFinal) {
-          finalTranscriptRef.current += result[0].transcript;
+          finalTranscriptRef.current += transcript.transcript;
         } else {
-          interimTranscript += result[0].transcript;
+          interimTranscript += transcript.transcript;
         }
       }
       

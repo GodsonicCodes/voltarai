@@ -41,12 +41,13 @@ const EmailInput = () => {
       // Check network connectivity first
       if (!navigator.onLine) {
         setSubmissionError("No internet connection. Please check your network and try again.");
+        setIsLoading(false);
         return;
       }
 
       const result = await submitEmail(email);
 
-      if (result.success) {
+      if (result && result.success) {
         setIsSuccess(true);
         setEmail("");
         // Reset success state after 2 seconds
@@ -55,18 +56,24 @@ const EmailInput = () => {
         }, 2000);
       } else {
         // Show specific API error message
-        setSubmissionError(result.message || "Failed to submit email. Please try again.");
+        setSubmissionError(result?.message || "Failed to submit email. Please try again.");
       }
     } catch (error) {
       console.error("Error submitting email:", error);
 
-      // Check if it's a network error
+      // Handle different types of errors
       if (!navigator.onLine) {
         setSubmissionError("No internet connection. Please check your network and try again.");
-      } else if (error instanceof TypeError && error.message.includes('fetch')) {
-        setSubmissionError("Network connection failed. Please check your internet and try again.");
+      } else if (error instanceof TypeError) {
+        if (error.message.includes('fetch') || error.message.includes('Failed to fetch')) {
+          setSubmissionError("Unable to connect to the server. Please check if the backend server is running.");
+        } else {
+          setSubmissionError("Network connection failed. Please check your internet and try again.");
+        }
+      } else if (error instanceof Error) {
+        setSubmissionError(error.message || "An error occurred while submitting. Please try again.");
       } else {
-        setSubmissionError("An error occurred while submitting. Please try again.");
+        setSubmissionError("An unexpected error occurred. Please try again.");
       }
     } finally {
       // Always ensure loading state is reset

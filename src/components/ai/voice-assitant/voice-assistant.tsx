@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import VoiceCircle from "./ui/voice-circle";
 import Waveform from "./ui/waveform";
@@ -12,7 +12,7 @@ import useScreenSize from "@/hooks/useScreenSize";
 import ActionMenu from "./ui/action-menu";
 import { useWhoIsSpeaking } from "@/hooks/useWhoIsSpeaking";
 import { useWebSocketVoiceAssistant } from "@/hooks/useWebSocketVoiceAssistant";
-import TranscriptPanel, { TranscriptPanelMobile, Message } from "./ui/transcript-panel";
+import TranscriptPanel, { TranscriptPanelMobile } from "./ui/transcript-panel";
 
 const VoiceAssistant = () => {
   const router = useRouter();
@@ -29,14 +29,13 @@ const VoiceAssistant = () => {
     error,
     startSession,
     endSession,
-    interrupt,
     hasActiveSession
   } = useWebSocketVoiceAssistant({
     autoStart: false,
   });
   
   // Use the hook to detect who is speaking (for visual feedback)
-  const { isUserSpeaking, isAiSpeaking, setAiSpeaking } = useWhoIsSpeaking({
+  const { setAiSpeaking } = useWhoIsSpeaking({
     userSpeechThreshold: 15,
     debounceMs: 300
   });
@@ -47,7 +46,7 @@ const VoiceAssistant = () => {
   }, [isSpeaking, setAiSpeaking]);
   
   // Convert transcript format to match UI components
-  const uiTranscript: { role: 'user' | 'ai', content: string }[] = transcript.map((msg, index) => ({
+  const uiTranscript: { role: 'user' | 'ai', content: string }[] = transcript.map((msg) => ({
     role: msg.role === 'user' || msg.role === 'agent' ? 'user' : 'ai', // Handle both 'user' and 'agent' roles
     content: msg.text || msg.content || '',
   }));
@@ -70,13 +69,10 @@ const VoiceAssistant = () => {
     // Update the visual feedback based on the current state from the WebSocket service
     if (currentState === 'listening' || currentState === 'transcribing') {
       // User is speaking
-      console.log('User is speaking');
     } else if (currentState === 'speaking') {
       // AI is speaking
-      console.log('AI is speaking');
     } else if (currentState === 'thinking') {
       // AI is processing
-      console.log('AI is processing');
     }
   }, [currentState]);
 
