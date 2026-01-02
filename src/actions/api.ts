@@ -1,10 +1,10 @@
+import { API_BASE_URL } from "@/lib/constants";
+
 interface ApiResponse<T> {
     data?: T;
     error?: string;
     success: boolean;
 }
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://volta-ai-backend.vercel.app/api";
 
 export async function api<T = unknown>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
     try {

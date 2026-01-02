@@ -1,3 +1,5 @@
+import { CHAT_AI_BASE_URL } from '@/lib/constants';
+
 // Types for our fetch API responses
 interface ApiResponse<T> extends Response {
   jsonBody?: T;
@@ -53,7 +55,7 @@ export class ChatAIService {
   };
   private abortController: AbortController | null = null;
 
-  constructor(baseURL: string = 'https://voltarai-vagent-2.onrender.com') {
+  constructor(baseURL: string = CHAT_AI_BASE_URL) {
     this.baseURL = baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL;
   }
 
@@ -320,6 +322,4 @@ export class ChatAIService {
 }
 
 // Create a singleton instance
-export const chatAIService = new ChatAIService(
-  process.env.NEXT_PUBLIC_API_URL || 'https://voltarai-vagent-2.onrender.com'
-);
+export const chatAIService = new ChatAIService();
