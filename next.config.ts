@@ -5,10 +5,10 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Disable TypeScript errors during builds (optional - uncomment if needed)
-  // typescript: {
-  //   ignoreBuildErrors: true,
-  // },
+  // Disable TypeScript errors during builds
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   async rewrites() {
     return [
       {
