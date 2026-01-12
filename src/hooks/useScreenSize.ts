@@ -12,7 +12,12 @@ const useScreenSize = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return currentScreenSize;
+  return {
+    currentScreenSize,
+    isMobile: currentScreenSize !== null && currentScreenSize < 768,
+    isTablet: currentScreenSize !== null && currentScreenSize >= 768 && currentScreenSize < 1024,
+    isDesktop: currentScreenSize !== null && currentScreenSize >= 1024,
+  };
 };
 
 export default useScreenSize;

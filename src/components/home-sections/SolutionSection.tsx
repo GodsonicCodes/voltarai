@@ -30,7 +30,7 @@ export default function SolutionSection() {
   ];
 
   return (
-    <section className="py-20 md:max-w-[70%] mx-auto flex justify-center items-center bg-bgBlack px-2 sm:px-4">
+    <section id="solution" className="py-20 md:max-w-[70%] mx-auto flex justify-center items-center bg-bgBlack px-2 sm:px-4">
       <div className="max-w-5xl mx-auto">
         {/* Section header */}
         <motion.h2
@@ -49,7 +49,7 @@ export default function SolutionSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-2xl textradialgradientgrey  md:text-4xl font-[494] mb-12 text-center"
+          className="w-full text-2xl textradialgradientgrey  md:text-4xl font-[494] mb-12 text-center"
         >
           AI Employees That{" "}
           <span className="textradialgradientblue">Outperform</span>{" "}

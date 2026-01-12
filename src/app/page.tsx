@@ -15,12 +15,14 @@ import CTA7 from "@/components/custom/cta7";
 import FAQ from "@/components/custom/faq";
 import AboutUs from "@/components/custom/aboutUs";
 import FinalCta from "@/components/custom/finalCta";
+import VoiceAgent from "@/components/custom/voice-agent";
 
 export default function Home() {
   return (
     <div className="w-screen min-h-screen flex flex-col bg-bgBlack">
       {/* <Navbar /> */}
       <HeroSection />
+      <VoiceAgent />
       <AIBenefitsSection />
       <InANutshellSection />
       <OurServicesSection />

@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 
 const AboutUs = () => {
   return (
-    <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4 overflow-hidden">
+    <section id="about-us" className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -11,7 +11,7 @@ const AboutUs = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="w-full max-w-6xl mx-auto"
       >
-        <div className="text-center space-y-6 md:space-y-8">
+        <div className="flex flex-col text-center space-y-6 md:space-y-8">
           <p className="textradialgradientgrey text-base md:text-lg">About Us</p>
           <h2 className="text-2xl md:text-4xl font-[494] textradialgradientgrey">
             We Build AI Employees For

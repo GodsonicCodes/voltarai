@@ -46,7 +46,7 @@ const services = [
 
 export default function OurServicesSection() {
   return (
-    <section className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4">
+    <section id="our-services" className="py-20 md:max-w-[70%] mx-auto bg-bgBlack px-2 sm:px-4">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <motion.div

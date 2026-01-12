@@ -5,6 +5,7 @@ import ButtonEffect from "./ui/ButtonEffect";
 import desktopLogo from "@/../public/assets/logo/logodesktop.svg";
 import mobileLogo from "@/../public/assets/logo/logomobile.svg";
 import Image from "next/image";
+
 /**
  * Navbar - Top navigation component for the Voltar.ai landing page
  * Features the brand logo with dot and a "Get in Touch" CTA button

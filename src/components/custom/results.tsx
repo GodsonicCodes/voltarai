@@ -28,7 +28,7 @@ const typicalResults: Results[] = [
 
 const Results = () => {
   return (
-    <section className="py-20 md:max-w-[70%] lg:mx-auto bg-bgBlack px-10 sm:px-4 overflow-hidden">
+    <section id="results" className="py-20 md:max-w-[70%] lg:mx-auto bg-bgBlack px-10 sm:px-4 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}

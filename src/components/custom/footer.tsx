@@ -5,13 +5,17 @@ import Image from "next/image";
 import FooterContent from "./ui-custom/footerContent";
 import useScreenSize from "@/hooks/useScreenSize";
 import { motion } from "motion/react";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const date = new Date().getFullYear();
-  const screenSize = useScreenSize();
+  const {isMobile} = useScreenSize();
 
+    const pathname = usePathname();
+
+    if (pathname === "/voice-assistant" || pathname === "/chatbot") return null;
   // Mobile footer
-  if (screenSize <= 844) {
+  if (isMobile) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}

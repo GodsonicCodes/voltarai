@@ -11,7 +11,7 @@ const FinalCta = () => {
 
   return (
     <>
-      <section className="py-20 px-2 sm:px-4 bg-bgBlack overflow-hidden relative">
+      <section id="final-cta" className="py-20 px-2 sm:px-4 bg-bgBlack overflow-hidden relative">
         {/* Main content container with proper max-width */}
         <div className="w-full max-w-7xl mx-auto">
           <motion.div
@@ -27,7 +27,7 @@ const FinalCta = () => {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
-              className="text-2xl md:text-4xl font-[494] text-center text-transparent textradialgradientgrey"
+              className="w-full text-2xl md:text-4xl font-[494] text-center text-transparent textradialgradientgrey"
             >
               Your <span className="textradialgradientblue bg-clip-text text-transparent">Competitors</span> have Employees. Do you?
             </motion.h2>

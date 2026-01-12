@@ -1,10 +1,10 @@
+import { API_BASE_URL } from "@/lib/constants";
+
 interface ApiResponse<T> {
     data?: T;
     error?: string;
     success: boolean;
 }
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 export async function api<T = unknown>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
     try {
@@ -16,7 +16,10 @@ export async function api<T = unknown>(endpoint: string, options: RequestInit = 
             defaultHeaders["Content-Type"] = "application/json";
         }
 
-        const response = await fetch(`${API_BASE_URL}${endpoint}/`, {
+        // Ensure endpoint starts with / and doesn't end with / (we'll add it)
+        const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+        const cleanEndpoint = normalizedEndpoint.endsWith('/') ? normalizedEndpoint.slice(0, -1) : normalizedEndpoint;
+        const response = await fetch(`${API_BASE_URL}${cleanEndpoint}/`, {
             ...rest,
             headers: {
                 ...defaultHeaders,
@@ -24,11 +27,8 @@ export async function api<T = unknown>(endpoint: string, options: RequestInit = 
             },
         });
 
-        console.log(response);
-
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            console.log(errorData);
 
             return {
                 success: false,
@@ -42,9 +42,23 @@ export async function api<T = unknown>(endpoint: string, options: RequestInit = 
             data,
         };
     } catch (error) {
+        // Provide more descriptive error messages
+        let errorMessage = "Network error occurred";
+        
+        if (error instanceof TypeError) {
+            if (error.message.includes("fetch")) {
+                errorMessage = `Unable to connect to the server. Please check if the API server is running at ${API_BASE_URL}`;
+            } else {
+                errorMessage = error.message;
+            }
+        } else if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        
+        console.error("API call failed:", error);
         return {
             success: false,
-            error: error instanceof Error ? error.message : "Network error occurred",
+            error: errorMessage,
         };
     }
 }

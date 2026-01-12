@@ -37,7 +37,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({countryCode, setCountryCode, pho
         };
 
         setDefaultCountry();
-    }, []); // Empty dependency array - only run once on mount
+    }, [country, setCountryCode]); // Added dependencies to fix linting issue
 
     useEffect(() => {
         setCountryCode(countryOptions.find((option) => option.label === country)?.value || "");

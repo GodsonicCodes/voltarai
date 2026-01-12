@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Footer from "@/components/custom/footer";
 import UserTracker from "@/components/UserTracker";
+import FloatingVoiceButton from "@/components/ui/FloatingVoiceButton";
 import React from "react";
 import Script from "next/script";
 
@@ -157,19 +158,22 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={author.variable}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}>
-        <UserTracker />
-        <Script
-          id="calendly-widget-css"
-          strategy="afterInteractive"
-        >{`(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://assets.calendly.com/assets/external/widget.css';document.head.appendChild(l);}())`}</Script>
-        <Script
-          id="calendly-widget-js"
-          src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="afterInteractive"
-        />
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black relative min-h-screen flex flex-col`}>
+        <div className="flex-1">
+          <UserTracker />
+          <Script
+            id="calendly-widget-css"
+            strategy="afterInteractive"
+          >{`(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://assets.calendly.com/assets/external/widget.css';document.head.appendChild(l);}())`}</Script>
+          <Script
+            id="calendly-widget-js"
+            src="https://assets.calendly.com/assets/external/widget.js"
+            strategy="afterInteractive"
+          />
+          {children}
+        </div>
         <Footer />
+        <FloatingVoiceButton />
       </body>
     </html>
   );
