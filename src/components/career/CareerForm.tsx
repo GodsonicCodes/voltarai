@@ -84,7 +84,33 @@ export default function CareerForm() {
                 body: formDataToSubmit,
             });
 
-            const result: CareerApiResponse = await response.json();
+            if (!response.ok) {
+                let errorBody: string | undefined;
+
+                try {
+                    errorBody = await response.text();
+                } catch (error) {
+                    console.error('Failed to read error response body from careers API', error);
+                }
+
+                console.error(
+                    'Careers API returned a non-OK status',
+                    response.status,
+                    response.statusText,
+                    errorBody,
+                );
+
+                throw new Error('Failed to submit application');
+            }
+
+            let result: CareerApiResponse;
+
+            try {
+                result = await response.json();
+            } catch (error) {
+                console.error('Failed to parse careers API response as JSON', error);
+                throw new Error('Unexpected server response from careers API');
+            }
 
             if (result.success) {
                 setStep(4); // Move to success screen
