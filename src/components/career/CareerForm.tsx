@@ -16,6 +16,7 @@ export default function CareerForm() {
         fullName: '',
         email: '',
         phone: '',
+        countryCode: '+233',
         location: '',
         position: '',
         employmentType: '',
@@ -66,7 +67,7 @@ export default function CareerForm() {
                 formDataToSubmit.append('location', formData.location);
             }
             // Always send the phone code as it's part of the UI design currently, even if optional
-            formDataToSubmit.append('phone_country_code', 'GH +233');
+            formDataToSubmit.append('phone_country_code', formData.countryCode);
 
             if (formData.portfolio) {
                 formDataToSubmit.append('portfolio_website', formData.portfolio);

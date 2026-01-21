@@ -2,6 +2,7 @@ export interface CareerFormData {
     fullName: string;
     email: string;
     phone: string;
+    countryCode: string;
     location: string;
     position: string;
     employmentType: string;

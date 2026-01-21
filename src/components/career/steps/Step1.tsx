@@ -67,9 +67,27 @@ export default function Step1({ data, updateData, onNext, errors: parentErrors }
             <div className="flex flex-col gap-1.5 w-full">
                 <label className="text-sm font-semibold text-gray-900">Phone</label>
                 <div className="flex gap-3">
-                    <div className="flex items-center justify-between w-[140px] h-12 rounded-lg border border-gray-300 bg-white px-4 text-sm text-gray-900 shrink-0">
-                        <span className="text-gray-500">GH +233</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down text-gray-400"><path d="m6 9 6 6 6-6" /></svg>
+                    <div className="relative w-[140px] shrink-0">
+                        <select
+                            name="countryCode"
+                            value={data.countryCode}
+                            onChange={(e) => updateData({ countryCode: e.target.value })}
+                            className="w-full h-12 rounded-lg border border-gray-300 bg-white px-4 text-sm text-gray-900 appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-colors"
+                        >
+                            <option value="+233">GH +233</option>
+                            <option value="+234">NG +234</option>
+                            <option value="+1">US +1</option>
+                            <option value="+44">UK +44</option>
+                            <option value="+1">CA +1</option>
+                            <option value="+49">DE +49</option>
+                            <option value="+33">FR +33</option>
+                            <option value="+91">IN +91</option>
+                            <option value="+27">ZA +27</option>
+                            <option value="+254">KE +254</option>
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down text-gray-400"><path d="m6 9 6 6 6-6" /></svg>
+                        </div>
                     </div>
                     <div className="flex-1">
                         <input
