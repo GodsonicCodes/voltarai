@@ -65,4 +65,3 @@ See [`components.json`](components.json) for configuration details.
 
 ## License
 
-See
