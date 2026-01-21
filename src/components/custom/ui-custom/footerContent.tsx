@@ -22,37 +22,38 @@ interface FooterProps {
 }
 
 const footerItems: FooterProps[] = [
-    {
-        id: 1,
-        header: "Company",
-        url: [
-            {name: "About Us", url: "#"},
-            {name: "Solutions", url: "#"},
-            {name: "Why Choose Us", url: "#"},
-            {name: "Pricing", url: "#"},
-        ],
-        footer: {name: "Terms & Conditions", url: "#"},
-    },
-    {
-        id: 2,
-        header: "Solutions",
-        url: [
-            {name: "Smart Automation", url: "#"},
-            {name: "Analytics Agent", url: "#"},
-            {name: "Customer Agent", url: "#"},
-            {name: "AI Data Processors", url: "#"},
-        ],
-        footer: {name: "Privacy Policy", url: "#"},
-    },
-    {
-        id: 3,
-        header: "Follow",
-        url: [
-            {name: "LinkedIn", url: "#"},
-            {name: "Youtube", url: "#"},
-            {name: "Instagram", url: "#"},
-        ],
-    },
+  {
+    id: 1,
+    header: "Company",
+    url: [
+      { name: "About Us", url: "#" },
+      { name: "Solutions", url: "#" },
+      { name: "Why Choose Us", url: "#" },
+      { name: "Pricing", url: "#" },
+      { name: "Career", url: "/career" },
+    ],
+    footer: { name: "Terms & Conditions", url: "#" },
+  },
+  {
+    id: 2,
+    header: "Solutions",
+    url: [
+      { name: "Smart Automation", url: "#" },
+      { name: "Analytics Agent", url: "#" },
+      { name: "Customer Agent", url: "#" },
+      { name: "AI Data Processors", url: "#" },
+    ],
+    footer: { name: "Privacy Policy", url: "#" },
+  },
+  {
+    id: 3,
+    header: "Follow",
+    url: [
+      { name: "LinkedIn", url: "#" },
+      { name: "Youtube", url: "#" },
+      { name: "Instagram", url: "#" },
+    ],
+  },
 ];
 
 const FooterContent = () => {

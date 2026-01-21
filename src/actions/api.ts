@@ -4,11 +4,11 @@ interface ApiResponse<T> {
     success: boolean;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://volta-ai-backend.vercel.app/api";
 
 export async function api<T = unknown>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
     try {
-        const {headers, ...rest} = options;
+        const { headers, ...rest } = options;
 
         // Don't set Content-Type for FormData - let browser handle it
         const defaultHeaders: Record<string, string> = {};
