@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import EmailInput from "./emailInput";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 import desktopLogo from "@/../public/assets/logo/logodesktop.svg";
 import mobileLogo from "@/../public/assets/logo/logomobile.svg";
@@ -22,55 +22,55 @@ interface FooterProps {
 }
 
 const footerItems: FooterProps[] = [
-  {
-    id: 1,
-    header: "Company",
-    url: [
-      { name: "About Us", url: "#" },
-      { name: "Solutions", url: "#" },
-      { name: "Why Choose Us", url: "#" },
-      { name: "Pricing", url: "#" },
-      { name: "Career", url: "/career" },
-    ],
-    footer: { name: "Terms & Conditions", url: "#" },
-  },
-  {
-    id: 2,
-    header: "Solutions",
-    url: [
-      { name: "Smart Automation", url: "#" },
-      { name: "Analytics Agent", url: "#" },
-      { name: "Customer Agent", url: "#" },
-      { name: "AI Data Processors", url: "#" },
-    ],
-    footer: { name: "Privacy Policy", url: "#" },
-  },
-  {
-    id: 3,
-    header: "Follow",
-    url: [
-      { name: "LinkedIn", url: "#" },
-      { name: "Youtube", url: "#" },
-      { name: "Instagram", url: "#" },
-    ],
-  },
+    {
+        id: 1,
+        header: "Company",
+        url: [
+            { name: "About Us", url: "#" },
+            { name: "Solutions", url: "#" },
+            { name: "Why Choose Us", url: "#" },
+            { name: "Events", url: "/events" },
+            { name: "Career", url: "/career" },
+        ],
+        footer: { name: "Terms & Conditions", url: "#" },
+    },
+    {
+        id: 2,
+        header: "Solutions",
+        url: [
+            { name: "Smart Automation", url: "#" },
+            { name: "Analytics Agent", url: "#" },
+            { name: "Customer Agent", url: "#" },
+            { name: "AI Data Processors", url: "#" },
+        ],
+        footer: { name: "Privacy Policy", url: "#" },
+    },
+    {
+        id: 3,
+        header: "Follow",
+        url: [
+            { name: "LinkedIn", url: "#" },
+            { name: "Youtube", url: "#" },
+            { name: "Instagram", url: "#" },
+        ],
+    },
 ];
 
 const FooterContent = () => {
     return (
         <motion.div
-            initial={{opacity: 0, y: 20}}
-            whileInView={{opacity: 1, y: 0}}
-            viewport={{once: true, margin: "-100px"}}
-            transition={{duration: 0.5, ease: "easeOut"}}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="w-full grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 mx-auto max-w-screen-xl"
         >
             {/* Left column (brand + about + signup) */}
             <motion.div
-                initial={{opacity: 0, y: 12}}
-                whileInView={{opacity: 1, y: 0}}
-                viewport={{once: true, margin: "-100px"}}
-                transition={{duration: 0.4, ease: "easeOut"}}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 className="flex flex-col gap-6 lg:gap-6 lg:col-span-2"
             >
                 {/* Brand logo with white dot and Voltar.ai text */}
@@ -122,10 +122,10 @@ const FooterContent = () => {
             {footerItems.map((footer) => (
                 <motion.div
                     key={footer.id}
-                    initial={{opacity: 0, y: 12}}
-                    whileInView={{opacity: 1, y: 0}}
-                    viewport={{once: true, margin: "-100px"}}
-                    transition={{duration: 0.4, ease: "easeOut", delay: footer.id * 0.05}}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.4, ease: "easeOut", delay: footer.id * 0.05 }}
                     className="hidden lg:flex flex-col gap-6 h-full items-end w-full"
                 >
                     <div className="flex flex-col gap-2">
