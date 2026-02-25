@@ -23,8 +23,8 @@ const MapComponent: React.FC<MapProps> = memo(({
     className = '',
 }) => {
     const mapRef = useRef<HTMLDivElement>(null);
-    const mapInstanceRef = useRef<any>(null);
-    const markerRef = useRef<any>(null);
+    const mapInstanceRef = useRef<L.Map | null>(null);
+    const markerRef = useRef<L.Marker | null>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [status, setStatus] = useState<
@@ -74,7 +74,7 @@ const MapComponent: React.FC<MapProps> = memo(({
         try {
             const L = (await import('leaflet')).default;
 
-            delete (L.Icon.Default.prototype as any)._getIconUrl;
+            delete (L.Icon.Default.prototype as { _getIconUrl?: () => void })._getIconUrl;
             L.Icon.Default.mergeOptions({
                 iconRetinaUrl:
                     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',

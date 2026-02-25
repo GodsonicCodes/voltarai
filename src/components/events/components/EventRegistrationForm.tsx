@@ -7,7 +7,6 @@ import { createEventRegistration } from "@/actions/events.api";
 import useClickOutside from "@/hooks/useClickOutside";
 import EventRegistrationSuccess from "./EventRegistrationSuccess";
 import FormRenderer from "./FormRenderer";
-import StepProgress from "@/components/ui/step-progress";
 
 interface EventRegistrationFormProps {
     onClose: () => void;
@@ -24,7 +23,6 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
     registrationHtml,
     isPastEvent = false
 }) => {
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitMessage, setSubmitMessage] = useState<{
         type: "success" | "error";
         text: string;
@@ -38,7 +36,6 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
     });
 
     const handleBackendFormSubmit = async (formData: FormData) => {
-        setIsSubmitting(true);
         setSubmitMessage(null);
 
         try {
@@ -57,14 +54,12 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
             } else {
                 setSubmitMessage({ type: "error", text: result.message || "Registration failed." });
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error creating registration:', error);
             setSubmitMessage({
                 type: "error",
-                text: error?.message || "An unexpected error occurred. Please try again.",
+                text: error instanceof Error ? error.message : "An unexpected error occurred. Please try again.",
             });
-        } finally {
-            setIsSubmitting(false);
         }
     };
 

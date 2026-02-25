@@ -104,13 +104,13 @@ const FormRenderer: React.FC<FormRendererProps> = ({
             form.addEventListener('submit', handleSubmit);
             
             // Store event listener for cleanup
-            (form as any)._formSubmitHandler = handleSubmit;
+            (form as HTMLFormElement & { _formSubmitHandler?: (e: Event) => void })._formSubmitHandler = handleSubmit;
         });
 
         // Cleanup function
         return () => {
             forms.forEach((form) => {
-                const handler = (form as any)._formSubmitHandler;
+                const handler = (form as HTMLFormElement & { _formSubmitHandler?: (e: Event) => void })._formSubmitHandler;
                 if (handler) {
                     form.removeEventListener('submit', handler);
                 }

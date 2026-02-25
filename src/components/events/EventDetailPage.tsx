@@ -32,19 +32,23 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   // ✅ Initialize safely from server data
-  const [eventData, setEventData] = useState<EventData>(event);
+  const [eventData, setEventData] = useState<EventData | null>(null);
 
   useEffect(() => {
     const fetchEventData = async () => {
-      setIsLoading(true);
       try {
         const result = await getEventById(event.id);
 
         if (result?.success && result?.event) {
           setEventData(result.event);
+        } else {
+          // Fallback to passed event if API fails
+          setEventData(event);
         }
       } catch (error) {
         console.error("Error fetching event data:", error);
+        // Fallback to passed event on error
+        setEventData(event);
       } finally {
         setIsLoading(false);
       }
@@ -65,25 +69,26 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
 
   // ✅ Enterprise-safe data resolver (nullish coalescing)
   const displayData = useMemo(() => ({
-    sponsor: eventData?.sponsor ?? "A Voltar AI Sponsored Event",
-    title: eventData?.title ?? "Untitled Event",
+    sponsor: eventData?.sponsor ?? event.sponsor ?? "A Voltar AI Sponsored Event",
+    title: eventData?.title ?? event.title ?? "Untitled Event",
     description:
       eventData?.description ??
+      event.description ??
         "Join us for an exclusive in-person gathering where innovation meets community.",
-    location: eventData?.location_name ?? "Tema, Community 1",
+    location: eventData?.location_name ?? event.location_name ?? "Tema, Community 1",
     address:
-      eventData?.address ?? "Burbs Hotel, Opposite NY FM 1016",
-    date: eventData?.event_date ?? "",
-    startTime: eventData?.start_time ?? "18:00",
-    endTime: eventData?.end_time ?? "23:00",
-    timezone: eventData?.timezone ?? "GMT",
-    registeredPeople: eventData?.attendee_display || (eventData?.attendee_display === '' ? 'Registration open' : '10k+ people joined'),
-    latitude: eventData?.latitude ?? null,
-    longitude: eventData?.longitude ?? null,
-    imageUrl: imageError ? SeatsImage : (eventData?.hero_image_url ?? SeatsImage),
+      eventData?.address ?? event.address ?? "Burbs Hotel, Opposite NY FM 1016",
+    date: eventData?.event_date ?? event.event_date ?? "",
+    startTime: eventData?.start_time ?? event.start_time ?? "18:00",
+    endTime: eventData?.end_time ?? event.end_time ?? "23:00",
+    timezone: eventData?.timezone ?? event.timezone ?? "GMT",
+    registeredPeople: (eventData?.attendee_display || (eventData?.attendee_display === '' ? 'Registration open' : '10k+ people joined')) ?? (event.attendee_display || (event.attendee_display === '' ? 'Registration open' : '10k+ people joined')),
+    latitude: eventData?.latitude ?? event.latitude ?? null,
+    longitude: eventData?.longitude ?? event.longitude ?? null,
+    imageUrl: imageError ? SeatsImage : (eventData?.hero_image_url ?? event.hero_image_url ?? SeatsImage),
     slug: eventData?.slug ?? event.slug,
     formHtml: eventData?.form_html ?? event.form_html,
-  }), [eventData, event.slug, event.form_html, imageError]);
+  }), [eventData, event]);
 
   if (isLoading) {
     return (
