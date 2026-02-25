@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, MoveUpRight } from 'lucide-react';
 import ButtonEffect from "@/components/ui/ButtonEffect";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 import SeatsImage from "../../../public/assets/seats.jpg";
 import person1 from "@/../public/assets/people/person1.jpeg";
@@ -27,12 +28,15 @@ interface EventDetailPageProps {
 
 const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
   const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // ✅ Initialize safely from server data
   const [eventData, setEventData] = useState<EventData>(event);
 
   useEffect(() => {
     const fetchEventData = async () => {
+      setIsLoading(true);
       try {
         const result = await getEventById(event.id);
 
@@ -41,6 +45,8 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
         }
       } catch (error) {
         console.error("Error fetching event data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -63,7 +69,7 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
     title: eventData?.title ?? "Untitled Event",
     description:
       eventData?.description ??
-      "Join us for an exclusive in-person gathering where innovation meets community.",
+        "Join us for an exclusive in-person gathering where innovation meets community.",
     location: eventData?.location_name ?? "Tema, Community 1",
     address:
       eventData?.address ?? "Burbs Hotel, Opposite NY FM 1016",
@@ -71,13 +77,21 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
     startTime: eventData?.start_time ?? "18:00",
     endTime: eventData?.end_time ?? "23:00",
     timezone: eventData?.timezone ?? "GMT",
-    registeredPeople: eventData?.attendee_display ?? "10k+ people joined",
+    registeredPeople: eventData?.attendee_display || (eventData?.attendee_display === '' ? 'Registration open' : '10k+ people joined'),
     latitude: eventData?.latitude ?? null,
     longitude: eventData?.longitude ?? null,
-    imageUrl: eventData?.hero_image_url ?? SeatsImage,
+    imageUrl: imageError ? SeatsImage : (eventData?.hero_image_url ?? SeatsImage),
     slug: eventData?.slug ?? event.slug,
     formHtml: eventData?.form_html ?? event.form_html,
-  }), [eventData, event.slug, event.form_html]);
+  }), [eventData, event.slug, event.form_html, imageError]);
+
+  if (isLoading) {
+    return (
+      <div className="bg-black min-h-screen w-full flex items-center justify-center">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-black min-h-screen w-full flex justify-center">
@@ -103,16 +117,31 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="relative w-full h-[320px] md:h-[420px] lg:h-[520px] rounded-2xl overflow-hidden"
+          className="relative w-full h-[304px] md:h-[744px] rounded-2xl overflow-hidden"
         >
-          <Image
-            src={displayData.imageUrl}
-            alt={displayData.title}
-            fill
-            className="object-cover"
-            priority
-            unoptimized
-          />
+          <div className="absolute inset-0">
+            <Image
+              src={displayData.imageUrl}
+              alt={displayData.title}
+              fill
+              className="object-cover"
+              style={{ objectPosition: 'center' }}
+              priority
+              unoptimized
+              onError={() => setImageError(true)}
+              onLoad={(e) => {
+                const target = e.target as HTMLImageElement;
+                console.log('📸 EventDetailPage Image Loaded:', {
+                  naturalWidth: target.naturalWidth,
+                  naturalHeight: target.naturalHeight,
+                  containerWidth: target.width,
+                  containerHeight: target.height,
+                  aspectRatio: `${target.naturalWidth}x${target.naturalHeight}`,
+                  timestamp: new Date().toISOString()
+                });
+              }}
+            />
+          </div>
 
           <EventPill className="absolute top-4 right-4 lg:hidden" />
         </motion.div>
@@ -151,7 +180,7 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
             </div>
 
             <p className="text-white/60 text-[18px] lg:text-[22px]">
-              {displayData.registeredPeople}
+              {displayData.registeredPeople} people joined
             </p>
           </div>
         </motion.div>

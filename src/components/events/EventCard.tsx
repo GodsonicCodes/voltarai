@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Calendar, MapPin, Users, Clock, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
@@ -13,6 +13,8 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event, index, isPast = false }) => {
+    const [imageError, setImageError] = useState(false);
+
     return (
         <Link href={`/events/${event.id}`}>
             <motion.div
@@ -41,23 +43,39 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, isPast = false }) =
 
                 <div className="relative z-10 border border-white/20 rounded-lg flex flex-col h-full px-4 pt-6 pb-6">
                     {/* Event Image */}
-                    <div className='relative h-48 rounded-lg overflow-hidden mb-4 border border-white/10'>
-                        <Image
-                            src={event.hero_image_url || '/assets/seats.jpg'}
-                            alt={event.title}
-                            fill
-                            className='object-cover group-hover:scale-105 transition-transform duration-500'
-                            unoptimized
-                        />
+                    <div className='relative h-48 w-full rounded-lg overflow-hidden mb-4 border border-white/10'>
+                        <div className="absolute inset-0">
+                            <Image
+                                src={imageError ? '/assets/seats.jpg' : (event.hero_image_url || '/assets/seats.jpg')}
+                                alt={event.title}
+                                fill
+                                className='object-cover'
+                                sizes="(max-width: 340px) 100vw, 340px"
+                                style={{ objectPosition: 'center' }}
+                                unoptimized
+                                onError={() => setImageError(true)}
+                                onLoad={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    console.log('📸 EventCard Image Loaded:', {
+                                        naturalWidth: target.naturalWidth,
+                                        naturalHeight: target.naturalHeight,
+                                        containerWidth: target.width,
+                                        containerHeight: target.height,
+                                        aspectRatio: `${target.naturalWidth}x${target.naturalHeight}`,
+                                        timestamp: new Date().toISOString()
+                                    });
+                                }}
+                            />
+                        </div>
+                    </div>
 
-                        {/* Status Badge */}
-                        <div className='absolute top-3 right-3'>
-                            <div className={`px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${isPast
-                                ? 'bg-gray-900/80 text-gray-300 border border-white/20'
-                                : 'bg-blue-600/80 text-white border border-white/20'
-                                }`}>
-                                {isPast ? 'Past Event' : 'Upcoming'}
-                            </div>
+                    {/* Status Badge */}
+                    <div className='absolute top-3 right-3'>
+                        <div className={`px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${isPast
+                            ? 'bg-gray-900/80 text-gray-300 border border-white/20'
+                            : 'bg-blue-600/80 text-white border border-white/20'
+                            }`}>
+                            {isPast ? 'Past Event' : 'Upcoming'}
                         </div>
                     </div>
 
@@ -86,7 +104,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, isPast = false }) =
                         </div>
                         <div className='flex items-center gap-2 text-gray-400 text-sm'>
                             <Clock className='w-4 h-4 shrink-0' />
-                            <span>{event.start_time || '18:00'} - {event.end_time || '23:00'} (GMT +07:00)</span>
+                            <span>{event.start_time || '18:30'} - {event.end_time || '20:30'} ({event.timezone || 'UTC'})</span>
                         </div>
                         <div className='flex items-center gap-2 text-gray-400 text-sm'>
                             <MapPin className='w-4 h-4 shrink-0' />
@@ -94,7 +112,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, isPast = false }) =
                         </div>
                         <div className='flex items-center gap-2 text-gray-400 text-sm'>
                             <Users className='w-4 h-4 shrink-0' />
-                            <span>{event.attendee_display || "View registration"}</span>
+                            <span>{event.attendee_display || (event.attendee_display === '' ? 'Registration open' : 'View registration')}</span>
                         </div>
                     </div>
 

@@ -30,6 +30,21 @@ const FormRenderer: React.FC<FormRendererProps> = ({
             .replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '');
     };
 
+    // Handle phone number combination
+    const combinePhoneNumber = (formData: FormData): FormData => {
+        const countryCode = formData.get('country_code') as string;
+        const phoneNumber = formData.get('phone') as string;
+        
+        if (countryCode && phoneNumber) {
+            // Remove country_code and phone fields, add combined phone
+            formData.delete('country_code');
+            formData.delete('phone');
+            formData.set('phone', `${countryCode}${phoneNumber}`);
+        }
+        
+        return formData;
+    };
+
     useEffect(() => {
         if (!containerRef.current) return;
 
@@ -39,6 +54,41 @@ const FormRenderer: React.FC<FormRendererProps> = ({
         // Set the HTML content
         container.innerHTML = cleanHTML;
 
+        // Add custom styles for phone fields
+        const style = document.createElement('style');
+        style.textContent = `
+            .backend-form-wrapper select[name="country_code"],
+            .backend-form select[name="country_code"],
+            .form-row select[name="country_code"],
+            select[name="country_code"] {
+                width: 40px !important;
+                min-width: 40px !important;
+                max-width: 40px !important;
+                flex-shrink: 0 !important;
+                flex-basis: 40px !important;
+                box-sizing: border-box !important;
+                padding: 4px !important;
+                font-size: 12px !important;
+            }
+            .backend-form-wrapper input[name="phone"],
+            .backend-form input[name="phone"],
+            .form-row input[name="phone"],
+            input[name="phone"] {
+                flex: 1 !important;
+                min-width: 200px !important;
+                flex-grow: 1 !important;
+            }
+            .backend-form-wrapper .form-row:has(select[name="country_code"]),
+            .backend-form .form-row:has(select[name="country_code"]),
+            .form-row:has(select[name="country_code"]) {
+                display: flex !important;
+                gap: 8px !important;
+                align-items: center !important;
+                width: 100% !important;
+            }
+        `;
+        document.head.appendChild(style);
+
         // Find forms and handle submission
         const forms = container.querySelectorAll('form');
         forms.forEach((form) => {
@@ -46,7 +96,8 @@ const FormRenderer: React.FC<FormRendererProps> = ({
                 e.preventDefault();
                 if (onSubmit) {
                     const formData = new FormData(form as HTMLFormElement);
-                    onSubmit(formData);
+                    const combinedFormData = combinePhoneNumber(formData);
+                    onSubmit(combinedFormData);
                 }
             };
             
@@ -64,6 +115,10 @@ const FormRenderer: React.FC<FormRendererProps> = ({
                     form.removeEventListener('submit', handler);
                 }
             });
+            // Remove added styles
+            if (style.parentNode) {
+                style.parentNode.removeChild(style);
+            }
         };
     }, [html, onSubmit]);
 

@@ -58,6 +58,7 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
                 setSubmitMessage({ type: "error", text: result.message || "Registration failed." });
             }
         } catch (error: any) {
+            console.error('Error creating registration:', error);
             setSubmitMessage({
                 type: "error",
                 text: error?.message || "An unexpected error occurred. Please try again.",
@@ -107,9 +108,11 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
                 }}
                 className="bg-white max-w-2xl w-full min-h-[90dvh] md:h-[100dvh] max-h-[90dvh] md:max-h-[100dvh]] overflow-y-auto shadow-2xl rounded-t-xl md:rounded-none"
             >
-                <div className="p-6" ref={parentRef}>
+                <div className="p-6 h-full flex flex-col" ref={parentRef}>
                     {submitMessage && submitMessage.type == "success" ? (
-                        <EventRegistrationSuccess onClose={onClose} />
+                        <div className="flex-1 flex items-center justify-center">
+                            <EventRegistrationSuccess onClose={onClose} />
+                        </div>
                     ) : (
                         <>
                             <div className="flex justify-between items-center mb-6 mt-6">

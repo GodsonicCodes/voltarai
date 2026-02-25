@@ -10,15 +10,14 @@ interface EventRegistrationSuccessProps {
 
 const EventRegistrationSuccess: React.FC<EventRegistrationSuccessProps> = ({ onClose }) => {
     return (
-        <div className="p-6">
-            {/* Header with Close Button Only */}
-            <div className="flex justify-end items-start md:mb-6 mb-32">
-                <button className="text-red-400 hover:cursor-pointer hover:bg-red-500 hover:text-white rounded-full p-2 transition-colors" type="button" onClick={onClose}>
-                    <X className="h-6 w-6" />
-                </button>
-            </div>
+        <div className="relative w-full h-full flex flex-col justify-start max-w-md mx-auto">
+            {/* Close Button - Absolute positioned at top right */}
+            <button className="absolute top-0 right-0 text-red-400 hover:cursor-pointer hover:bg-red-500 hover:text-white rounded-full p-2 transition-colors" type="button" onClick={onClose}>
+                <X className="h-6 w-6" />
+            </button>
 
             {/* Success Icon with Animation */}
+            <div className="flex-1 flex flex-col items-center justify-center justify-self-center">
             <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{
@@ -37,7 +36,7 @@ const EventRegistrationSuccess: React.FC<EventRegistrationSuccessProps> = ({ onC
                         ease: "easeOut",
                     },
                 }}
-                className="mb-8 flex justify-center"
+                className="mb-8 flex justify-center "
             >
                 <Image src="/assets/done_all.svg" alt="Success" className="w-24 h-24" width={96} height={96} />
             </motion.div>
@@ -49,14 +48,13 @@ const EventRegistrationSuccess: React.FC<EventRegistrationSuccessProps> = ({ onC
 
             {/* Message */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.5 }} className="text-center mb-12">
-                <p className="text-gray-600 leading-relaxed max-w-md mx-auto">Thanks for registering for the event. We will send you a personalized QR Code and registration number via your email</p>
+                <p className="text-gray-600 leading-relaxed">Thanks for registering for the event. We will send you a personalized QR Code and registration number via your email</p>
             </motion.div>
 
             {/* Actions */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.5 }} className="flex flex-col gap-4 w-full max-w-sm mx-auto">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.5 }} className="flex flex-col gap-4 w-full">
                 <Button
                     onClick={() => {
-                        console.log("clicked");
                         if (onClose) onClose();
                     }}
                     className="w-full bg-[#1E1E1E] hover:bg-gray-900 text-white py-3 rounded-md font-medium transition-colors"
@@ -64,6 +62,7 @@ const EventRegistrationSuccess: React.FC<EventRegistrationSuccessProps> = ({ onC
                     Done
                 </Button>
             </motion.div>
+            </div>
         </div>
     );
 };

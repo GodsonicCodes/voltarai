@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Calendar, MapPin, Users, Clock, ChevronRight } from 'lucide-react';
-import { getEvents } from '@/actions/events.api';
+import { getEvents, getEventById } from '@/actions/events.api';
 import { type EventData } from '@/schema/events.schema';
 import EventCard from './EventCard';
 import ButtonEffect from '@/components/ui/ButtonEffect';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import Image from 'next/image';
 
 const EventListPage: React.FC = () => {
@@ -20,21 +21,42 @@ const EventListPage: React.FC = () => {
             try {
                 // Fetch upcoming events
                 const upcomingResult = await getEvents(true);
+                let upcomingDetailed: EventData[] = [];
                 if (upcomingResult.success && upcomingResult.events) {
-                    setUpcomingEvents(upcomingResult.events);
+                    // Fetch detailed data for each upcoming event
+                    upcomingDetailed = await Promise.all(
+                        upcomingResult.events.map(async (event) => {
+                            const detailResult = await getEventById(event.id);
+                            return detailResult?.success && detailResult?.event 
+                                ? detailResult.event 
+                                : event;
+                        })
+                    );
+                    setUpcomingEvents(upcomingDetailed);
                 }
 
                 // Fetch all events for past events
                 let past: EventData[] = [];
                 const allResult = await getEvents(false);
                 if (allResult.success && allResult.events) {
-                    past = allResult.events.filter(event =>
+                    // Filter past events first
+                    const pastEvents = allResult.events.filter(event =>
                         new Date(event.event_date) < new Date()
+                    );
+                    
+                    // Fetch detailed data for each past event
+                    past = await Promise.all(
+                        pastEvents.map(async (event) => {
+                            const detailResult = await getEventById(event.id);
+                            return detailResult?.success && detailResult?.event 
+                                ? detailResult.event 
+                                : event;
+                        })
                     );
                     setPastEvents(past);
                 }
 
-                setEvents([...(upcomingResult.events || []), ...(past || [])]);
+                setEvents([...upcomingDetailed, ...past]);
             } catch (error) {
                 console.error('Error fetching events:', error);
             } finally {
@@ -50,7 +72,7 @@ const EventListPage: React.FC = () => {
     if (isLoading) {
         return (
             <div className='min-h-screen bg-bgBlack flex items-center justify-center'>
-                <div className='text-white text-xl'>Loading events...</div>
+                <LoadingSpinner size="lg" />
             </div>
         );
     }
