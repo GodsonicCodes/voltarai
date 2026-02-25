@@ -61,7 +61,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({
             .backend-form select[name="country_code"],
             .form-row select[name="country_code"],
             select[name="country_code"] {
-                width: 40px !important;
+                width: unset !important;
                 min-width: 40px !important;
                 max-width: 40px !important;
                 flex-shrink: 0 !important;
@@ -84,7 +84,6 @@ const FormRenderer: React.FC<FormRendererProps> = ({
                 display: flex !important;
                 gap: 8px !important;
                 align-items: center !important;
-                width: 100% !important;
             }
         `;
         document.head.appendChild(style);
