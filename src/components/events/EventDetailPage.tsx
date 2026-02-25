@@ -21,6 +21,7 @@ import EventPill from "./components/event-pill";
 
 import { getEventById } from "@/actions/events.api";
 import { type EventData } from "@/schema/events.schema";
+import ReactMarkdown from "react-markdown";
 
 interface EventDetailPageProps {
   event: EventData;
@@ -221,9 +222,50 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
             About Event
           </h2>
 
-          <p className="text-white/50 text-[16px] lg:text-[20px] leading-relaxed">
-            {displayData.description}
-          </p>
+          <div className="text-white/50 text-[16px] lg:text-[20px] leading-relaxed">
+            <ReactMarkdown
+              components={{
+                p: ({node, ...props}) => (
+                  <p className="text-white/50 mb-4" {...props} />
+                ),
+                h1: ({node, ...props}) => (
+                  <h1 className="text-white text-2xl font-bold mb-4" {...props} />
+                ),
+                h2: ({node, ...props}) => (
+                  <h2 className="text-white text-xl font-bold mb-4" {...props} />
+                ),
+                h3: ({node, ...props}) => (
+                  <h3 className="text-white text-lg font-bold mb-4" {...props} />
+                ),
+                ul: ({node, ...props}) => (
+                  <ul className="text-white/50 mb-4 list-disc pl-6" {...props} />
+                ),
+                ol: ({node, ...props}) => (
+                  <ol className="text-white/50 mb-4 list-decimal pl-6" {...props} />
+                ),
+                li: ({node, ...props}) => (
+                  <li className="text-white/50 mb-2" {...props} />
+                ),
+                strong: ({node, ...props}) => (
+                  <strong className="text-white font-semibold" {...props} />
+                ),
+                em: ({node, ...props}) => (
+                  <em className="text-white/50 italic" {...props} />
+                ),
+                a: ({node, ...props}) => (
+                  <a className="text-blue-400 hover:text-blue-300 underline" {...props} />
+                ),
+                blockquote: ({node, ...props}) => (
+                  <blockquote className="text-white/50 border-l-4 border-gray-400 pl-4 mb-4 italic" {...props} />
+                ),
+                code: ({node, ...props}) => (
+                  <code className="text-white bg-gray-800 px-2 py-1 rounded text-sm" {...props} />
+                ),
+              }}
+            >
+              {displayData.description}
+            </ReactMarkdown>
+          </div>
         </motion.div>
 
         {/* Maps */}
