@@ -8,6 +8,7 @@ import EventPill from "./components/event-pill";
 import { getEvents } from "@/actions/events.api";
 import { type EventData } from "@/schema/events.schema";
 import EventCard from "./EventCard";
+import ReactMarkdown from "react-markdown";
 
 const Events = () => {
     const [events, setEvents] = useState<EventData[]>([]);
@@ -96,9 +97,50 @@ const Events = () => {
                                     <h3 className="text-white text-2xl md:text-3xl font-[494] mb-3 mt-4">
                                         {featuredEvent.title}
                                     </h3>
-                                    <p className="text-gray-300 text-lg mb-6 max-w-2xl">
-                                        {featuredEvent.description}
-                                    </p>
+                                    <div className="text-gray-300 text-lg mb-6 max-w-2xl">
+                                        <ReactMarkdown
+                                          components={{
+                                            p: ({node, ...props}) => (
+                                              <p className="text-gray-300 mb-4" {...props} />
+                                            ),
+                                            h1: ({node, ...props}) => (
+                                              <h1 className="text-white text-2xl font-bold mb-4" {...props} />
+                                            ),
+                                            h2: ({node, ...props}) => (
+                                              <h2 className="text-white text-xl font-bold mb-4" {...props} />
+                                            ),
+                                            h3: ({node, ...props}) => (
+                                              <h3 className="text-white text-lg font-bold mb-4" {...props} />
+                                            ),
+                                            ul: ({node, ...props}) => (
+                                              <ul className="text-gray-300 mb-4 list-disc pl-6" {...props} />
+                                            ),
+                                            ol: ({node, ...props}) => (
+                                              <ol className="text-gray-300 mb-4 list-decimal pl-6" {...props} />
+                                            ),
+                                            li: ({node, ...props}) => (
+                                              <li className="text-gray-300 mb-2" {...props} />
+                                            ),
+                                            strong: ({node, ...props}) => (
+                                              <strong className="text-white font-semibold" {...props} />
+                                            ),
+                                            em: ({node, ...props}) => (
+                                              <em className="text-gray-300 italic" {...props} />
+                                            ),
+                                            a: ({node, ...props}) => (
+                                              <a className="text-blue-400 hover:text-blue-300 underline" {...props} />
+                                            ),
+                                            blockquote: ({node, ...props}) => (
+                                              <blockquote className="text-gray-300 border-l-4 border-gray-400 pl-4 mb-4 italic" {...props} />
+                                            ),
+                                            code: ({node, ...props}) => (
+                                              <code className="text-white bg-gray-800 px-2 py-1 rounded text-sm" {...props} />
+                                            ),
+                                          }}
+                                        >
+                                          {featuredEvent.description}
+                                        </ReactMarkdown>
+                                    </div>
                                     <div className="flex items-center gap-4">
                                         <ButtonEffect onClick={() => window.location.href = `/events/${featuredEvent.id}`}>
                                             <span>Register Now</span>

@@ -5,6 +5,7 @@ import { Calendar, MapPin, Users, Clock, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { type EventData } from '@/schema/events.schema';
+import ReactMarkdown from "react-markdown";
 
 interface EventCardProps {
     event: EventData;
@@ -92,9 +93,50 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, isPast = false }) =
                     </h3>
 
                     {/* Description */}
-                    <p className='text-gray-300 text-sm mb-4 line-clamp-3 grow'>
-                        {event.description}
-                    </p>
+                    <div className='text-gray-300 text-sm mb-4 line-clamp-3 grow'>
+                        <ReactMarkdown
+                          components={{
+                            p: ({node, ...props}) => (
+                              <p className="text-gray-300" {...props} />
+                            ),
+                            h1: ({node, ...props}) => (
+                              <h1 className="text-white text-lg font-bold" {...props} />
+                            ),
+                            h2: ({node, ...props}) => (
+                              <h2 className="text-white text-base font-bold" {...props} />
+                            ),
+                            h3: ({node, ...props}) => (
+                              <h3 className="text-white text-sm font-bold" {...props} />
+                            ),
+                            ul: ({node, ...props}) => (
+                              <ul className="text-gray-300 list-disc pl-4" {...props} />
+                            ),
+                            ol: ({node, ...props}) => (
+                              <ol className="text-gray-300 list-decimal pl-4" {...props} />
+                            ),
+                            li: ({node, ...props}) => (
+                              <li className="text-gray-300" {...props} />
+                            ),
+                            strong: ({node, ...props}) => (
+                              <strong className="text-white font-semibold" {...props} />
+                            ),
+                            em: ({node, ...props}) => (
+                              <em className="text-gray-300 italic" {...props} />
+                            ),
+                            a: ({node, ...props}) => (
+                              <a className="text-blue-400 hover:text-blue-300 underline" {...props} />
+                            ),
+                            blockquote: ({node, ...props}) => (
+                              <blockquote className="text-gray-300 border-l-4 border-gray-500 pl-2 italic" {...props} />
+                            ),
+                            code: ({node, ...props}) => (
+                              <code className="text-white bg-gray-800 px-1 py-0.5 rounded text-xs" {...props} />
+                            ),
+                          }}
+                        >
+                          {event.description}
+                        </ReactMarkdown>
+                    </div>
 
                     {/* Event Details */}
                     <div className='space-y-2 mb-4'>
