@@ -1,6 +1,7 @@
 /* Import Tailwind CSS and animation utilities */
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "leaflet/dist/leaflet.css";
 
 /* Keep your original fallback stack but do NOT overwrite --font-author.
    next/font/local will inject --font-author at runtime on <html>.
@@ -91,4 +92,455 @@ html, body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+/* Backend Form Styling Classes */
+/* These classes will be used by backend-generated HTML forms */
+
+/* Form Container */
+.backend-form {
+  width: 100%;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+}
+
+/* FormRenderer wrappers - transparent */
+.form-renderer {
+  background-color: transparent;
+}
+
+.backend-form-wrapper {
+  background-color: transparent;
+}
+
+.backend-form-container {
+  background-color: transparent;
+}
+
+.backend-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.backend-form .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .backend-form .form-row {
+    flex-direction: row;
+  }
+}
+
+.backend-form .form-row .form-group {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+/* Labels */
+.backend-form label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.backend-form .required-label::after {
+  content: " *";
+  color: #ef4444;
+}
+
+/* Input Fields */
+.backend-form input[type="text"],
+.backend-form input[type="email"],
+.backend-form input[type="tel"],
+.backend-form input[type="number"],
+.backend-form input[type="date"],
+.backend-form input[type="time"],
+.backend-form input[type="url"],
+.backend-form input[type="password"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s;
+  background-color: transparent;
+  color: #111827;
+}
+
+.backend-form input::placeholder {
+  color: #6b7280;
+}
+
+.backend-form input:focus {
+  border-color: black;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.backend-form input.error {
+  border-color: #ef4444;
+}
+
+/* Textarea */
+.backend-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s;
+  background-color: transparent;
+  color: #111827;
+  min-height: 120px;
+}
+
+.backend-form textarea::placeholder {
+  color: #6b7280;
+}
+
+.backend-form textarea:focus {
+  border-color: black;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.backend-form textarea.error {
+  border-color: #ef4444;
+}
+
+/* Select/Dropdown */
+.backend-form select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s;
+  background-color: transparent;
+  color: #111827;
+  cursor: pointer;
+}
+
+.backend-form select:focus {
+  border-color: black;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.backend-form select.error {
+  border-color: #ef4444;
+}
+
+.backend-form select option {
+  color: #111827;
+  background-color: white;
+}
+
+/* Checkbox and Radio */
+.backend-form .checkbox-group,
+.backend-form .radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.backend-form input[type="checkbox"],
+.backend-form input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  color: black;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.backend-form .checkbox-label,
+.backend-form .radio-label {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* File Upload */
+.backend-form input[type="file"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s;
+  background-color: transparent;
+  color: #111827;
+  cursor: pointer;
+}
+
+.backend-form input[type="file"]::file-selector-button {
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: black;
+  color: white;
+}
+
+.backend-form input[type="file"]:hover::file-selector-button {
+  background-color: #1f2937;
+}
+
+.backend-form input[type="file"]:focus {
+  border-color: black;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Buttons */
+.backend-form .btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+  border-width: 2px;
+  border-style: solid;
+  outline: none;
+}
+
+.backend-form .btn-primary {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+
+.backend-form .btn-primary:hover {
+  background-color: #1f2937;
+  border-color: #1f2937;
+}
+
+.backend-form .btn-secondary {
+  background-color: transparent;
+  color: black;
+  border-color: #d1d5db;
+}
+
+.backend-form .btn-secondary:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.backend-form .btn-outline {
+  background-color: transparent;
+  color: black;
+  border-color: black;
+}
+
+.backend-form .btn-outline:hover {
+  background-color: black;
+  color: white;
+}
+
+.backend-form .btn-danger {
+  background-color: #dc2626;
+  color: white;
+  border-color: #dc2626;
+}
+
+.backend-form .btn-danger:hover {
+  background-color: #b91c1c;
+  border-color: #b91c1c;
+}
+
+.backend-form .btn-success {
+  background-color: #16a34a;
+  color: white;
+  border-color: #16a34a;
+}
+
+.backend-form .btn-success:hover {
+  background-color: #15803d;
+  border-color: #15803d;
+}
+
+.backend-form .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.backend-form .btn-full {
+  width: 100%;
+}
+
+.backend-form .btn-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.backend-form .btn-group .btn {
+  flex: 1;
+}
+
+/* Error Messages */
+.backend-form .error-message {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.backend-form .field-error {
+  border-color: #ef4444;
+}
+
+/* Success Messages */
+.backend-form .success-message {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #16a34a;
+  font-weight: 500;
+}
+
+/* Help Text */
+.backend-form .help-text {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Form Sections */
+.backend-form .form-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.backend-form .form-section:last-child {
+  border-bottom: none;
+}
+
+.backend-form .section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.backend-form .section-subtitle {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+}
+
+/* Alert Boxes */
+.backend-form .alert {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid;
+}
+
+.backend-form .alert-info {
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+
+.backend-form .alert-warning {
+  background-color: #fef3c7;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.backend-form .alert-error {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.backend-form .alert-success {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+/* Loading States */
+.backend-form .loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.backend-form .spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .backend-form {
+    padding: 1rem;
+  }
+  
+  .backend-form .form-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .backend-form .btn-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .backend-form .btn-group .btn {
+    width: 100%;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation Classes for Motion.div */
+.form-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.form-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

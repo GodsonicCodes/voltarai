@@ -20,15 +20,22 @@ export async function api<T = unknown>(endpoint: string, options: RequestInit = 
             defaultHeaders["Content-Type"] = "application/json";
         }
 
-        const response = await fetch(`${API_BASE_URL}${endpoint}/`, {
+        let fetchUrl = `${API_BASE_URL}${endpoint}`;
+        // Ensure trailing slash comes before query params
+        if (fetchUrl.includes('?')) {
+            const [base, query] = fetchUrl.split('?');
+            fetchUrl = `${base.endsWith('/') ? base : base + '/'}?${query}`;
+        } else {
+            fetchUrl = fetchUrl.endsWith('/') ? fetchUrl : fetchUrl + '/';
+        }
+
+        const response = await fetch(fetchUrl, {
             ...rest,
             headers: {
                 ...defaultHeaders,
                 ...(headers || {}),
             },
         });
-
-        console.log(response);
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));

@@ -1,0 +1,17 @@
+src/components/events/EventDetailPage.tsx(68,26): error TS2322: Type '{ text: string; }' is not assignable to type 'IntrinsicAttributes & EventPillProps'.
+  Property 'text' does not exist on type 'IntrinsicAttributes & EventPillProps'.
+src/components/events/EventDetailPage.tsx(70,17): error TS2322: Type '{ icon: string; text: string; subtext: string; value: string; }' is not assignable to type 'IntrinsicAttributes & SettingProps'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & SettingProps'.
+src/components/events/EventDetailPage.tsx(75,24): error TS2322: Type '{ icon: string; text: string; }' is not assignable to type 'IntrinsicAttributes & SettingProps'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & SettingProps'.
+src/components/events/EventDetailPage.tsx(118,26): error TS2322: Type '{ icon: string; text: string; }' is not assignable to type 'IntrinsicAttributes & SettingProps'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & SettingProps'.
+src/components/events/EventDetailPage.tsx(119,26): error TS2322: Type '{ icon: string; text: string; }' is not assignable to type 'IntrinsicAttributes & SettingProps'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & SettingProps'.
+src/components/events/EventDetailPage.tsx(121,19): error TS2322: Type '{ icon: string; text: string; subtext: string; value: string; }' is not assignable to type 'IntrinsicAttributes & SettingProps'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & SettingProps'.
+src/components/events/EventDetailPage.tsx(126,26): error TS2322: Type '{ icon: string; text: string; }' is not assignable to type 'IntrinsicAttributes & SettingProps'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & SettingProps'.
+src/components/events/EventListPage.tsx(36,66): error TS2304: Cannot find name 'past'.
+src/components/events/events.tsx(95,48): error TS2322: Type '{ text: string; }' is not assignable to type 'IntrinsicAttributes & EventPillProps'.
+  Property 'text' does not exist on type 'IntrinsicAttributes & EventPillProps'.
