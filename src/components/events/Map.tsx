@@ -233,6 +233,8 @@ const MapComponent: React.FC<MapProps> = memo(({
     );
 });
 
+MapComponent.displayName = 'Map';
+
 const Map = dynamic(() => Promise.resolve(MapComponent), {
     ssr: false,
 });
