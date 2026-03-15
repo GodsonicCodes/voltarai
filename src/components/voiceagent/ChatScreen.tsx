@@ -1,24 +1,27 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft } from 'lucide-react';
 import ChatMessage from './ChatMessage';
 import VoiceInput from './VoiceInput';
-
-interface Message {
-    type: 'user' | 'assistant';
-    content: string;
-    isThinking?: boolean;
-}
+import type { UIMessage } from '@/types/voltar-ai';
 
 interface ChatScreenProps {
-    messages: Message[];
+    messages: UIMessage[];
     onSend?: (message: string) => void;
     onCallClick?: () => void;
     onBackClick?: () => void;
 }
 
 export default function ChatScreen({ messages, onSend, onCallClick, onBackClick }: ChatScreenProps) {
+    const bottomRef = useRef<HTMLDivElement>(null);
+
+    // Auto-scroll to newest message
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -61,8 +64,10 @@ export default function ChatScreen({ messages, onSend, onCallClick, onBackClick 
                         type={msg.type}
                         content={msg.content}
                         isThinking={msg.isThinking}
+                        source={msg.source}
                     />
                 ))}
+                <div ref={bottomRef} />
             </div>
 
             {/* Input */}

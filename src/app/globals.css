@@ -1,5 +1,6 @@
 /* Import Tailwind CSS and animation utilities */
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "tw-animate-css";
 @import "leaflet/dist/leaflet.css";
 
