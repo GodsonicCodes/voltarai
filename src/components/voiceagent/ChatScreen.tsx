@@ -22,42 +22,54 @@ export default function ChatScreen({ messages, onSend, onCallClick, onBackClick 
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
+    const isLoading = messages.length > 0 && messages[messages.length - 1].isThinking;
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex flex-col h-full"
+            className="flex flex-col h-full relative"
         >
-            {/* Header */}
-            <div className="flex items-center px-4 md:px-6 py-3 md:py-4 border-b border-gray-200">
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={onBackClick}
-                    className="flex items-center gap-1 text-gray-500 hover:text-gray-800 transition-colors"
-                    aria-label="Go back"
+            {/* ── SVG connector lines ── */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden pb-40 z-0">
+                {/* Left line to avatar */}
+                {/* <svg
+                    className="absolute top-0 left-0 w-full h-full text-indigo-400 opacity-40"
+                    preserveAspectRatio="none"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
                 >
-                    <ChevronLeft className="w-5 h-5" />
-                </motion.button>
+                    <path d="M 45 0 L 45 15 L 35 25 L 35 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                </svg> */}
+                
+                {/* Right line to bubble */}
+                {/* <svg
+                    className="absolute top-0 left-0 w-full h-full text-indigo-400 opacity-40"
+                    preserveAspectRatio="none"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path d="M 72 0 L 72 15 L 82 25 L 82 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                </svg> */}
+            </div>
 
-                <div className="flex items-center gap-2 flex-1 justify-center">
-                    <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gray-200 overflow-hidden border border-indigo-500">
+            {/* Header Pill (Centered) */}
+            <div className="flex justify-center pt-8 pb-4 relative z-10">
+                <div className="flex items-center gap-3 px-6 py-2 bg-white rounded-full shadow-sm border border-gray-100">
+                    <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                         <img
                             src="/assets/voiceagent/voiceagent.png"
                             alt="Assistant"
                             className="w-full h-full object-cover"
                         />
                     </div>
-                    <span className="text-xs md:text-sm font-medium text-gray-900">V-Agent</span>
+                    <span className="text-sm font-semibold text-gray-900 pr-2 tracking-wide">V-Agent</span>
                 </div>
-
-                {/* Spacer to balance the back button */}
-                <div className="w-8" />
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-3 md:px-6 py-4 md:py-6">
+            <div className="flex-1 overflow-y-auto px-4 md:px-12 py-6 w-full max-w-4xl mx-auto space-y-4 relative z-10">
                 {messages.map((msg, idx) => (
                     <ChatMessage
                         key={idx}
@@ -70,12 +82,13 @@ export default function ChatScreen({ messages, onSend, onCallClick, onBackClick 
                 <div ref={bottomRef} />
             </div>
 
-            {/* Input */}
-            <div className="px-3 md:px-6 py-3 md:py-4 border-t border-gray-200">
+            {/* Input Form at the Bottom (Matches Welcome Screen) */}
+            <div className="w-full max-w-2xl mx-auto px-4 pb-6 mt-4 relative z-10">
                 <VoiceInput
                     onSend={onSend}
                     onCallClick={onCallClick}
-                    placeholder="Ask me anything you want..."
+                    placeholder="Ask me anything you want.."
+                    isLoading={isLoading}
                 />
             </div>
         </motion.div>

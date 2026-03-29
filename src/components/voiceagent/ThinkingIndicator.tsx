@@ -4,17 +4,16 @@ import { motion } from 'framer-motion';
 
 export default function ThinkingIndicator() {
     return (
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 px-1">
             {[0, 1, 2].map((dot) => (
                 <motion.div
                     key={dot}
-                    className="w-2 h-2 bg-gray-400 rounded-full"
+                    className="w-1 h-1 bg-black rounded-full"
                     animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [0.5, 1, 0.5],
+                        opacity: [0.4, 1, 0.4],
                     }}
                     transition={{
-                        duration: 1,
+                        duration: 1.2,
                         repeat: Infinity,
                         ease: "easeInOut",
                         delay: dot * 0.2,

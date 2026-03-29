@@ -4,7 +4,7 @@ import type {
     TranscriptMessage,
 } from '@/types/voltar-ai';
 
-const WS_URL = 'wss://voltarai-vagent-2.onrender.com/ws/grok-voice-session';
+const WS_URL = 'wss://voltarai-vagent-2.onrender.com/ws/voice-session-binary';
 const SAMPLE_RATE = 24000;
 const INPUT_SAMPLE_RATE = 16000;
 const CHUNK_SIZE = 4096;
