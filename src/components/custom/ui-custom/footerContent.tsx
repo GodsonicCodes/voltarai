@@ -31,6 +31,8 @@ const footerItems: FooterProps[] = [
             { name: "Why Choose Us", url: "#" },
             { name: "Events", url: "/events" },
             { name: "Career", url: "/career" },
+            { name: "Request A Service", url: "/request-service" },
+            { name: "Request AI Training", url: "/request-training" },
         ],
         footer: { name: "Terms & Conditions", url: "#" },
     },

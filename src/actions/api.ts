@@ -35,6 +35,7 @@ export async function api<T = unknown>(endpoint: string, options: RequestInit = 
                 ...defaultHeaders,
                 ...(headers || {}),
             },
+            next:{revalidate:60}
         });
 
         if (!response.ok) {

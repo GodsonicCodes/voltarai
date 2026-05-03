@@ -1,15 +1,16 @@
-import CareerForm from "@/components/career/CareerForm";
+import TrainingRequestPageForm from "@/components/training-request/TrainingRequestPageForm";
 import Image from "next/image";
 import Link from "next/link";
 import desktopLogo from "@/../public/assets/logo/logodesktop.svg";
 import mobileLogo from "@/../public/assets/logo/logomobile.svg";
 
 export const metadata = {
-    title: "Careers | Voltar AI",
-    description: "Join our team to build the future of AI automation.",
+    title: "Request AI Training | Voltar AI",
+    description:
+        "Request specialized AI training for yourself or your company team. We offer custom curriculums from basic AI tools to advanced AI development.",
 };
 
-export default function CareerPage() {
+export default function RequestTrainingPage() {
     return (
         <div className="w-full min-h-screen bg-bgBlack font-sans flex flex-col relative overflow-hidden">
             {/* ── Background grid pattern ─────────────────────────────────── */}
@@ -54,7 +55,7 @@ export default function CareerPage() {
 
             {/* ── Form card ───────────────────────────────────────────────── */}
             <main className="relative z-10 flex-1 flex items-start justify-center px-4 py-10 sm:py-16">
-                <CareerForm />
+                <TrainingRequestPageForm />
             </main>
         </div>
     );

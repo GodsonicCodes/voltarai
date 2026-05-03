@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import WelcomeScreen from '@/components/voiceagent/WelcomeScreen';
 import ListeningScreen from '@/components/voiceagent/ListeningScreen';
 import ChatScreen from '@/components/voiceagent/ChatScreen';
-import { VoiceAgentService } from '@/services/voice-agent.service';
-import { ChatAIService } from '@/services/chat-ai.service';
+// ── API service imports commented out ────────────────────────────────────────
+// import { VoiceAgentService } from '@/services/voice-agent.service';
+// import { ChatAIService } from '@/services/chat-ai.service';
 import type { VoiceState, TranscriptMessage, UIMessage } from '@/types/voltar-ai';
 
 type ViewMode = 'welcome' | 'listening' | 'chat';
@@ -21,25 +22,20 @@ export default function VoiceAgentPage() {
     const [micError, setMicError] = useState<string | null>(null);
     const [isMuted, setIsMuted] = useState(false);
 
-    const voiceServiceRef = useRef<VoiceAgentService | null>(null);
-    const chatServiceRef = useRef<ChatAIService | null>(null);
+    // ── Service refs commented out (API calls disabled) ───────────────────────
+    // const voiceServiceRef = useRef<VoiceAgentService | null>(null);
+    // const chatServiceRef = useRef<ChatAIService | null>(null);
+    // const getChatService = useCallback(async (): Promise<ChatAIService> => {
+    //     if (!chatServiceRef.current) chatServiceRef.current = new ChatAIService();
+    //     if (!chatServiceRef.current.hasActiveSession()) await chatServiceRef.current.startSession();
+    //     return chatServiceRef.current;
+    // }, []);
 
-    // Ensure chat service is initialised
-    const getChatService = useCallback(async (): Promise<ChatAIService> => {
-        if (!chatServiceRef.current) {
-            chatServiceRef.current = new ChatAIService();
-        }
-        if (!chatServiceRef.current.hasActiveSession()) {
-            await chatServiceRef.current.startSession();
-        }
-        return chatServiceRef.current;
-    }, []);
-
-    // Clean up on page leave
+    // ── Cleanup commented out (no active service sessions) ──────────────────
     useEffect(() => {
         return () => {
-            voiceServiceRef.current?.endSession();
-            chatServiceRef.current?.endSession();
+            // voiceServiceRef.current?.endSession();
+            // chatServiceRef.current?.endSession();
         };
     }, []);
 
