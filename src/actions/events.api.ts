@@ -7,8 +7,8 @@ export async function getEvents(upcoming: boolean = false): Promise<EventListRes
         const endpoint = upcoming ? `/events/?upcoming=true` : `/events`;
         const response = await api<EventListResponse>(endpoint);
 
-        if (!response.success || !response.data) {
-            throw new Error(response.error || `Failed to fetch events`);
+        if (!response.success || !response.data || (response.data as any).success === false) {
+            throw new Error(response.error || (response.data as any).error || (response.data as any).message || `Failed to fetch events`);
         }
 
         return response.data;
@@ -33,8 +33,8 @@ export async function getEventById(idOrSlug: string | number): Promise<EventDeta
 
         const response = await api<EventDetailResponse>(endpoint);
 
-        if (!response.success || !response.data) {
-            throw new Error(response.error || `Failed to fetch event`);
+        if (!response.success || !response.data || (response.data as any).success === false) {
+            throw new Error(response.error || (response.data as any).error || (response.data as any).message || `Failed to fetch event`);
         }
 
         return response.data;
@@ -49,8 +49,8 @@ export async function getActiveEvent(): Promise<EventDetailResponse> {
     try {
         const response = await api<EventDetailResponse>(`/events/?active=true`);
 
-        if (!response.success || !response.data) {
-            throw new Error(response.error || `Failed to fetch active event`);
+        if (!response.success || !response.data || (response.data as any).success === false) {
+            throw new Error(response.error || (response.data as any).error || (response.data as any).message || `Failed to fetch active event`);
         }
 
         return response.data;
@@ -75,8 +75,8 @@ export async function createEventRegistration(
             body: JSON.stringify(registrationData),
         });
 
-        if (!response.success || !response.data) {
-            throw new Error(response.error || `Registration failed`);
+        if (!response.success || !response.data || (response.data as any).success === false) {
+            throw new Error(response.error || (response.data as any).error || (response.data as any).message || `Registration failed`);
         }
 
         return response.data;

@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Footer from "@/components/custom/footer";
 import UserTracker from "@/components/UserTracker";
 import React from "react";
 import Script from "next/script";
@@ -169,7 +168,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy="afterInteractive"
         />
         {children}
-        <Footer />
       </body>
     </html>
   );
