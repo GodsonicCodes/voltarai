@@ -41,6 +41,7 @@ export class VoiceAgentService {
     // ── Lifecycle ────────────────────────────────────────────────────────────
 
     async startSession(_userId?: string): Promise<void> {
+        void _userId;
         // ── API call commented out ──────────────────────────────────────────
         // this.mediaStream = await navigator.mediaDevices.getUserMedia({
         //     audio: {
@@ -58,7 +59,7 @@ export class VoiceAgentService {
         // this.nextPlayTime = 0;
         // await this.connectWebSocket(userId);
         // this.startAudioCapture();
-
+ 
         console.log('[VoiceAgent] startSession: API calls are commented out (no-op)');
         this.connected = true;
         this.callbacks.onConnectionOpen?.();
@@ -66,6 +67,7 @@ export class VoiceAgentService {
     }
 
     private connectWebSocket(_userId?: string): Promise<void> {
+        void _userId;
         // ── WebSocket API call commented out ───────────────────────────────
         // return new Promise((resolve, reject) => {
         //     this.ws = new WebSocket(WS_URL);
@@ -92,6 +94,7 @@ export class VoiceAgentService {
     // ── Incoming message routing ─────────────────────────────────────────────
 
     private handleMessage(_event: MessageEvent): void {
+        void _event;
         // ── API message handling commented out ─────────────────────────────
         // if (event.data instanceof ArrayBuffer) {
         //     const pcm = new Int16Array(event.data);
@@ -179,6 +182,7 @@ export class VoiceAgentService {
     }
 
     private scheduleAudioChunk(_float32: Float32Array): void {
+        void _float32;
         // ── AudioContext scheduling commented out ──────────────────────────
         // if (!this.audioContext) return;
         // if (this.audioContext.state === 'suspended') this.audioContext.resume();

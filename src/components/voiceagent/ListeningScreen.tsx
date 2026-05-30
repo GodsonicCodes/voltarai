@@ -35,7 +35,6 @@ export default function ListeningScreen({
     onMicClick,
     onInterrupt,
     onCloseClick,
-    onBackClick,
 }: ListeningScreenProps) {
     const transcriptEndRef = useRef<HTMLDivElement>(null);
 
@@ -95,6 +94,7 @@ export default function ListeningScreen({
                                 transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
                             />
                             <div className="relative w-20 h-20 rounded-full overflow-hidden border-[4px] border-[#3B00E6] bg-gray-200">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
                                     src="/assets/voiceagent/voiceagent.png"
                                     alt="Assistant"
@@ -131,6 +131,7 @@ export default function ListeningScreen({
                                 {/* Assistant avatar thumbnail */}
                                 {msg.role === 'agent' && (
                                     <div className="w-7 h-7 rounded-full overflow-hidden border border-indigo-300 bg-gray-200 shrink-0 mb-0.5">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src="/assets/voiceagent/voiceagent.png"
                                             alt="Assistant"
@@ -172,6 +173,7 @@ export default function ListeningScreen({
                             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
                         />
                         <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-[4px] border-[#3B00E6] bg-gray-200">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src="/assets/voiceagent/voiceagent.png"
                                 alt="Assistant"

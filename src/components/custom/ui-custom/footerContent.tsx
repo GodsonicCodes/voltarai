@@ -76,10 +76,10 @@ const FooterContent = () => {
                 className="flex flex-col gap-6 lg:gap-6 lg:col-span-2"
             >
                 {/* Brand logo with white dot and Voltar.ai text */}
-                <div className="flex items-center space-x-3">
+                <Link href="/" className="flex items-center space-x-3">
                     <Image src={desktopLogo} alt="Voltar.ai Logo" className="hidden sm:block h-8 w-auto" />
                     <Image src={mobileLogo} alt="Voltar.ai Logo" className="sm:hidden h-8 w-auto" />
-                </div>
+                </Link>
 
                 <p className="text-sm md:text-base text-white">
                     Voltar AI is your intelligent partner for automation, analysis and decision making. We scale businesses 10x faster with AI that never sleeps.
