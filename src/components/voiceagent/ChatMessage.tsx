@@ -31,13 +31,13 @@ export default function ChatMessage({ type, content, isThinking = false, source 
                         <ReactMarkdown 
                             remarkPlugins={[remarkGfm]}
                             components={{
-                                p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
-                                ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-2" {...props} />,
-                                ol: ({node, ...props}) => <ol className="list-decimal ml-4 mb-2" {...props} />,
-                                li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                                h1: ({node, ...props}) => <h1 className="text-lg font-bold mb-2" {...props} />,
-                                h2: ({node, ...props}) => <h2 className="text-base font-bold mb-2" {...props} />,
-                                h3: ({node, ...props}) => <h3 className="text-sm font-bold mb-1" {...props} />,
+                            p: ({...props}) => <p className="mb-2 last:mb-0" {...props} />,
+                                ul: ({...props}) => <ul className="list-disc ml-4 mb-2" {...props} />,
+                                ol: ({...props}) => <ol className="list-decimal ml-4 mb-2" {...props} />,
+                                li: ({...props}) => <li className="mb-1" {...props} />,
+                                h1: ({...props}) => <h1 className="text-lg font-bold mb-2" {...props} />,
+                                h2: ({...props}) => <h2 className="text-base font-bold mb-2" {...props} />,
+                                h3: ({...props}) => <h3 className="text-sm font-bold mb-1" {...props} />,
                             }}
                         >
                             {content}
@@ -57,6 +57,7 @@ export default function ChatMessage({ type, content, isThinking = false, source 
             className="flex items-start gap-2 w-full"
         >
             <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 shrink-0 mt-1">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src="/assets/voiceagent/voiceagent.png"
                     alt="Assistant"
@@ -76,13 +77,13 @@ export default function ChatMessage({ type, content, isThinking = false, source 
                         <ReactMarkdown 
                             remarkPlugins={[remarkGfm]}
                             components={{
-                                p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
-                                ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-2" {...props} />,
-                                ol: ({node, ...props}) => <ol className="list-decimal ml-4 mb-2" {...props} />,
-                                li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                                h1: ({node, ...props}) => <h1 className="text-lg font-bold mb-2" {...props} />,
-                                h2: ({node, ...props}) => <h2 className="text-base font-bold mb-2" {...props} />,
-                                h3: ({node, ...props}) => <h3 className="text-sm font-bold mb-1" {...props} />,
+                                p: ({...props}) => <p className="mb-2 last:mb-0" {...props} />,
+                                ul: ({...props}) => <ul className="list-disc ml-4 mb-2" {...props} />,
+                                ol: ({...props}) => <ol className="list-decimal ml-4 mb-2" {...props} />,
+                                li: ({...props}) => <li className="mb-1" {...props} />,
+                                h1: ({...props}) => <h1 className="text-lg font-bold mb-2" {...props} />,
+                                h2: ({...props}) => <h2 className="text-base font-bold mb-2" {...props} />,
+                                h3: ({...props}) => <h3 className="text-sm font-bold mb-1" {...props} />,
                             }}
                         >
                             {content}

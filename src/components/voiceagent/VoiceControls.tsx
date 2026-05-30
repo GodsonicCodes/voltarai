@@ -14,14 +14,10 @@ interface VoiceControlsProps {
 }
 
 export default function VoiceControls({
-    isRecording = false,
     isMuted = false,
-    voiceState = 'waiting',
     onMicClick,
-    onInterrupt,
     onCloseClick,
 }: VoiceControlsProps) {
-    const isSpeaking = voiceState === 'speaking';
 
     return (
         <div className="flex items-center justify-center">

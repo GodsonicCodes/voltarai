@@ -60,10 +60,10 @@ export const trackUserVisitUtil = async () => {
             if (result && result.success) {
                 localStorage.setItem("visit", today);
             }
-        } catch (apiError) {
+        } catch {
             // Don't mark as visited if API failed - allow retry on next load
         }
-    } catch (error: unknown) {
+    } catch {
         // Error handling remains but without logging sensitive info
     }
 };

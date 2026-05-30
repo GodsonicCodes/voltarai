@@ -37,13 +37,12 @@ const PhoneInput: React.FC<PhoneInputProps> = ({countryCode, setCountryCode, pho
         };
 
         setDefaultCountry();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // Empty dependency array - only run once on mount
 
     useEffect(() => {
         setCountryCode(countryOptions.find((option) => option.label === country)?.value || "");
-        // Just country else setCountryCode as dependency will retrigger the useEffect always
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [country]);
+    }, [country, setCountryCode]);
 
     return (
         <div className={cn("w-full", className)}>

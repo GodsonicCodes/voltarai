@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useMemo } from 'react';
-import { motion } from 'motion/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowLeft, MoveUpRight } from 'lucide-react';
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { motion } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft, MoveUpRight } from "lucide-react";
 import ButtonEffect from "@/components/ui/ButtonEffect";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
@@ -34,29 +34,33 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
 
   // ✅ Initialize safely from server data
   const [eventData, setEventData] = useState<EventData | null>(null);
+  // Capture the initial event prop in a ref so the effect dep array
+  // stays stable (avoids re-fetching on every parent render).
+  const eventRef = useRef(event);
 
   useEffect(() => {
+    const initialEvent = eventRef.current;
     const fetchEventData = async () => {
       try {
-        const result = await getEventById(event.id);
+        const result = await getEventById(initialEvent.id);
 
         if (result?.success && result?.event) {
           setEventData(result.event);
         } else {
           // Fallback to passed event if API fails
-          setEventData(event);
+          setEventData(initialEvent);
         }
       } catch (error) {
         console.error("Error fetching event data:", error);
         // Fallback to passed event on error
-        setEventData(event);
+        setEventData(initialEvent);
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchEventData();
-  }, [event.id]);
+  }, []);
 
   // ✅ Safe date parsing
   const isPastEvent = useMemo(() => {
@@ -69,27 +73,44 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
   }, [eventData?.event_date]);
 
   // ✅ Enterprise-safe data resolver (nullish coalescing)
-  const displayData = useMemo(() => ({
-    sponsor: eventData?.sponsor ?? event.sponsor ?? "A Voltar AI Sponsored Event",
-    title: eventData?.title ?? event.title ?? "Untitled Event",
-    description:
-      eventData?.description ??
-      event.description ??
+  const displayData = useMemo(
+    () => ({
+      sponsor:
+        eventData?.sponsor ?? event.sponsor ?? "A Voltar AI Sponsored Event",
+      title: eventData?.title ?? event.title ?? "Untitled Event",
+      description:
+        eventData?.description ??
+        event.description ??
         "Join us for an exclusive in-person gathering where innovation meets community.",
-    location: eventData?.location_name ?? event.location_name ?? "Tema, Community 1",
-    address:
-      eventData?.address ?? event.address ?? "Burbs Hotel, Opposite NY FM 1016",
-    date: eventData?.event_date ?? event.event_date ?? "",
-    startTime: eventData?.start_time ?? event.start_time ?? "18:00",
-    endTime: eventData?.end_time ?? event.end_time ?? "23:00",
-    timezone: eventData?.timezone ?? event.timezone ?? "GMT",
-    registeredPeople: (eventData?.attendee_display || (eventData?.attendee_display === '' ? 'Registration open' : '10k+ people joined')) ?? (event.attendee_display || (event.attendee_display === '' ? 'Registration open' : '10k+ people joined')),
-    latitude: eventData?.latitude ?? event.latitude ?? null,
-    longitude: eventData?.longitude ?? event.longitude ?? null,
-    imageUrl: imageError ? SeatsImage : (eventData?.hero_image_url ?? event.hero_image_url ?? SeatsImage),
-    slug: eventData?.slug ?? event.slug,
-    formHtml: eventData?.form_html ?? event.form_html,
-  }), [eventData, event]);
+      location:
+        eventData?.location_name ?? event.location_name ?? "Tema, Community 1",
+      address:
+        eventData?.address ??
+        event.address ??
+        "Burbs Hotel, Opposite NY FM 1016",
+      date: eventData?.event_date ?? event.event_date ?? "",
+      startTime: eventData?.start_time ?? event.start_time ?? "18:00",
+      endTime: eventData?.end_time ?? event.end_time ?? "23:00",
+      timezone: eventData?.timezone ?? event.timezone ?? "GMT",
+      registeredPeople:
+        (eventData?.attendee_display ||
+          (eventData?.attendee_display === ""
+            ? "Registration open"
+            : "10k+ people joined")) ??
+        (event.attendee_display ||
+          (event.attendee_display === ""
+            ? "Registration open"
+            : "10k+ people joined")),
+      latitude: eventData?.latitude ?? event.latitude ?? null,
+      longitude: eventData?.longitude ?? event.longitude ?? null,
+      imageUrl: imageError
+        ? SeatsImage
+        : (eventData?.hero_image_url ?? event.hero_image_url ?? SeatsImage),
+      slug: eventData?.slug ?? event.slug,
+      formHtml: eventData?.form_html ?? event.form_html,
+    }),
+    [eventData, event, imageError],
+  );
 
   if (isLoading) {
     return (
@@ -102,7 +123,6 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
   return (
     <div className="bg-black min-h-screen w-full flex justify-center">
       <div className="w-full max-w-[1100px] px-5 lg:px-8 pt-6 pb-16 flex flex-col gap-10">
-
         {/* Back */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -131,19 +151,19 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
               alt={displayData.title}
               fill
               className="object-cover"
-              style={{ objectPosition: 'center' }}
+              style={{ objectPosition: "center" }}
               priority
               unoptimized
               onError={() => setImageError(true)}
               onLoad={(e) => {
                 const target = e.target as HTMLImageElement;
-                console.log('📸 EventDetailPage Image Loaded:', {
+                console.log("📸 EventDetailPage Image Loaded:", {
                   naturalWidth: target.naturalWidth,
                   naturalHeight: target.naturalHeight,
                   containerWidth: target.width,
                   containerHeight: target.height,
                   aspectRatio: `${target.naturalWidth}x${target.naturalHeight}`,
-                  timestamp: new Date().toISOString()
+                  timestamp: new Date().toISOString(),
                 });
               }}
             />
@@ -225,41 +245,65 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
           <div className="text-white/50 text-[16px] lg:text-[20px] leading-relaxed">
             <ReactMarkdown
               components={{
-                p: ({node, ...props}) => (
+                p: ({ ...props }) => (
                   <p className="text-white/50 mb-4" {...props} />
                 ),
-                h1: ({node, ...props}) => (
-                  <h1 className="text-white text-2xl font-bold mb-4" {...props} />
+                h1: ({ ...props }) => (
+                  <h1
+                    className="text-white text-2xl font-bold mb-4"
+                    {...props}
+                  />
                 ),
-                h2: ({node, ...props}) => (
-                  <h2 className="text-white text-xl font-bold mb-4" {...props} />
+                h2: ({ ...props }) => (
+                  <h2
+                    className="text-white text-xl font-bold mb-4"
+                    {...props}
+                  />
                 ),
-                h3: ({node, ...props}) => (
-                  <h3 className="text-white text-lg font-bold mb-4" {...props} />
+                h3: ({ ...props }) => (
+                  <h3
+                    className="text-white text-lg font-bold mb-4"
+                    {...props}
+                  />
                 ),
-                ul: ({node, ...props}) => (
-                  <ul className="text-white/50 mb-4 list-disc pl-6" {...props} />
+                ul: ({ ...props }) => (
+                  <ul
+                    className="text-white/50 mb-4 list-disc pl-6"
+                    {...props}
+                  />
                 ),
-                ol: ({node, ...props}) => (
-                  <ol className="text-white/50 mb-4 list-decimal pl-6" {...props} />
+                ol: ({ ...props }) => (
+                  <ol
+                    className="text-white/50 mb-4 list-decimal pl-6"
+                    {...props}
+                  />
                 ),
-                li: ({node, ...props}) => (
+                li: ({ ...props }) => (
                   <li className="text-white/50 mb-2" {...props} />
                 ),
-                strong: ({node, ...props}) => (
+                strong: ({ ...props }) => (
                   <strong className="text-white font-semibold" {...props} />
                 ),
-                em: ({node, ...props}) => (
+                em: ({ ...props }) => (
                   <em className="text-white/50 italic" {...props} />
                 ),
-                a: ({node, ...props}) => (
-                  <a className="text-blue-400 hover:text-blue-300 underline" {...props} />
+                a: ({ ...props }) => (
+                  <a
+                    className="text-blue-400 hover:text-blue-300 underline"
+                    {...props}
+                  />
                 ),
-                blockquote: ({node, ...props}) => (
-                  <blockquote className="text-white/50 border-l-4 border-gray-400 pl-4 mb-4 italic" {...props} />
+                blockquote: ({ ...props }) => (
+                  <blockquote
+                    className="text-white/50 border-l-4 border-gray-400 pl-4 mb-4 italic"
+                    {...props}
+                  />
                 ),
-                code: ({node, ...props}) => (
-                  <code className="text-white bg-gray-800 px-2 py-1 rounded text-sm" {...props} />
+                code: ({ ...props }) => (
+                  <code
+                    className="text-white bg-gray-800 px-2 py-1 rounded text-sm"
+                    {...props}
+                  />
                 ),
               }}
             >
@@ -321,7 +365,6 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ event }) => {
             isPastEvent={isPastEvent}
           />
         )}
-
       </div>
     </div>
   );

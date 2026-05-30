@@ -16,8 +16,6 @@ const DEFAULT_LOCATION = {
     longitude: -0.0167,
 };
 
-const MAP_TIMEOUT = 3000; // 3 seconds
-
 const MapComponent: React.FC<MapProps> = memo(({
     mapLocation,
     className = '',
@@ -25,7 +23,6 @@ const MapComponent: React.FC<MapProps> = memo(({
     const mapRef = useRef<HTMLDivElement>(null);
     const mapInstanceRef = useRef<L.Map | null>(null);
     const markerRef = useRef<L.Marker | null>(null);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [status, setStatus] = useState<
         'loading' | 'ready' | 'fallback' | 'error'
@@ -52,7 +49,7 @@ const MapComponent: React.FC<MapProps> = memo(({
         const result = { lat, lng, hasValidCoords: lat !== null && lng !== null };
         
         console.log('🗺️ Map Coordinates:', {
-            received: mapLocation,
+            received: { latitude: mapLocation?.latitude, longitude: mapLocation?.longitude },
             processed: result,
             latType: typeof mapLocation?.latitude,
             lngType: typeof mapLocation?.longitude,
@@ -181,7 +178,7 @@ const MapComponent: React.FC<MapProps> = memo(({
 
         mapInstanceRef.current.setView([coordinates.lat!, coordinates.lng!], 15);
         markerRef.current.setLatLng([coordinates.lat!, coordinates.lng!]);
-    }, [coordinates.lat, coordinates.lng]);
+    }, [coordinates.lat, coordinates.lng, coordinates.hasValidCoords]);
 
     // UI States
     if (status === 'error') {

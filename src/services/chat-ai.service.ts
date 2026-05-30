@@ -10,6 +10,9 @@ const CHAT_TIMEOUT_MS = 35_000;
 
 // ── Stub fetch helper (kept for shape; unused while API calls are off) ────────
 async function fetchWithTimeout(_url: string, _init: RequestInit, _ms: number): Promise<Response> {
+    void _url;
+    void _init;
+    void _ms;
     // ── API call commented out ─────────────────────────────────────────────
     // const controller = new AbortController();
     // const timer = setTimeout(() => controller.abort(), _ms);
@@ -25,6 +28,7 @@ export class ChatAIService {
     private sessionId: string | null = null;
 
     async startSession(_userId?: string): Promise<string> {
+        void _userId;
         // ── API call commented out ─────────────────────────────────────────
         // const res = await fetchWithTimeout(
         //     `${BASE_URL}/chat/sessions/start`,
@@ -46,6 +50,7 @@ export class ChatAIService {
     }
 
     async sendMessage(_message: string): Promise<string> {
+        void _message;
         // ── API call commented out ─────────────────────────────────────────
         // if (!this.sessionId) await this.startSession();
         // const attempt = async (): Promise<Response> =>
@@ -69,12 +74,13 @@ export class ChatAIService {
         // }
         // const data = await res.json();
         // return (data.response as string).replace(/Learn English for free www\.engvid\.com/gi, '').trim();
-
+ 
         console.log('[ChatAI] sendMessage: API call commented out (mock response)');
         return 'This is a mock response — the chat API is currently disabled.';
     }
 
     async *sendMessageStream(_message: string): AsyncGenerator<string, void, unknown> {
+        void _message;
         // ── Streaming API call commented out ───────────────────────────────
         // if (!this.sessionId) await this.startSession();
         // const res = await fetchWithTimeout(
@@ -96,7 +102,7 @@ export class ChatAIService {
         //     const chunk = decoder.decode(value, { stream: true });
         //     yield chunk.replace(/Learn English for free www\.engvid\.com/gi, '');
         // }
-
+ 
         console.log('[ChatAI] sendMessageStream: API call commented out (mock stream)');
         yield 'This is a mock streamed response — the chat API is currently disabled.';
     }

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft } from 'lucide-react';
 import ChatMessage from './ChatMessage';
 import VoiceInput from './VoiceInput';
 import type { UIMessage } from '@/types/voltar-ai';
@@ -14,7 +13,7 @@ interface ChatScreenProps {
     onBackClick?: () => void;
 }
 
-export default function ChatScreen({ messages, onSend, onCallClick, onBackClick }: ChatScreenProps) {
+export default function ChatScreen({ messages, onSend, onCallClick }: ChatScreenProps) {
     const bottomRef = useRef<HTMLDivElement>(null);
 
     // Auto-scroll to newest message
@@ -58,6 +57,7 @@ export default function ChatScreen({ messages, onSend, onCallClick, onBackClick 
             <div className="flex justify-center pt-8 pb-4 relative z-10">
                 <div className="flex items-center gap-3 px-6 py-2 bg-white rounded-full shadow-sm border border-gray-100">
                     <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src="/assets/voiceagent/voiceagent.png"
                             alt="Assistant"
