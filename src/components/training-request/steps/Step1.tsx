@@ -67,7 +67,7 @@ export default function Step1({ formData, updateFormData, onNext }: StepProps) {
         label="Trainee Type"
         value={formData.traineeType}
         onChange={(e) =>
-          updateFormData({ traineeType: e.target.value as string })
+          updateFormData({ traineeType: e.target.value as TrainingRequestFormData["traineeType"] })
         }
         options={[
           { value: "Individual", label: "Individual (Just me)" },

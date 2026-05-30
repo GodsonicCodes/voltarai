@@ -92,7 +92,9 @@ export default function Step2({
           label="Preferred Format"
           value={formData.preferredFormat}
           onChange={(e) =>
-            updateFormData({ preferredFormat: e.target.value as string })
+            updateFormData({
+              preferredFormat: e.target.value as TrainingRequestFormData["preferredFormat"],
+            })
           }
           options={[
             { value: "Online", label: "Online (Virtual)" },

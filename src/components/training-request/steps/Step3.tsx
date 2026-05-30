@@ -79,7 +79,7 @@ export default function Step3({
           label="Preferred Communication Method"
           value={formData.preferredCommunication}
           onChange={(e) =>
-            updateFormData({ preferredCommunication: e.target.value as string })
+            updateFormData({ preferredCommunication: e.target.value as TrainingRequestFormData["preferredCommunication"] })
           }
           options={[
             { value: "Email", label: "Email" },
