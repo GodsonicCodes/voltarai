@@ -21,8 +21,8 @@ export async function getEvents(
     ) {
       throw new Error(
         response.error ||
-          response.data.error ||
-          response.data.message ||
+          (response.data as { error?: string; message?: string })?.error ||
+          (response.data as { error?: string; message?: string })?.message ||
           `Failed to fetch events`,
       );
     }
@@ -58,8 +58,8 @@ export async function getEventById(
     ) {
       throw new Error(
         response.error ||
-          response.data.error ||
-          response.data.message ||
+          (response.data as { error?: string; message?: string })?.error ||
+          (response.data as { error?: string; message?: string })?.message ||
           `Failed to fetch event`,
       );
     }
@@ -83,8 +83,8 @@ export async function getActiveEvent(): Promise<EventDetailResponse> {
     ) {
       throw new Error(
         response.error ||
-          response.data.error ||
-          response.data.message ||
+          (response.data as { error?: string; message?: string })?.error ||
+          (response.data as { error?: string; message?: string })?.message ||
           `Failed to fetch active event`,
       );
     }
@@ -118,8 +118,8 @@ export async function createEventRegistration(
     ) {
       throw new Error(
         response.error ||
-          response.data.error ||
-          response.data.message ||
+          (response.data as { error?: string; message?: string })?.error ||
+          (response.data as { error?: string; message?: string })?.message ||
           `Registration failed`,
       );
     }
